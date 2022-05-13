@@ -1,0 +1,11 @@
+.profile__info {
+  margin: 0;
+  padding: 0;
+  max-width: 336px;
+  min-height: 73px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}

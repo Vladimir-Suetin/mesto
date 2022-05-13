@@ -1,0 +1,9 @@
+.profile {
+  max-width: calc(100% - 200px * 2);
+  min-height: 120px;
+  margin: 0 auto;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}

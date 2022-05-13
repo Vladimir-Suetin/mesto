@@ -4,8 +4,9 @@
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
-  margin: 0 auto;
+  margin: 0 auto 40px;
   box-sizing: border-box;
+  border-bottom: 1px solid #545454;
 }
 
 @media screen and (min-width: 768px) and (max-width: 1023px) {
@@ -17,6 +18,7 @@
 @media screen and (min-width: 425px) and (max-width: 767px) {
   .header {
     max-width: calc(100% - 50px * 2);
+    margin-bottom: 38px;
   }
 }
 
@@ -24,5 +26,6 @@
   .header {
     max-width: 100%;
     min-height: 56px;
+    margin-bottom: 38px;
   }
 }

@@ -1,0 +1,5 @@
+.elements__rectangle {
+  box-sizing: border-box;
+  max-width: 282px;
+  min-height: 361px;
+}

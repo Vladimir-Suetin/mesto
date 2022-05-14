@@ -1,0 +1,7 @@
+.elements__mask-group {
+  margin: 0 auto;
+  padding: 0;
+  width: 282px;
+  object-fit: cover;
+  object-position: center;
+}

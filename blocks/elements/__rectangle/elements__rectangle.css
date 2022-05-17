@@ -1,9 +1,12 @@
 .elements__rectangle {
   box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
   width: 100%;
   min-height: 79px;
   background-color: #fff;
-  padding-top: 25px;
+  padding: 25px 30px 31px 21px;
   position: absolute;
   left: 0;
   bottom: 0;

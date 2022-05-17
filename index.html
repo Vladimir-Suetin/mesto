@@ -21,8 +21,8 @@
         <img src="./images/custo.png" alt="аватар" class="profile__avatar" />
         <div class="profile__info">
           <h1 class="profile__name">Жак-Ив Кусто</h1>
-          <button href="#" class="profile__edit-button"></button>
-          <p class="profile__hobby">Исследователь океана</p>
+          <button href="" class="profile__edit-button"></button>
+          <p class="profile__job">Исследователь океана</p>
         </div>
         <button class="profile__add-button"></button>
       </section>
@@ -34,7 +34,7 @@
             <article class="elements__rectangle">
               <h2 class="elements__title">
                 Карелия
-                <button href="#" class="elements__group"></button>
+                <button href="" class="elements__group"></button>
               </h2>
             </article>
           </li>
@@ -43,7 +43,7 @@
             <article class="elements__rectangle">
               <h2 class="elements__title">
                 Алтай
-                <button href="#" class="elements__group"></button>
+                <button href="" class="elements__group"></button>
               </h2>
             </article>
           </li>
@@ -52,7 +52,7 @@
             <article class="elements__rectangle">
               <h2 class="elements__title">
                 Крым
-                <button href="#" class="elements__group"></button>
+                <button href="" class="elements__group"></button>
               </h2>
             </article>
           </li>
@@ -61,7 +61,7 @@
             <article class="elements__rectangle">
               <h2 class="elements__title">
                 Домбай
-                <button href="#" class="elements__group"></button>
+                <button href="" class="elements__group"></button>
               </h2>
             </article>
           </li>
@@ -69,8 +69,8 @@
             <img src="./images/saint-petersburg.jpg" alt="Санкт-Петербург" class="elements__mask-group" />
             <article class="elements__rectangle">
               <h2 class="elements__title">
-                Санкт-Петербург
-                <button href="#" class="elements__group"></button>
+                Санкт-Петербург-петербуржище
+                <button href="" class="elements__group"></button>
               </h2>
             </article>
           </li>
@@ -79,13 +79,28 @@
             <article class="elements__rectangle">
               <h2 class="elements__title">
                 Улан-Уде
-                <button href="#" class="elements__group"></button>
+                <button href="" class="elements__group"></button>
               </h2>
             </article>
           </li>
         </ul>
       </section>
     </main>
+    <section class="edit-popup">
+      <article class="edit-popup__form">
+        <h2 class="edit-popup__title">Редактировать профиль</h2>
+        <form class="edit-popup__field-up">
+          <label for="edit-poup__name">Жак-Ив Кусто</label>
+          <input type="text" id="edit-poup__name" />
+        </form>
+        <form class="edit-popup__field-down">
+          <label for="edit-poup__job">Исследователь океана</label>
+          <input type="text" id="edit-poup__job" />
+        </form>
+        <button href="" class="edit-popup__submit-button">Сохранить</button>
+      </article>
+      <img src="./images/close-icon.svg" alt="выход" class="edit-popup__close-icon" />
+    </section>
     <footer class="footer">
       <p class="footer__copyright">© 2020 Mesto Russia</p>
     </footer>

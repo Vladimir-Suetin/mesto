@@ -69,7 +69,7 @@
             <img src="./images/saint-petersburg.jpg" alt="Санкт-Петербург" class="elements__mask-group" />
             <article class="elements__rectangle">
               <h2 class="elements__title">
-                Санкт-Петербург-петербуржище
+                Санкт-Петербург
                 <button href="" class="elements__group"></button>
               </h2>
             </article>
@@ -86,20 +86,34 @@
         </ul>
       </section>
     </main>
-    <section class="popup">
+    <!-- <section class="popup popup_opened">
+      <form class="popup__container">
+        <legend class="popup__title">Редактировать профиль</legend>
+        <fieldset class="popup__field-up">
+          <label for="poup__name">Имя</label>
+          <input type="text" id="poup__name" maxlength="30"/>
+        </fieldset>
+        <fieldset class="popup__field-down">
+          <label for="poup__job">О себе</label>
+          <input type="text" id="poup__job" maxlength="30"/>
+        </fieldset>
+        <button type="submit" class="popup__submit-button">Сохранить</button>
+      </form>
+      <button button type="button" class="popup__close-icon"></button>
+    </section> -->
+
+    <section class="popup popup_opened">
       <article class="popup__container">
-        <h2 class="popup__title">Редактировать профиль</h2>
-        <form class="popup__field-up">
-          <label for="poup__name">Жак-Ив Кусто</label>
-          <input type="text" id="poup__name" />
-        </form>
-        <form class="popup__field-down">
-          <label for="poup__job">Исследователь океана</label>
-          <input type="text" id="poup__job" />
-        </form>
-        <button href="" class="popup__submit-button">Сохранить</button>
+        <h3 class="popup__title">Редактировать профиль</legend>
+        <div class="popup__field-up">
+          <input type="text" class="poup__name" maxlength="30" placeholder="Имя"/>
+        </div>
+        <div class="popup__field-down">
+          <input type="text" class="poup__job" maxlength="30" placeholder="О себе"/>
+        </div>
+        <button class="popup__submit-button">Сохранить</button>
       </article>
-      <img src="./images/close-icon.svg" alt="выход" class="popup__close-icon" />
+      <button class="popup__close-icon"></button>
     </section>
     <footer class="footer">
       <p class="footer__copyright">© 2020 Mesto Russia</p>

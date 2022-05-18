@@ -86,35 +86,22 @@
         </ul>
       </section>
     </main>
-    <!-- <section class="popup popup_opened">
-      <form class="popup__container">
-        <legend class="popup__title">Редактировать профиль</legend>
-        <fieldset class="popup__field-up">
-          <label for="poup__name">Имя</label>
-          <input type="text" id="poup__name" maxlength="30"/>
-        </fieldset>
-        <fieldset class="popup__field-down">
-          <label for="poup__job">О себе</label>
-          <input type="text" id="poup__job" maxlength="30"/>
-        </fieldset>
-        <button type="submit" class="popup__submit-button">Сохранить</button>
-      </form>
-      <button button type="button" class="popup__close-icon"></button>
-    </section> -->
 
-    <section class="popup">
+    <footer class="footer">
+      <p class="footer__copyright">© 2020 Mesto Russia</p>
+    </footer>
+
+    <form class="popup popup_opened">
       <div class="popup__overlay"></div>
-      <article class="popup__container">
+      <fieldset class="popup__container">
         <h3 class="popup__title">Редактировать профиль</h3>
           <input type="text" class="poup__name popup__field" maxlength="30" placeholder="Имя"/>
           <input type="text" class="poup__job popup__field" maxlength="30" placeholder="О себе"/>
         <button class="popup__submit-button">Сохранить</button>
         <button class="popup__close-icon"></button>
-      </article>
-    </section>
-    <footer class="footer">
-      <p class="footer__copyright">© 2020 Mesto Russia</p>
-    </footer>
+      </fieldset>
+    </form>
+    
     <script src="./scripts/index.js"></script>
   </body>
 </html>

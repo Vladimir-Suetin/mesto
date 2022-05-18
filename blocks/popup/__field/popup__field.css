@@ -1,0 +1,23 @@
+.popup__field {
+  box-sizing: border-box;
+  width: 358px;
+  height: 27px;
+  margin: 0 0 30px;
+  padding: 0;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.popup__field:last-of-type {
+  margin-bottom: 48px;
+}
+
+.popup__field::placeholder {
+  color: #000;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+}

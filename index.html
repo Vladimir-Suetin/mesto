@@ -102,18 +102,15 @@
       <button button type="button" class="popup__close-icon"></button>
     </section> -->
 
-    <section class="popup popup_opened">
+    <section class="popup">
+      <div class="popup__overlay"></div>
       <article class="popup__container">
-        <h3 class="popup__title">Редактировать профиль</legend>
-        <div class="popup__field-up">
-          <input type="text" class="poup__name" maxlength="30" placeholder="Имя"/>
-        </div>
-        <div class="popup__field-down">
-          <input type="text" class="poup__job" maxlength="30" placeholder="О себе"/>
-        </div>
+        <h3 class="popup__title">Редактировать профиль</h3>
+          <input type="text" class="poup__name popup__field" maxlength="30" placeholder="Имя"/>
+          <input type="text" class="poup__job popup__field" maxlength="30" placeholder="О себе"/>
         <button class="popup__submit-button">Сохранить</button>
+        <button class="popup__close-icon"></button>
       </article>
-      <button class="popup__close-icon"></button>
     </section>
     <footer class="footer">
       <p class="footer__copyright">© 2020 Mesto Russia</p>

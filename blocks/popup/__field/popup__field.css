@@ -1,8 +1,8 @@
 .popup__field {
   box-sizing: border-box;
   width: 358px;
-  height: 27px;
-  margin: 0 0 30px;
+  height: 35px;
+  margin: 0 0 22px;
   padding: 0;
   border-top: none;
   border-left: none;
@@ -22,7 +22,7 @@
 }
 
 .popup__field:last-of-type {
-  margin-bottom: 48px;
+  margin-bottom: 49px;
 }
 
 .popup__field::placeholder {

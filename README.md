@@ -15,5 +15,5 @@
 * Манипуляция html елементами и их значениями при помощи :small_blue_diamond: **JavaScript DOM**
 
 ### Автор
-**Владимир Суетин** :arrow_right: [Ссылка на профиль GitHub](https://github.com/suetin-vladimir)
+**Владимир Суетин** :arrow_right: [Ссылка на профиль GitHub](https://github.com/suetin-vladimir)  
 **Ссылка на проект** :arrow_right: [MESTO](https://suetin-vladimir.github.io/mesto/)

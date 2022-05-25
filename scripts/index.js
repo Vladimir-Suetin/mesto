@@ -7,20 +7,21 @@ let profilejob = profile.querySelector(".profile__job");
 // Находим форму в DOM
 let formElement = document.querySelector(".popup"); // Воспользуйтесь методом querySelector()
 // Находим поля формы в DOM
-let nameInput = formElement.querySelector(".popup__name"); // Воспользуйтесь инструментом .querySelector()
-let jobInput = formElement.querySelector(".popup__job"); // Воспользуйтесь инструментом .querySelector()
+let nameInput = document.querySelector(".popup__name"); // Воспользуйтесь инструментом .querySelector()
+let jobInput = document.querySelector(".popup__job"); // Воспользуйтесь инструментом .querySelector()
 
 // Находим кнопку редактирования формы
 let profileEditButton = document.querySelector(".profile__edit-button");
 //создаем функцию открытия popup
 function popupOpened() {
   formElement.classList.toggle("popup_opened");
+  nameInput.value = profileName.textContent;
+  jobInput.value = profilejob.textContent;
 }
 //вызываем функцию при прослушивании click
 profileEditButton.addEventListener("click", popupOpened);
 
 function inputChangeForm () {
-nameInput.value = "profileName.textContent";
 }
 inputChangeForm ()
 

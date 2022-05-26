@@ -1,4 +1,4 @@
-.elements__group {
+.element__group {
   margin: auto 0;
   padding: 0;
   min-width: 22px;
@@ -12,11 +12,11 @@
   transition: opacity 0.2s ease;
 }
 
-.elements__group:hover {
+.element__group:hover {
   opacity: 0.5;
 }
 
-.elements__group:active {
+.element__group:active {
   opacity: 1;
   background-image: url(../../../images/heart-black.svg);
 }

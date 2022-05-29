@@ -14,17 +14,17 @@
   </head>
   <body class="page">
     <header class="header">
-      <img src="./images/logo.svg" alt="лготип сайта Mesto" class="header__logo" />
+      <img src="./images/logo.svg" alt="логотип сайта Mesto" class="header__logo" />
     </header>
     <main>
       <section class="profile">
-        <img src="./images/custo.png" alt="аватар" class="profile__avatar" />
+        <img src="./images/custo.jpg" alt="аватар" class="profile__avatar" />
         <div class="profile__info">
           <h1 class="profile__name">Жак-Ив Кусто</h1>
-          <button type="button" class="profile__edit-button"></button>
+          <button type="button" class="profile__edit-button" aria-label="редактировать профиль"></button>
           <p class="profile__job">Исследователь океана</p>
         </div>
-        <button type="button" class="profile__add-button"></button>
+        <button type="button" class="profile__add-button" aria-label="добавить фотографии"></button>
       </section>
 
       <section class="cards" aria-label="фотокарточки">
@@ -33,42 +33,42 @@
             <img src="./images/karelia.jpg" alt="Карелия" class="element__mask-group" />
             <div class="element__rectangle">
               <h2 class="element__title">Карелия</h2>
-              <button type="button" class="element__group element__group_active"></button>
+              <button type="button" class="element__group element__group_active" aria-label="поставить лайк"></button>
             </div>
           </li>
           <li class="element">
             <img src="./images/altai.jpg" alt="Алтай" class="element__mask-group" />
             <div class="element__rectangle">
               <h2 class="element__title">Алтай</h2>
-              <button type="button" class="element__group element__group_active"></button>
+              <button type="button" class="element__group element__group_active" aria-label="поставить лайк"></button>
             </div>
           </li>
           <li class="element">
             <img src="./images/krimea.jpg" alt="Крым" class="element__mask-group" />
             <div class="element__rectangle">
               <h2 class="element__title">Крым</h2>
-              <button type="button" class="element__group element__group_active"></button>
+              <button type="button" class="element__group element__group_active" aria-label="поставить лайк"></button>
             </div>
           </li>
           <li class="element">
             <img src="./images/dombay.jpg" alt="Домбай" class="element__mask-group" />
             <div class="element__rectangle">
               <h2 class="element__title">Домбай</h2>
-              <button type="button" class="element__group element__group_active"></button>
+              <button type="button" class="element__group element__group_active" aria-label="поставить лайк"></button>
             </div>
           </li>
           <li class="element">
             <img src="./images/ulan-ude.jpg" alt="Улан-Уде" class="element__mask-group" />
             <div class="element__rectangle">
               <h2 class="element__title">Улан-Уде</h2>
-              <button type="button" class="element__group element__group_active"></button>
+              <button type="button" class="element__group element__group_active" aria-label="поставить лайк"></button>
             </div>
           </li>
           <li class="element">
             <img src="./images/saint-petersburg.jpg" alt="Санкт-Петербург" class="element__mask-group" />
             <div class="element__rectangle">
               <h2 class="element__title">Санкт-Петербург</h2>
-              <button type="button" class="element__group element__group_active"></button>
+              <button type="button" class="element__group element__group_active" aria-label="поставить лайк"></button>
             </div>
           </li>
         </ul>
@@ -80,13 +80,15 @@
     </footer>
 
     <section class="popup">
+      <div class="popup__info">
       <h3 class="popup__title">Редактировать профиль</h3>
       <form name="popup-container" class="popup__container">
         <input name="popup-name" type="text" class="popup__name popup__field" required placeholder="Имя" />
         <input name="popup-job" type="text" class="popup__job popup__field" required placeholder="О себе" />
         <button type="submit" class="popup__submit-button">Сохранить</button>
       </form>
-      <button type="button" class="popup__close-icon"></button>
+      <button type="button" class="popup__close-icon" aria-label="закрыть форму"></button>
+    </div>
     </section>
     <script src="./scripts/index.js"></script>
   </body>

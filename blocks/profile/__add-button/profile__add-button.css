@@ -1,5 +1,5 @@
 .profile__add-button {
-  background-image: url("../../../images/plus.svg");
+  background-image: url('../../../images/plus.svg');
   background-repeat: no-repeat;
   background-color: inherit;
   background-position: center center;
@@ -17,9 +17,6 @@
 
 .profile__add-button:hover {
   opacity: 0.6;
-}
-
-@media screen and (min-width: 768px) and (max-width: 1023px) {
 }
 
 @media screen and (min-width: 425px) and (max-width: 767px) {

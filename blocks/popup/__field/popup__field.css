@@ -8,7 +8,7 @@
   border-left: none;
   border-right: none;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-  font-family: "Inter", "Arial", "Helvetica", sans-serif;
+  font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
   -moz-text-size-adjust: 100%;
@@ -44,13 +44,9 @@
   background-color: rgba(0, 0, 0, 0.2);
 }
 
-@media screen and (min-width: 768px) and (max-width: 1023px) {
-}
-
 @media screen and (min-width: 425px) and (max-width: 767px) {
   .popup__field {
     width: 238px;
-    height: 36px;
   }
   .popup__field:last-of-type {
     margin-bottom: 46px;

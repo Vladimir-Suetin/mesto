@@ -4,7 +4,7 @@
   width: 100%;
   min-height: 50px;
   background-color: #000;
-  font-family: "Inter", "Arial", "Helvetica", sans-serif;
+  font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
   -moz-text-size-adjust: 100%;
@@ -25,13 +25,9 @@
   opacity: 0.8;
 }
 
-@media screen and (min-width: 768px) and (max-width: 1023px) {
-}
-
 @media screen and (min-width: 425px) and (max-width: 767px) {
   .popup__submit-button {
     min-height: 46px;
-    font-weight: 400;
     font-size: 14px;
     line-height: 17px;
   }
@@ -40,7 +36,6 @@
 @media screen and (min-width: 320px) and (max-width: 424px) {
   .popup__submit-button {
     min-height: 46px;
-    font-weight: 400;
     font-size: 14px;
     line-height: 17px;
   }

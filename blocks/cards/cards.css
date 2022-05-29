@@ -1,6 +1,5 @@
 .cards {
   max-width: calc(100% - 200px * 2);
-  min-height: 744px;
   box-sizing: border-box;
   margin: 0 auto 67px;
 }

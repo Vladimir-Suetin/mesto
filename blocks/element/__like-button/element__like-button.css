@@ -12,6 +12,6 @@
   transition: opacity 0.2s ease;
 }
 
-.element__like-button:hover:not(:active) {
+.element__like-button:hover {
   opacity: 0.5;
 }

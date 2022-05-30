@@ -25,14 +25,6 @@
   margin-bottom: 49px;
 }
 
-.popup__field::placeholder {
-  color: #000;
-  font-style: normal;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 17px;
-}
-
 .popup__field:active,
 .popup__field:focus,
 .popup__field:hover {
@@ -56,7 +48,6 @@
 @media screen and (min-width: 320px) and (max-width: 424px) {
   .popup__field {
     width: 238px;
-    height: 36px;
   }
   .popup__field:last-of-type {
     margin-bottom: 46px;

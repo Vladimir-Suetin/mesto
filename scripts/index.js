@@ -43,7 +43,7 @@ function formSubmitHandler(evt) {
   profileName.textContent = nameInput.value;
   profilejob.textContent = jobInput.value;
 
-  formElement.addEventListener("submit", closePopup);
+  closePopup()
 }
 
 //вызываем функцию при прослушивании click

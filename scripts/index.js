@@ -12,7 +12,35 @@ const nameInput = formElement.querySelector(".popup__name");
 const jobInput = formElement.querySelector(".popup__job");
 // Находим кнопку закрытия popup
 const closeButton = formElement.querySelector(".popup__close-icon");
-
+// Находим куда вставлять temlate
+const listCardPhotoGrid = document.querySelector('.cards__photo-grid');
+// Массив с карточками
+const initialCards = [
+  {
+    name: 'Архыз',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
+  },
+  {
+    name: 'Челябинская область',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
+  },
+  {
+    name: 'Иваново',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
+  },
+  {
+    name: 'Камчатка',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
+  },
+  {
+    name: 'Холмогорский район',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
+  },
+  {
+    name: 'Байкал',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
+  }
+];
 
 //создаем функцию открытия popup
 function openPopup() {
@@ -37,6 +65,28 @@ function formSubmitHandler(evt) {
 
   closePopup()
 }
+
+function createInitialCards() {
+  initialCards.forEach((card) => createCard(card));
+}
+
+function createCard(titleValue) {
+// Находим элемент template и со всеми вложенными элементами
+const listTemlate = document.querySelector('.temlate-list').content;
+// Находим и копируем содержимое element в temlate 
+const item = listTemlate.querySelector('.element').cloneNode(true);
+// Подставляем значения заголовка
+item.querySelector('.element__title').textContent = titleValue.name;
+// Находим элемент img
+const image = item.querySelector('.element__mask-group');
+
+image.setAttribute('src', `${titleValue.link}`);
+
+listCardPhotoGrid.appendChild(item);
+}
+createInitialCards()
+
+
 
 //вызываем функцию закрытия при прослушивании click
 closeButton.addEventListener("click", closePopup);

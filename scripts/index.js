@@ -84,7 +84,7 @@ image.setAttribute('src', `${titleValue.link}`);
 
 listCardPhotoGrid.appendChild(item);
 }
-createInitialCards()
+createInitialCards();
 
 
 

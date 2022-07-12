@@ -83,9 +83,9 @@ function closePopupAddImage() {
   closePopup(formAddPopup);
 }
 
-// Обработчик «отправки» формы, хотя пока
+// Обработчик «отправки» формы редактирования профиля, хотя пока
 // она никуда отправляться не будет
-function formSubmitHandler(evt) {
+function formSubmitHandlerProfile(evt) {
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
 
   // Вставляем новые значения с помощью textContent
@@ -93,6 +93,14 @@ function formSubmitHandler(evt) {
   profilejob.textContent = jobInput.value;
 
   closePopupProfile();
+}
+// Обработчик «отправки» формы добавления фотографии, хотя пока
+// она никуда отправляться не будет
+function formSubmitHandlerImage(evt) {
+  evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
+
+  // imageNameInput.textContent =
+  // imageLinkInput.textContent =
 }
 
 function createInitialCards() {
@@ -103,17 +111,17 @@ function createCard(titleValue) {
 // Находим элемент template и со всеми вложенными элементами
 const listTemlate = document.querySelector('.temlate-list').content;
 // Находим и копируем содержимое element в temlate 
-const item = listTemlate.querySelector('.element').cloneNode(true);
+const itemTemlate = listTemlate.querySelector('.element').cloneNode(true);
 // Подставляем значения заголовка
-item.querySelector('.element__title').textContent = titleValue.name;
+itemTemlate.querySelector('.element__title').textContent = titleValue.name;
 // Находим элемент img
-const image = item.querySelector('.element__mask-group');
+const image = itemTemlate.querySelector('.element__mask-group');
 // Подставляем значение атрибута src
 image.setAttribute('src', `${titleValue.link}`);
 // Подставляем значение атрибута alt
 image.setAttribute('alt', `${titleValue.name}`);
 
-listCardPhotoGrid.appendChild(item);
+listCardPhotoGrid.appendChild(itemTemlate);
 }
 createInitialCards();
 
@@ -130,5 +138,8 @@ closeButton.addEventListener('click', closePopupProfile);
 //вызываем функцию открытия при прослушивании click
 profileEditButton.addEventListener('click', openPopupProfile);
 
-// он будет следить за событием “submit” - «отправка»
-formElement.addEventListener('submit', formSubmitHandler);
+// он будет следить за событием “submit” - «отправка» формы редактирования профиля
+formElement.addEventListener('submit', formSubmitHandlerProfile);
+
+// Он будет следить за событием “submit” - «отправка» формы добавления фотографии
+formAddPopup.addEventListener('submit', formSubmitHandlerImage);

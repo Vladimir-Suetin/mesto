@@ -6,7 +6,7 @@ const profilejob = profile.querySelector('.profile__job');
 // Находим кнопку редактирования формы
 const profileEditButton = profile.querySelector('.profile__edit-button');
 // Находим форму
-const formElement = document.querySelector('.popup');
+const formElement = document.querySelector('#popup-edit-profile');
 // Находим поля формы
 const nameInput = formElement.querySelector('.popup__name');
 const jobInput = formElement.querySelector('.popup__job');

@@ -5,7 +5,7 @@ const profileName = profile.querySelector('.profile__name');
 const profilejob = profile.querySelector('.profile__job');
 // Находим кнопку редактирования формы
 const profileEditButton = profile.querySelector('.profile__edit-button');
-// Находим форму
+// Находим форму popup edit profile
 const formElement = document.querySelector('#popup-edit-profile');
 // Находим поля формы
 const nameInput = formElement.querySelector('.popup__name');
@@ -14,6 +14,16 @@ const jobInput = formElement.querySelector('.popup__job');
 const closeButton = formElement.querySelector('.popup__close-icon');
 // Находим куда вставлять temlate
 const listCardPhotoGrid = document.querySelector('.cards__photo-grid');
+// Находим форму popup add image
+const formAddPopup = document.querySelector('#popup-add-image');
+// Находим поля формы popup add image
+const imageNameInput = formAddPopup.querySelector('.popup__name-image');
+const imageLinkInput = formAddPopup.querySelector('.popup__link-image');
+// Находим кнопку закрытия popup
+const closeButtonImagePopup = formAddPopup.querySelector('.popup__close-icon');
+// Находим кнопку добавления изображения
+const openButtonImagePopup = profile.querySelector('.profile__add-button')
+
 // Массив с карточками
 const initialCards = [
   {
@@ -42,16 +52,35 @@ const initialCards = [
   }
 ];
 
-//создаем функцию открытия popup
-function openPopup() {
-  formElement.classList.add('popup_opened');
+// Создаем общую функцию открытия popup
+function openPopup(item) {
+  item.classList.add('popup_opened');
+}
+
+// Создаем общую функцию закрытия popup
+function closePopup(item) {
+  item.classList.remove('popup_opened');
+}
+//создаем функцию открытия popup profile
+function openPopupProfile() {
+  openPopup(formElement);
   nameInput.value = profileName.textContent;
   jobInput.value = profilejob.textContent;
 }
 
-//создаем функцию закрытия popup
-function closePopup() {
-  formElement.classList.remove('popup_opened');
+//создаем функцию закрытия popup profile
+function closePopupProfile() {
+  closePopup(formElement);
+}
+
+// Создаем функцию открытия popup add image
+function openPopupAddImage() {
+  openPopup(formAddPopup);
+}
+
+// Создаем функцию закрытия popup add image
+function closePopupAddImage() {
+  closePopup(formAddPopup);
 }
 
 // Обработчик «отправки» формы, хотя пока
@@ -63,7 +92,7 @@ function formSubmitHandler(evt) {
   profileName.textContent = nameInput.value;
   profilejob.textContent = jobInput.value;
 
-  closePopup();
+  closePopupProfile();
 }
 
 function createInitialCards() {
@@ -79,20 +108,27 @@ const item = listTemlate.querySelector('.element').cloneNode(true);
 item.querySelector('.element__title').textContent = titleValue.name;
 // Находим элемент img
 const image = item.querySelector('.element__mask-group');
-
+// Подставляем значение атрибута src
 image.setAttribute('src', `${titleValue.link}`);
+// Подставляем значение атрибута alt
+image.setAttribute('alt', `${titleValue.name}`);
 
 listCardPhotoGrid.appendChild(item);
 }
 createInitialCards();
 
 
+// Вызываем функию открытия при прослушивании click
+openButtonImagePopup.addEventListener('click', openPopupAddImage);
+
+// Вызываем функию закрытия при прослушивании click
+closeButtonImagePopup.addEventListener('click', closePopupAddImage);
 
 //вызываем функцию закрытия при прослушивании click
-closeButton.addEventListener('click', closePopup);
+closeButton.addEventListener('click', closePopupProfile);
 
 //вызываем функцию открытия при прослушивании click
-profileEditButton.addEventListener('click', openPopup);
+profileEditButton.addEventListener('click', openPopupProfile);
 
 // он будет следить за событием “submit” - «отправка»
 formElement.addEventListener('submit', formSubmitHandler);

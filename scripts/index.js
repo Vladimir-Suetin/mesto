@@ -111,6 +111,7 @@ function formSubmitHandlerImage(evt) {
   closePopupAddImage();
 }
 
+// Функция перебора массива
 function createInitialCards() {
   initialCards.forEach((card) => createCard(card));
 }
@@ -142,21 +143,10 @@ function addImage() {
   image.setAttribute("src", `${linkValue}`);
   // Подставляем значение alt
   image.setAttribute("alt", `${nameValue}`);
- 
-  
 
-  // const nameValue = imageNameInput.value;
-  // name.textContent = nameValue;
-  // const link = imageLinkInput.textContent;
-  
-
-  // const image = item.querySelector(".element__mask-group");
-
-  // image.setAttribute("src", `${titleValue.link}`);
-  // // Подставляем значение атрибута alt
-  // image.setAttribute("alt", `${titleValue.name}`);
-
+  // Добавляем в начало списка
    listCardPhotoGrid.prepend(item);
+
 }
 
 function createCard(titleValue) {
@@ -175,6 +165,26 @@ function createCard(titleValue) {
 }
 createInitialCards();
 
+// Функция кнопки лайк
+function clickLikeButton() {
+  // ищем кнопку 
+  const elements = document.querySelectorAll('.element__like-button');
+
+  // функция изменения класса элемента на котором произошел клик
+  const likeElement = (event) => {
+    event.currentTarget.classList.toggle('element__like-button_active');
+  }
+
+  // перебираем элементы и навешиваем слушатель клика
+  elements.forEach((element) => {
+    element.addEventListener('click', likeElement);
+ });
+
+}
+
+// Вызываем функцию кнопки лайк
+clickLikeButton();
+
 // Вызываем функию открытия при прослушивании click
 openButtonImagePopup.addEventListener("click", openPopupAddImage);
 
@@ -192,3 +202,4 @@ formElement.addEventListener("submit", formSubmitHandlerProfile);
 
 // Он будет следить за событием “submit” - «отправка» формы добавления фотографии
 formAddPopup.addEventListener("submit", formSubmitHandlerImage);
+

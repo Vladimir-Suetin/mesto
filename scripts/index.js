@@ -1,31 +1,43 @@
 // Находим профиль
 const profile = document.querySelector(".profile");
+
 // Находим поля профиля
 const profileName = profile.querySelector(".profile__name");
 const profilejob = profile.querySelector(".profile__job");
+
 // Находим кнопку редактирования формы
 const profileEditButton = profile.querySelector(".profile__edit-button");
+
 // Находим форму popup edit profile
 const formElement = document.querySelector("#popup-edit-profile");
+
 // Находим поля формы
 const nameInput = formElement.querySelector(".popup__name");
 const jobInput = formElement.querySelector(".popup__job");
+
 // Находим кнопку закрытия popup
 const closeButton = formElement.querySelector(".popup__close-icon");
+
 // Находим куда вставлять template
 const listCardPhotoGrid = document.querySelector(".cards__photo-grid");
+
 // Находим форму popup add image
 const formAddPopup = document.querySelector("#popup-add-image");
+
 // Находим поля формы popup add image
 const imageNameInput = formAddPopup.querySelector(".popup__name-image");
 const imageLinkInput = formAddPopup.querySelector(".popup__link-image");
+
 // Находим кнопку закрытия popup
 const closeButtonImagePopup = formAddPopup.querySelector(".popup__close-icon");
+
 // Находим кнопку добавления изображения
 const openButtonImagePopup = profile.querySelector(".profile__add-button");
 
+// Находим темплейт лист
 const listTemplate = document.querySelector(".template-list");
 
+// Находим элемент списка
 const itemTemplate = listTemplate.querySelector(".element");
 
 // Массив с карточками
@@ -65,14 +77,14 @@ function openPopup(item) {
 function closePopup(item) {
   item.classList.remove("popup_opened");
 }
-//создаем функцию открытия popup profile
+// Создаем функцию открытия popup profile
 function openPopupProfile() {
   openPopup(formElement);
   nameInput.value = profileName.textContent;
   jobInput.value = profilejob.textContent;
 }
 
-//создаем функцию закрытия popup profile
+// Создаем функцию закрытия popup profile
 function closePopupProfile() {
   closePopup(formElement);
 }
@@ -120,17 +132,19 @@ function createInitialCards() {
 function cloneTemplateCard() {
   // Находим элемент template и со всеми вложенными элементами
   const item = listTemplate.content;
+
   // Находим и копируем содержимое element в template
   const copyItemTemplate = item.cloneNode(true);
+
   // Возвращаем значение
   return copyItemTemplate;
 }
 
 // Функция создания новой карточки
 function addImage() {
-
   // получаем копию template
   const item = cloneTemplateCard();
+
   // получаем значения введенных полей
   const nameValue = imageNameInput.value;
   const linkValue = imageLinkInput.value;
@@ -139,23 +153,26 @@ function addImage() {
   item.querySelector(".element__title").textContent = nameValue;
   // Находим элемент изображения
   const image = item.querySelector(".element__mask-group");
+
   // Подставляем значение ссылки
   image.setAttribute("src", `${linkValue}`);
   // Подставляем значение alt
   image.setAttribute("alt", `${nameValue}`);
 
   // Добавляем в начало списка
-   listCardPhotoGrid.prepend(item);
-
+  listCardPhotoGrid.prepend(item);
 }
 
 function createCard(titleValue) {
   // вызываем функцию клонирования template
   const item = cloneTemplateCard();
+
   // Подставляем значения заголовка
   item.querySelector(".element__title").textContent = titleValue.name;
+
   // Находим элемент img
   const image = item.querySelector(".element__mask-group");
+
   // Подставляем значение атрибута src
   image.setAttribute("src", `${titleValue.link}`);
   // Подставляем значение атрибута alt
@@ -167,19 +184,18 @@ createInitialCards();
 
 // Функция кнопки лайк
 function clickLikeButton() {
-  // ищем кнопку 
-  const elements = document.querySelectorAll('.element__like-button');
+  // Ищем кнопку
+  const elements = document.querySelectorAll(".element__like-button");
 
-  // функция изменения класса элемента на котором произошел клик
+  // Функция изменения класса элемента на котором произошел клик
   const likeElement = (event) => {
-    event.currentTarget.classList.toggle('element__like-button_active');
-  }
+    event.currentTarget.classList.toggle("element__like-button_active");
+  };
 
-  // перебираем элементы и навешиваем слушатель клика
+  // Перебираем элементы и навешиваем слушатель клика
   elements.forEach((element) => {
-    element.addEventListener('click', likeElement);
- });
-
+    element.addEventListener("click", likeElement);
+  });
 }
 
 // Вызываем функцию кнопки лайк
@@ -202,4 +218,3 @@ formElement.addEventListener("submit", formSubmitHandlerProfile);
 
 // Он будет следить за событием “submit” - «отправка» формы добавления фотографии
 formAddPopup.addEventListener("submit", formSubmitHandlerImage);
-

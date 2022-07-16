@@ -1,21 +1,24 @@
 // Cелекторы
 const selectors = {
-  profile: '.profile',
-  profileName: '.profile__name',
-  profilejob: '.profile__job',
-  profileEditButton: '.profile__edit-button',
-  popupEditProfile: '.popup_edit_profile',
-  popupProfileNameInput: '.popup__name_value',
-  popupProfileJobInput: '.popup__job_value',
-  closePopupButton: '.popup__close-icon',
-  listCardPhotoGrid: '.cards__photo-grid',
-  popupAddImage: '.popup_add_image',
-  popupImageNameInput: '.popup__name-image',
-  popupImageLinkInput: '.popup__link-image',
-  imageAddButton: '.profile__add-button',
-  template: '.template-list',
-  templateItemList: '.element',
-}
+  profile: ".profile",
+  profileName: ".profile__name",
+  profilejob: ".profile__job",
+  profileEditButton: ".profile__edit-button",
+  popupEditProfile: ".popup_edit_profile",
+  popupProfileNameInput: ".popup__name_value",
+  popupProfileJobInput: ".popup__job_value",
+  closePopupButton: ".popup__close-icon",
+  listCardPhotoGrid: ".cards__photo-grid",
+  popupAddImage: ".popup_add_image",
+  popupImageNameInput: ".popup__name-image",
+  popupImageLinkInput: ".popup__link-image",
+  imageAddButton: ".profile__add-button",
+  template: ".template-list",
+  templateItemList: ".element",
+  templateTitleImageCard: ".element__title",
+  temlateLinkImageCard: ".element__mask-group",
+  templateElementButtonRemove: ".element__button-remove",
+};
 
 // Поиск элементов в документе
 
@@ -29,6 +32,7 @@ const popupProfileJobInput = popupEditProfile.querySelector(selectors.popupProfi
 const closeButtonProfilePopup = popupEditProfile.querySelector(selectors.closePopupButton);
 const listCardPhotoGrid = document.querySelector(selectors.listCardPhotoGrid);
 const popupAddImage = document.querySelector(selectors.popupAddImage);
+const imageAddButton = profile.querySelector(selectors.imageAddButton);
 const popupImageNameInput = popupAddImage.querySelector(selectors.popupImageNameInput);
 const popupImageLinkInput = popupAddImage.querySelector(selectors.popupImageLinkInput);
 const closeButtonImagePopup = popupAddImage.querySelector(selectors.closePopupButton);
@@ -75,12 +79,11 @@ function closePopup(item) {
 
 // Функция закрытия popup при нажатии на внешнюю область
 function closePopupByClickOverlay(event) {
-  if ((event.target === event.currentTarget) && 
-  (popupEditProfile.classList.contains('popup_opened'))) {
+  if (event.target === event.currentTarget && popupEditProfile.classList.contains("popup_opened")) {
     closePopupProfile();
-  } else if ((event.target === event.currentTarget) && 
-  (popupAddImage.classList.contains('popup_opened'))) {
-    return; // необходимо вписать функцию закрытия 
+  }
+  if (event.target === event.currentTarget && popupAddImage.classList.contains("popup_opened")) {
+    closePopupAddImage();
   }
 }
 
@@ -108,7 +111,80 @@ function handleFormSubmirProfile(evt) {
   closePopupProfile();
 }
 
+// Функция открытия popup add image
+function openPopupAddImage() {
+  openPopup(popupAddImage);
+}
 
+// Функция закрытия popup add image
+function closePopupAddImage() {
+  closePopup(popupAddImage);
+}
+
+// Обработчик «отправки» формы добавления фотографии, хотя пока
+// она никуда отправляться не будет
+function handleFormSubmitImage(evt) {
+  evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
+
+  // Запускает функцию создания новой карточки
+  addImage();
+
+  // Запускает функцию закрытия popup
+  closePopupAddImage();
+}
+
+// Функция перебирает клонирует массив и вставляет в разметку
+function cloneArrayPhotoCards() {
+  const array = initialCards.map((newArray) => getElement(newArray));
+
+  listCardPhotoGrid.prepend(...array);
+}
+
+// Функция работы с элементами template photo cards
+function getElement(item) {
+  const getElementTemlate = template.content.cloneNode(true);
+  const title = getElementTemlate.querySelector(selectors.templateTitleImageCard);
+  const link = getElementTemlate.querySelector(selectors.temlateLinkImageCard);
+  const elementButtonRemove = getElementTemlate.querySelector(selectors.templateElementButtonRemove);
+
+  title.textContent = item.name;
+
+  link.setAttribute("src", `${item.link}`);
+  link.setAttribute("alt", `${item.name}`);
+
+  elementButtonRemove.addEventListener("click", handleRemoveElement);
+
+  popupAddImage.addEventListener("submit", handleAddNewImage);
+
+  return getElementTemlate;
+}
+
+function handleAddNewImage(evt) {
+  evt.preventDefault();
+
+  const item = document.querySelector(selectors.templateItemList);
+
+  const nameValue = popupImageNameInput.value;
+  const linkValue = popupImageLinkInput.value;
+
+  const name = item.querySelector(selectors.templateTitleImageCard);
+  const link = item.querySelector(selectors.temlateLinkImageCard);
+
+  name.textContent = nameValue;
+
+  link.setAttribute("src", `${linkValue}`);
+  link.setAttribute("alt", `${nameValue}`);
+
+  listCardPhotoGrid.prepend(item);
+
+
+  closePopupAddImage();
+}
+
+function handleRemoveElement(evt) {
+  const element = evt.target.closest(selectors.templateItemList);
+  element.remove();
+}
 
 //Вызывает функцию открытия popup profile при прослушивании click
 profileEditButton.addEventListener("click", openPopupProfile);
@@ -120,10 +196,14 @@ closeButtonProfilePopup.addEventListener("click", closePopupProfile);
 popupEditProfile.addEventListener("submit", handleFormSubmirProfile);
 
 // Будет следить за нажатием на внешнюю область popup
-popupEditProfile.addEventListener('click', closePopupByClickOverlay);
+popupEditProfile.addEventListener("click", closePopupByClickOverlay);
+popupAddImage.addEventListener("click", closePopupByClickOverlay);
 
+// Вызывает функцию открытия popup add image при прослушивании click
+imageAddButton.addEventListener("click", openPopupAddImage);
 
+// Вызывает функцию закрытия popup profile при прослушивании click
+closeButtonImagePopup.addEventListener("click", closePopupAddImage);
 
-
-
-
+// Вызывает функцию работы с массивом
+cloneArrayPhotoCards();

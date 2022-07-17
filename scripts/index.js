@@ -18,10 +18,10 @@ const selectors = {
   templateTitleImageCard: ".element__title",
   temlateLinkImageCard: ".element__mask-group",
   templateElementButtonRemove: ".element__button-remove",
+  templateLikeButton: '.element__like-button',
 };
 
 // Поиск элементов в документе
-
 const profile = document.querySelector(selectors.profile);
 const profileName = profile.querySelector(selectors.profileName);
 const profilejob = profile.querySelector(selectors.profilejob);
@@ -38,11 +38,8 @@ const popupImageLinkInput = popupAddImage.querySelector(selectors.popupImageLink
 const closeButtonImagePopup = popupAddImage.querySelector(selectors.closePopupButton);
 const template = document.querySelector(selectors.template);
 const templateItemList = document.querySelector(selectors.templateItemList);
-//const elementCardsPhoto = template.querySelector(selectors.template);
 const templateTitleImageCard = template.querySelector(selectors.templateTitleImageCard);
 const temlateLinkImageCard = template.querySelector(selectors.temlateLinkImageCard);
-
-
 
 // Массив с карточками
 const initialCards = [
@@ -126,18 +123,6 @@ function closePopupAddImage() {
   closePopup(popupAddImage);
 }
 
-// // Обработчик «отправки» формы добавления фотографии, хотя пока
-// // она никуда отправляться не будет
-// function handleFormSubmitImage(evt) {
-//   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
-
-//   // Запускает функцию создания новой карточки
-//   addImage();
-
-//   // Запускает функцию закрытия popup
-//   closePopupAddImage();
-// }
-
 // Функция перебирает клонирует массив и вставляет в разметку
 function cloneArrayPhotoCards() {
   const array = initialCards.map((newArray) => getElement(newArray));
@@ -151,6 +136,7 @@ function getElement(item) {
   const title = getElementTemlate.querySelector(selectors.templateTitleImageCard);
   const link = getElementTemlate.querySelector(selectors.temlateLinkImageCard);
   const elementButtonRemove = getElementTemlate.querySelector(selectors.templateElementButtonRemove);
+  const templateLikeButton = getElementTemlate.querySelector(selectors.templateLikeButton);
 
   title.textContent = item.name;
 
@@ -161,41 +147,35 @@ function getElement(item) {
 
   popupAddImage.addEventListener("submit", handleAddNewImage);
 
+  templateLikeButton.addEventListener('click', handleAddLikePhoto);
+
   return getElementTemlate;
 }
 
 function handleAddNewImage(evt) {
   evt.preventDefault();
 
-  // const item = template.content.cloneNode(true);
+  const nameValue = popupImageNameInput.value;
+  const linkValue = popupImageLinkInput.value;
 
-   const nameValue = popupImageNameInput.value;
-   const linkValue = popupImageLinkInput.value;
-
-  // const name = item.querySelector(selectors.templateTitleImageCard);
-  // const link = item.querySelector(selectors.temlateLinkImageCard);
-
-  // name.textContent = nameValue;
-  //const newArray = [{name: `${nameValue}`, linl: `${linkValue}`}]
-
-  //initial = [...initialCards, ...newArray]
-
-  const element = getElement({name: nameValue, link: linkValue});
-
-  // link.setAttribute("src", `${linkValue}`);
-  // link.setAttribute("alt", `${nameValue}`);
+  const element = getElement({ name: nameValue, link: linkValue });
 
   listCardPhotoGrid.prepend(element);
 
-   popupImageNameInput.value = '';
-   popupImageLinkInput.value = '';
+  popupImageNameInput.value = "";
+  popupImageLinkInput.value = "";
 
-   closePopupAddImage();
+  closePopupAddImage();
 }
 
 function handleRemoveElement(evt) {
   const element = evt.target.closest(selectors.templateItemList);
   element.remove();
+}
+
+function handleAddLikePhoto(evt) {
+  const element = evt.target.closest(selectors.templateLikeButton);
+  element.classList.toggle('element__like-button_active');
 }
 
 //Вызывает функцию открытия popup profile при прослушивании click

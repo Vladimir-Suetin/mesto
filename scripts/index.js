@@ -167,25 +167,30 @@ function getElement(item) {
 function handleAddNewImage(evt) {
   evt.preventDefault();
 
-  const item = template.content.cloneNode(true);
+  // const item = template.content.cloneNode(true);
 
-  const nameValue = popupImageNameInput.value;
-  const linkValue = popupImageLinkInput.value;
+   const nameValue = popupImageNameInput.value;
+   const linkValue = popupImageLinkInput.value;
 
-  const name = item.querySelector(selectors.templateTitleImageCard);
-  const link = item.querySelector(selectors.temlateLinkImageCard);
+  // const name = item.querySelector(selectors.templateTitleImageCard);
+  // const link = item.querySelector(selectors.temlateLinkImageCard);
 
-  name.textContent = nameValue;
+  // name.textContent = nameValue;
+  //const newArray = [{name: `${nameValue}`, linl: `${linkValue}`}]
 
-  link.setAttribute("src", `${linkValue}`);
-  link.setAttribute("alt", `${nameValue}`);
+  //initial = [...initialCards, ...newArray]
 
-  listCardPhotoGrid.prepend(item);
+  const element = getElement({name: nameValue, link: linkValue});
 
-  popupImageNameInput.value = '';
-  popupImageLinkInput.value = '';
+  // link.setAttribute("src", `${linkValue}`);
+  // link.setAttribute("alt", `${nameValue}`);
 
-  closePopupAddImage();
+  listCardPhotoGrid.prepend(element);
+
+   popupImageNameInput.value = '';
+   popupImageLinkInput.value = '';
+
+   closePopupAddImage();
 }
 
 function handleRemoveElement(evt) {

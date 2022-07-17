@@ -1,13 +1,13 @@
 .popup__wrapper {
-margin: 0;
-padding: 0;
-box-sizing: border-box;
-display: flex;
-justify-content: center;
-align-content: center;
-max-width: calc(100% - (232px * 2));
-height: calc(100% - (90px * 2));
-position:relative;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  max-width: 75vw;
+  max-height: 75vh;
+  position: relative;
 }
 
 @media screen and (min-width: 425px) and (max-width: 767px) {

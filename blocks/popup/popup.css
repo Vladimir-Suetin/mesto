@@ -12,7 +12,7 @@
 
 .did-fade-in {
   display: flex;
-  animation: fade-out 2s ease;
+  animation: fade-out 0.5s ease;
 }
 
 @keyframes fade-out {

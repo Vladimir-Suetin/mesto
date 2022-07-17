@@ -18,11 +18,11 @@ const selectors = {
   templateTitleImageCard: ".element__title",
   temlateLinkImageCard: ".element__mask-group",
   templateElementButtonRemove: ".element__button-remove",
-  templateLikeButton: '.element__like-button',
-  popupViewImage: '.popup_view_image',
-  popupImage: '.popup__image',
-  popupViewTitle: '.popup__image-title',
-  popup: '.popup',
+  templateLikeButton: ".element__like-button",
+  popupViewImage: ".popup_view_image",
+  popupImage: ".popup__image",
+  popupViewTitle: ".popup__image-title",
+  popup: ".popup",
 };
 
 // Поиск элементов в документе
@@ -48,8 +48,6 @@ const popupViewImage = document.querySelector(selectors.popupViewImage);
 const popupImage = popupViewImage.querySelector(selectors.popupImage);
 const popupViewTitle = popupViewImage.querySelector(selectors.popupViewTitle);
 const closeButtonViewImagePopup = popupViewImage.querySelector(selectors.closePopupButton);
-const popup = document.querySelector(selectors.popup);
-
 
 // Массив с карточками
 const initialCards = [
@@ -142,12 +140,12 @@ function closePopupAddImage() {
 function openPopupViewImage(evt) {
   openPopup(popupViewImage);
 
-  const element = evt.target.closest('.element');
+  const element = evt.target.closest(".element");
 
   const cardTitle = element.querySelector(selectors.templateTitleImageCard);
-  const cardLink = element.querySelector('.element__mask-group');
- 
-  const linkAttribute = cardLink.getAttribute('src');
+  const cardLink = element.querySelector(".element__mask-group");
+
+  const linkAttribute = cardLink.getAttribute("src");
 
   const cardTitleValue = cardTitle.textContent;
 
@@ -155,7 +153,6 @@ function openPopupViewImage(evt) {
   popupImage.setAttribute("alt", `${cardTitleValue}`);
 
   popupViewTitle.textContent = cardTitleValue;
-
 }
 
 // Функция закрытия popup view image
@@ -177,19 +174,19 @@ function getElement(item) {
   const link = getElementTemlate.querySelector(selectors.temlateLinkImageCard);
   const elementButtonRemove = getElementTemlate.querySelector(selectors.templateElementButtonRemove);
   const templateLikeButton = getElementTemlate.querySelector(selectors.templateLikeButton);
-  
+
   title.textContent = item.name;
 
   link.setAttribute("src", `${item.link}`);
   link.setAttribute("alt", `${item.name}`);
 
-  link.addEventListener('click', openPopupViewImage);
+  link.addEventListener("click", openPopupViewImage);
 
   elementButtonRemove.addEventListener("click", handleRemoveElement);
 
   popupAddImage.addEventListener("submit", handleAddNewImage);
 
-  templateLikeButton.addEventListener('click', handleAddLikePhoto);
+  templateLikeButton.addEventListener("click", handleAddLikePhoto);
 
   return getElementTemlate;
 }
@@ -220,25 +217,25 @@ function handleRemoveElement(evt) {
 // Функция like
 function handleAddLikePhoto(evt) {
   const element = evt.target.closest(selectors.templateLikeButton);
-  element.classList.toggle('element__like-button_active');
+  element.classList.toggle("element__like-button_active");
 }
 
 // Функция анимации при открытии popup
 function smoothAnimationOpen(item) {
-item.addEventListener('animationstart', function (evt) {
-  if (evt.animationName === 'fade-in') {
-      evt.target.classList.add('did-fade-in');
-  }
-});
+  item.addEventListener("animationstart", function (evt) {
+    if (evt.animationName === "fade-in") {
+      evt.target.classList.add("did-fade-in");
+    }
+  });
 }
 
 // Функция анимации при закрытии popup
 function smoothAnimationClose(item) {
-item.addEventListener('animationend', function (evt) {
-  if (evt.animationName === 'fade-out') {
-      evt.target.classList.remove('did-fade-in');
-   }
-});
+  item.addEventListener("animationend", function (evt) {
+    if (evt.animationName === "fade-out") {
+      evt.target.classList.remove("did-fade-in");
+    }
+  });
 }
 
 //Вызывает функцию открытия popup profile при прослушивании click
@@ -261,9 +258,8 @@ imageAddButton.addEventListener("click", openPopupAddImage);
 // Вызывает функцию закрытия popup profile при прослушивании click
 closeButtonImagePopup.addEventListener("click", closePopupAddImage);
 
-closeButtonViewImagePopup.addEventListener('click', closePopupViewImage)
-
-
+// Вызывает функцию закрытия popup просмотра фотографии
+closeButtonViewImagePopup.addEventListener("click", closePopupViewImage);
 
 // Вызывает функцию работы с массивом
 cloneArrayPhotoCards();

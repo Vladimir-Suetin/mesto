@@ -21,7 +21,7 @@ const selectors = {
   templateLikeButton: '.element__like-button',
   popupViewImage: '.popup_view_image',
   popupImage: '.popup__image',
-  popupImageTitle: '.popup__image-title',
+  popupViewTitle: '.popup__image-title',
 };
 
 // Поиск элементов в документе
@@ -44,6 +44,8 @@ const templateItemList = document.querySelector(selectors.templateItemList);
 const templateTitleImageCard = template.querySelector(selectors.templateTitleImageCard);
 const temlateLinkImageCard = template.querySelector(selectors.temlateLinkImageCard);
 const popupViewImage = document.querySelector(selectors.popupViewImage);
+const popupImage = popupViewImage.querySelector(selectors.popupImage);
+const popupViewTitle = popupViewImage.querySelector(selectors.popupViewTitle);
 const closeButtonViewImagePopup = popupViewImage.querySelector(selectors.closePopupButton);
 
 
@@ -132,10 +134,27 @@ function closePopupAddImage() {
   closePopup(popupAddImage);
 }
 
-function openPopupViewImage() {
+// Функция открытия popup view image
+function openPopupViewImage(evt) {
   openPopup(popupViewImage);
+
+  const element = evt.target.closest('.element');
+
+  const cardTitle = element.querySelector(selectors.templateTitleImageCard);
+  const cardLink = element.querySelector('.element__mask-group');
+ 
+  const linkAttribute = cardLink.getAttribute('src');
+
+  const cardTitleValue = cardTitle.textContent;
+
+  popupImage.setAttribute("src", `${linkAttribute}`);
+  popupImage.setAttribute("alt", `${cardTitleValue}`);
+
+  popupViewTitle.textContent = cardTitleValue;
+
 }
 
+// Функция закрытия popup view image
 function closePopupViewImage() {
   closePopup(popupViewImage);
 }
@@ -171,6 +190,7 @@ function getElement(item) {
   return getElementTemlate;
 }
 
+// Функция добавления новой карточки
 function handleAddNewImage(evt) {
   evt.preventDefault();
 
@@ -187,11 +207,13 @@ function handleAddNewImage(evt) {
   closePopupAddImage();
 }
 
+// Функция удаления карточки
 function handleRemoveElement(evt) {
   const element = evt.target.closest(selectors.templateItemList);
   element.remove();
 }
 
+// Функция like
 function handleAddLikePhoto(evt) {
   const element = evt.target.closest(selectors.templateLikeButton);
   element.classList.toggle('element__like-button_active');

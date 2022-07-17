@@ -19,6 +19,9 @@ const selectors = {
   temlateLinkImageCard: ".element__mask-group",
   templateElementButtonRemove: ".element__button-remove",
   templateLikeButton: '.element__like-button',
+  popupViewImage: '.popup_view_image',
+  popupImage: '.popup__image',
+  popupImageTitle: '.popup__image-title',
 };
 
 // Поиск элементов в документе
@@ -40,6 +43,9 @@ const template = document.querySelector(selectors.template);
 const templateItemList = document.querySelector(selectors.templateItemList);
 const templateTitleImageCard = template.querySelector(selectors.templateTitleImageCard);
 const temlateLinkImageCard = template.querySelector(selectors.temlateLinkImageCard);
+const popupViewImage = document.querySelector(selectors.popupViewImage);
+const closeButtonViewImagePopup = popupViewImage.querySelector(selectors.closePopupButton);
+
 
 // Массив с карточками
 const initialCards = [
@@ -87,6 +93,9 @@ function closePopupByClickOverlay(event) {
   if (event.target === event.currentTarget && popupAddImage.classList.contains("popup_opened")) {
     closePopupAddImage();
   }
+  if (event.target === event.currentTarget && popupViewImage.classList.contains("popup_opened")) {
+    closePopupViewImage();
+  }
 }
 
 // Функция открытия popup profile
@@ -123,6 +132,14 @@ function closePopupAddImage() {
   closePopup(popupAddImage);
 }
 
+function openPopupViewImage() {
+  openPopup(popupViewImage);
+}
+
+function closePopupViewImage() {
+  closePopup(popupViewImage);
+}
+
 // Функция перебирает клонирует массив и вставляет в разметку
 function cloneArrayPhotoCards() {
   const array = initialCards.map((newArray) => getElement(newArray));
@@ -137,11 +154,13 @@ function getElement(item) {
   const link = getElementTemlate.querySelector(selectors.temlateLinkImageCard);
   const elementButtonRemove = getElementTemlate.querySelector(selectors.templateElementButtonRemove);
   const templateLikeButton = getElementTemlate.querySelector(selectors.templateLikeButton);
-
+  
   title.textContent = item.name;
 
   link.setAttribute("src", `${item.link}`);
   link.setAttribute("alt", `${item.name}`);
+
+  link.addEventListener('click', openPopupViewImage);
 
   elementButtonRemove.addEventListener("click", handleRemoveElement);
 
@@ -190,12 +209,17 @@ popupEditProfile.addEventListener("submit", handleFormSubmirProfile);
 // Будет следить за нажатием на внешнюю область popup
 popupEditProfile.addEventListener("click", closePopupByClickOverlay);
 popupAddImage.addEventListener("click", closePopupByClickOverlay);
+popupViewImage.addEventListener("click", closePopupByClickOverlay);
 
 // Вызывает функцию открытия popup add image при прослушивании click
 imageAddButton.addEventListener("click", openPopupAddImage);
 
 // Вызывает функцию закрытия popup profile при прослушивании click
 closeButtonImagePopup.addEventListener("click", closePopupAddImage);
+
+closeButtonViewImagePopup.addEventListener('click', closePopupViewImage)
+
+
 
 // Вызывает функцию работы с массивом
 cloneArrayPhotoCards();

@@ -22,6 +22,7 @@ const selectors = {
   popupViewImage: '.popup_view_image',
   popupImage: '.popup__image',
   popupViewTitle: '.popup__image-title',
+  popup: '.popup',
 };
 
 // Поиск элементов в документе
@@ -47,6 +48,7 @@ const popupViewImage = document.querySelector(selectors.popupViewImage);
 const popupImage = popupViewImage.querySelector(selectors.popupImage);
 const popupViewTitle = popupViewImage.querySelector(selectors.popupViewTitle);
 const closeButtonViewImagePopup = popupViewImage.querySelector(selectors.closePopupButton);
+const popup = document.querySelector(selectors.popup);
 
 
 // Массив с карточками
@@ -80,11 +82,13 @@ const initialCards = [
 // Функция открытия popup
 function openPopup(item) {
   item.classList.add("popup_opened");
+  smoothAnimationOpen(item);
 }
 
 // Функция закрытия popup
 function closePopup(item) {
   item.classList.remove("popup_opened");
+  smoothAnimationClose(item);
 }
 
 // Функция закрытия popup при нажатии на внешнюю область
@@ -217,6 +221,24 @@ function handleRemoveElement(evt) {
 function handleAddLikePhoto(evt) {
   const element = evt.target.closest(selectors.templateLikeButton);
   element.classList.toggle('element__like-button_active');
+}
+
+// Функция анимации при открытии popup
+function smoothAnimationOpen(item) {
+item.addEventListener('animationstart', function (evt) {
+  if (evt.animationName === 'fade-in') {
+      evt.target.classList.add('did-fade-in');
+  }
+});
+}
+
+// Функция анимации при закрытии popup
+function smoothAnimationClose(item) {
+item.addEventListener('animationend', function (evt) {
+  if (evt.animationName === 'fade-out') {
+      evt.target.classList.remove('did-fade-in');
+   }
+});
 }
 
 //Вызывает функцию открытия popup profile при прослушивании click

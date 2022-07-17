@@ -9,3 +9,17 @@
   display: none;
   align-items: center;
 }
+
+.did-fade-in {
+  display: flex;
+  animation: fade-out 2s ease;
+}
+
+@keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}

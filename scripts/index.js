@@ -21,7 +21,7 @@ const selectors = {
   templateLikeButton: ".element__like-button",
   popupViewImage: ".popup_view_image",
   popupImage: ".popup__image",
-  popupViewTitle: ".popup__image-title",
+  popupImageName: ".popup__image-title",
   popup: ".popup",
 };
 
@@ -46,7 +46,7 @@ const templateTitleImageCard = template.querySelector(selectors.templateTitleIma
 const temlateLinkImageCard = template.querySelector(selectors.temlateLinkImageCard);
 const popupViewImage = document.querySelector(selectors.popupViewImage);
 const popupImage = popupViewImage.querySelector(selectors.popupImage);
-const popupViewTitle = popupViewImage.querySelector(selectors.popupViewTitle);
+const popupImageName = popupViewImage.querySelector(selectors.popupImageName);
 const popupCloseButtonViewImage = popupViewImage.querySelector(selectors.popupCloseButton);
 
 // Массив с карточками
@@ -136,19 +136,12 @@ function closePopupAddImage() {
 function openPopupViewImage(evt) {
   openPopup(popupViewImage);
 
-  const element = evt.target.closest(".element");
+  const target = evt.target;
 
-  const cardTitle = element.querySelector(selectors.templateTitleImageCard);
-  const cardLink = element.querySelector(".element__mask-group");
-
-  const linkAttribute = cardLink.getAttribute("src");
-
-  const cardTitleValue = cardTitle.textContent;
-
-  popupImage.setAttribute("src", `${linkAttribute}`);
-  popupImage.setAttribute("alt", `${cardTitleValue}`);
-
-  popupViewTitle.textContent = cardTitleValue;
+  popupImage.src = target.src;
+  popupImage.alt = target.alt;
+  
+  popupImageName.textContent = target.alt;
 }
 
 // Функция закрытия popup view image

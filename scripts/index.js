@@ -133,15 +133,13 @@ function closePopupAddImage() {
 }
 
 // Функция открытия popup view image
-function openPopupViewImage(evt) {
+function openPopupViewImage(item) {
   openPopup(popupViewImage);
 
-  const target = evt.target;
-
-  popupImage.src = target.src;
-  popupImage.alt = target.alt;
+  popupImage.src = item.link;
+  popupImage.alt = item.name;
   
-  popupImageName.textContent = target.alt;
+  popupImageName.textContent = popupImage.alt;
 }
 
 // Функция закрытия popup view image
@@ -169,7 +167,8 @@ function getElement(item) {
   link.setAttribute("src", `${item.link}`);
   link.setAttribute("alt", `${item.name}`);
 
-  link.addEventListener("click", openPopupViewImage);
+  // link.addEventListener("click", openPopupViewImage);
+  link.addEventListener('click', () => openPopupViewImage(item));
 
   elementButtonRemove.addEventListener("click", handleRemoveElement);
 

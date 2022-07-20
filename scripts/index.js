@@ -7,14 +7,14 @@ const selectors = {
   popupEditProfile: ".popup_edit_profile",
   popupProfileNameInput: ".popup__name_value",
   popupProfileJobInput: ".popup__job_value",
-  closePopupButton: ".popup__close-icon",
+  popupCloseButton: ".popup__close-icon",
   listCardPhotoGrid: ".cards__photo-grid",
   popupAddImage: ".popup_add_image",
   popupImageNameInput: ".popup__name-image",
   popupImageLinkInput: ".popup__link-image",
   imageAddButton: ".profile__add-button",
   template: ".template-list",
-  templateItemList: ".element",
+  templateElement: ".element",
   templateTitleImageCard: ".element__title",
   temlateLinkImageCard: ".element__mask-group",
   templateElementButtonRemove: ".element__button-remove",
@@ -33,21 +33,21 @@ const profileEditButton = profile.querySelector(selectors.profileEditButton);
 const popupEditProfile = document.querySelector(selectors.popupEditProfile);
 const popupProfileNameInput = popupEditProfile.querySelector(selectors.popupProfileNameInput);
 const popupProfileJobInput = popupEditProfile.querySelector(selectors.popupProfileJobInput);
-const closeButtonProfilePopup = popupEditProfile.querySelector(selectors.closePopupButton);
+const popupCloseButtonProfile = popupEditProfile.querySelector(selectors.popupCloseButton);
 const listCardPhotoGrid = document.querySelector(selectors.listCardPhotoGrid);
 const popupAddImage = document.querySelector(selectors.popupAddImage);
 const imageAddButton = profile.querySelector(selectors.imageAddButton);
 const popupImageNameInput = popupAddImage.querySelector(selectors.popupImageNameInput);
 const popupImageLinkInput = popupAddImage.querySelector(selectors.popupImageLinkInput);
-const closeButtonImagePopup = popupAddImage.querySelector(selectors.closePopupButton);
+const popupCloseButtonImage = popupAddImage.querySelector(selectors.popupCloseButton);
 const template = document.querySelector(selectors.template);
-const templateItemList = document.querySelector(selectors.templateItemList);
+const templateElement = document.querySelector(selectors.templateElement);
 const templateTitleImageCard = template.querySelector(selectors.templateTitleImageCard);
 const temlateLinkImageCard = template.querySelector(selectors.temlateLinkImageCard);
 const popupViewImage = document.querySelector(selectors.popupViewImage);
 const popupImage = popupViewImage.querySelector(selectors.popupImage);
 const popupViewTitle = popupViewImage.querySelector(selectors.popupViewTitle);
-const closeButtonViewImagePopup = popupViewImage.querySelector(selectors.closePopupButton);
+const popupCloseButtonViewImage = popupViewImage.querySelector(selectors.popupCloseButton);
 
 // Массив с карточками
 const initialCards = [
@@ -81,6 +81,7 @@ const initialCards = [
 function openPopup(item) {
   item.classList.add("popup_opened");
   smoothAnimationOpen(item);
+  item.addEventListener('click', closePopupByClickOverlay);
 }
 
 // Функция закрытия popup
@@ -91,15 +92,10 @@ function closePopup(item) {
 
 // Функция закрытия popup при нажатии на внешнюю область
 function closePopupByClickOverlay(event) {
-  if (event.target === event.currentTarget && popupEditProfile.classList.contains("popup_opened")) {
-    closePopupProfile();
-  }
-  if (event.target === event.currentTarget && popupAddImage.classList.contains("popup_opened")) {
-    closePopupAddImage();
-  }
-  if (event.target === event.currentTarget && popupViewImage.classList.contains("popup_opened")) {
-    closePopupViewImage();
-  }
+ if (event.target === event.currentTarget) {
+  closePopup(event.currentTarget);
+ }
+
 }
 
 // Функция открытия popup profile
@@ -210,7 +206,7 @@ function handleAddNewImage(evt) {
 
 // Функция удаления карточки
 function handleRemoveElement(evt) {
-  const element = evt.target.closest(selectors.templateItemList);
+  const element = evt.target.closest(selectors.templateElement);
   element.remove();
 }
 
@@ -242,24 +238,20 @@ function smoothAnimationClose(item) {
 profileEditButton.addEventListener("click", openPopupProfile);
 
 //Вызывает функцию закрытия popup profile при прослушивании click
-closeButtonProfilePopup.addEventListener("click", closePopupProfile);
+popupCloseButtonProfile.addEventListener("click", closePopupProfile);
 
 // Будет следить за событием “submit” - «отправка» формы редактирования профиля
 popupEditProfile.addEventListener("submit", handleFormSubmirProfile);
-
-// Будет следить за нажатием на внешнюю область popup
-popupEditProfile.addEventListener("click", closePopupByClickOverlay);
-popupAddImage.addEventListener("click", closePopupByClickOverlay);
-popupViewImage.addEventListener("click", closePopupByClickOverlay);
 
 // Вызывает функцию открытия popup add image при прослушивании click
 imageAddButton.addEventListener("click", openPopupAddImage);
 
 // Вызывает функцию закрытия popup profile при прослушивании click
-closeButtonImagePopup.addEventListener("click", closePopupAddImage);
+popupCloseButtonImage.addEventListener("click", closePopupAddImage);
 
 // Вызывает функцию закрытия popup просмотра фотографии
-closeButtonViewImagePopup.addEventListener("click", closePopupViewImage);
+popupCloseButtonViewImage.addEventListener("click", closePopupViewImage);
 
 // Вызывает функцию работы с массивом
 cloneArrayPhotoCards();
+

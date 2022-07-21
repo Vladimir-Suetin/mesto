@@ -24,6 +24,7 @@ const selectors = {
   popupImageName: ".popup__image-title",
   popup: ".popup",
   popupFormAddImage: ".popup__container_add-image",
+  popupFormEditProfile: ".popup__container_edit-profile"
 };
 
 // Поиск элементов в документе
@@ -49,7 +50,8 @@ const popupViewImage = document.querySelector(selectors.popupViewImage);
 const popupImage = popupViewImage.querySelector(selectors.popupImage);
 const popupImageName = popupViewImage.querySelector(selectors.popupImageName);
 const popupCloseButtonViewImage = popupViewImage.querySelector(selectors.popupCloseButton);
-const popupFormAddImage = document.querySelector(selectors.popupFormAddImage);
+const popupFormAddImage = popupAddImage.querySelector(selectors.popupFormAddImage);
+const popupFormEditProfile = popupEditProfile.querySelector(selectors.popupFormEditProfile);
 
 // Массив с карточками
 const initialCards = [
@@ -174,8 +176,6 @@ function getElement(item) {
 
   elementButtonRemove.addEventListener("click", handleRemoveElement);
 
-  popupAddImage.addEventListener("submit", handleAddNewImage);
-
   templateLikeButton.addEventListener("click", handleAddLikePhoto);
 
   return getElementTemlate;
@@ -234,7 +234,10 @@ profileEditButton.addEventListener("click", openPopupProfile);
 popupCloseButtonProfile.addEventListener("click", closePopupProfile);
 
 // Будет следить за событием “submit” - «отправка» формы редактирования профиля
-popupEditProfile.addEventListener("submit", handleFormSubmirProfile);
+popupFormEditProfile.addEventListener("submit", handleFormSubmirProfile);
+
+// Будет следить за событием “submit” - «отправка» формы добавления фотографии
+popupFormAddImage.addEventListener("submit", handleAddNewImage);
 
 // Вызывает функцию открытия popup add image при прослушивании click
 imageAddButton.addEventListener("click", openPopupAddImage);

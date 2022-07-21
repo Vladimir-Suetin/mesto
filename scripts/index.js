@@ -23,8 +23,9 @@ const selectors = {
   popupImage: ".popup__image",
   popupImageName: ".popup__image-title",
   popup: ".popup",
+  popupForm: ".popup__container",
   popupFormAddImage: ".popup__container_add-image",
-  popupFormEditProfile: ".popup__container_edit-profile"
+  popupFormEditProfile: ".popup__container_edit-profile",
 };
 
 // Поиск элементов в документе
@@ -85,7 +86,7 @@ const initialCards = [
 function openPopup(item) {
   item.classList.add("popup_opened");
   smoothAnimationOpen(item);
-  item.addEventListener('click', closePopupByClickOverlay);
+  item.addEventListener("click", closePopupByClickOverlay);
 }
 
 // Функция закрытия popup
@@ -96,10 +97,9 @@ function closePopup(item) {
 
 // Функция закрытия popup при нажатии на внешнюю область
 function closePopupByClickOverlay(event) {
- if (event.target === event.currentTarget) {
-  closePopup(event.currentTarget);
- }
-
+  if (event.target === event.currentTarget) {
+    closePopup(event.currentTarget);
+  }
 }
 
 // Функция открытия popup profile
@@ -107,6 +107,7 @@ function openPopupProfile() {
   openPopup(popupEditProfile);
   popupProfileNameInput.value = profileName.textContent;
   popupProfileJobInput.value = profilejob.textContent;
+  selectSubmitForm(popupEditProfile);
 }
 
 // Функция закрытия popup profile
@@ -117,7 +118,7 @@ function closePopupProfile() {
 // Обработчик «отправки» формы редактирования профиля, хотя пока
 // она никуда отправляться не будет
 function handleFormSubmirProfile(evt) {
-  evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
+//  evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
 
   // Вставляем новые значения с помощью textContent
   profileName.textContent = popupProfileNameInput.value;
@@ -129,6 +130,7 @@ function handleFormSubmirProfile(evt) {
 // Функция открытия popup add image
 function openPopupAddImage() {
   openPopup(popupAddImage);
+  selectSubmitForm(popupAddImage);
 }
 
 // Функция закрытия popup add image
@@ -142,7 +144,7 @@ function openPopupViewImage(item) {
 
   popupImage.src = item.link;
   popupImage.alt = item.name;
-  
+
   popupImageName.textContent = popupImage.alt;
 }
 
@@ -171,8 +173,7 @@ function getElement(item) {
   link.setAttribute("src", `${item.link}`);
   link.setAttribute("alt", `${item.name}`);
 
-  // link.addEventListener("click", openPopupViewImage);
-  link.addEventListener('click', () => openPopupViewImage(item));
+  link.addEventListener("click", () => openPopupViewImage(item));
 
   elementButtonRemove.addEventListener("click", handleRemoveElement);
 
@@ -183,7 +184,7 @@ function getElement(item) {
 
 // Функция добавления новой карточки
 function handleAddNewImage(evt) {
-  evt.preventDefault();
+//  evt.preventDefault();
 
   const nameValue = popupImageNameInput.value;
   const linkValue = popupImageLinkInput.value;
@@ -227,17 +228,27 @@ function smoothAnimationClose(item) {
   });
 }
 
+// Функция будет следить за событием “submit” - «отправка» формы редактирования профиля и добавления фотографии
+function selectSubmitForm(item) {
+  const popupForm = item.querySelector(selectors.popupForm);
+
+  popupForm.addEventListener("submit", function (event) {
+    event.preventDefault();
+     if (event.target === popupFormEditProfile) {
+      handleFormSubmirProfile();
+    }
+
+    if (event.target === popupFormAddImage) {
+      handleAddNewImage();
+    }
+  });
+}
+
 //Вызывает функцию открытия popup profile при прослушивании click
 profileEditButton.addEventListener("click", openPopupProfile);
 
 //Вызывает функцию закрытия popup profile при прослушивании click
 popupCloseButtonProfile.addEventListener("click", closePopupProfile);
-
-// Будет следить за событием “submit” - «отправка» формы редактирования профиля
-popupFormEditProfile.addEventListener("submit", handleFormSubmirProfile);
-
-// Будет следить за событием “submit” - «отправка» формы добавления фотографии
-popupFormAddImage.addEventListener("submit", handleAddNewImage);
 
 // Вызывает функцию открытия popup add image при прослушивании click
 imageAddButton.addEventListener("click", openPopupAddImage);
@@ -250,4 +261,3 @@ popupCloseButtonViewImage.addEventListener("click", closePopupViewImage);
 
 // Вызывает функцию работы с массивом
 cloneArrayPhotoCards();
-

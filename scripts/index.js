@@ -23,6 +23,7 @@ const selectors = {
   popupImage: ".popup__image",
   popupImageName: ".popup__image-title",
   popup: ".popup",
+  popupFormAddImage: ".popup__container_add-image",
 };
 
 // Поиск элементов в документе
@@ -48,6 +49,7 @@ const popupViewImage = document.querySelector(selectors.popupViewImage);
 const popupImage = popupViewImage.querySelector(selectors.popupImage);
 const popupImageName = popupViewImage.querySelector(selectors.popupImageName);
 const popupCloseButtonViewImage = popupViewImage.querySelector(selectors.popupCloseButton);
+const popupFormAddImage = document.querySelector(selectors.popupFormAddImage);
 
 // Массив с карточками
 const initialCards = [
@@ -190,8 +192,7 @@ function handleAddNewImage(evt) {
 
   listCardPhotoGrid.prepend(element);
 
-  popupImageNameInput.value = "";
-  popupImageLinkInput.value = "";
+  popupFormAddImage.reset();
 
   closePopupAddImage();
 }

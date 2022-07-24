@@ -101,7 +101,6 @@ function openPopupProfile() {
   openPopup(popupEditProfile);
   popupProfileNameInput.value = profileName.textContent;
   popupProfileJobInput.value = profilejob.textContent;
-  selectSubmitForm(popupEditProfile);
 }
 
 // Функция закрытия popup profile
@@ -112,7 +111,7 @@ function closePopupProfile() {
 // Обработчик «отправки» формы редактирования профиля, хотя пока
 // она никуда отправляться не будет
 function handleFormSubmirProfile(evt) {
-  //  evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
+    evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
 
   // Вставляем новые значения с помощью textContent
   profileName.textContent = popupProfileNameInput.value;
@@ -124,8 +123,6 @@ function handleFormSubmirProfile(evt) {
 // Функция открытия popup add image
 function openPopupAddImage() {
   openPopup(popupAddImage);
-
-  selectSubmitForm(popupAddImage);
 }
 
 // Функция закрытия popup add image
@@ -179,7 +176,7 @@ function getElement(item) {
 
 // Функция добавления новой карточки
 function handleAddNewImage(evt) {
-  //  evt.preventDefault();
+  evt.preventDefault();
 
   const nameValue = popupImageNameInput.value;
   const linkValue = popupImageLinkInput.value;
@@ -235,23 +232,13 @@ function popupList() {
   });
 }
 
-// Функция будет следить за событием “submit” - «отправка» формы редактирования профиля и добавления фотографии
-function selectSubmitForm(item) {
-  const popupForm = item.querySelector(selectors.popupForm);
+// Вызывает функцию добавления карточки
+popupFormAddImage.addEventListener("submit", handleAddNewImage);
 
-  popupForm.addEventListener("submit", function (event) {
-    event.preventDefault();
-    if (event.target === popupFormEditProfile) {
-      handleFormSubmirProfile();
-    }
+// Вызывает функцию редактирования popup
+popupFormEditProfile.addEventListener("submit", handleFormSubmirProfile);
 
-    if (event.target === popupFormAddImage) {
-      handleAddNewImage();
-    }
-  });
-}
-
-//Вызывает функцию открытия popup profile при прослушивании click
+// Вызывает функцию открытия popup profile при прослушивании click
 profileEditButton.addEventListener("click", openPopupProfile);
 
 // Вызывает функцию открытия popup add image при прослушивании click

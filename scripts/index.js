@@ -36,13 +36,11 @@ const profileEditButton = profile.querySelector(selectors.profileEditButton);
 const popupEditProfile = document.querySelector(selectors.popupEditProfile);
 const popupProfileNameInput = popupEditProfile.querySelector(selectors.popupProfileNameInput);
 const popupProfileJobInput = popupEditProfile.querySelector(selectors.popupProfileJobInput);
-const popupCloseButtonProfile = popupEditProfile.querySelector(selectors.popupCloseButton);
 const listCardPhotoGrid = document.querySelector(selectors.listCardPhotoGrid);
 const popupAddImage = document.querySelector(selectors.popupAddImage);
 const imageAddButton = profile.querySelector(selectors.imageAddButton);
 const popupImageNameInput = popupAddImage.querySelector(selectors.popupImageNameInput);
 const popupImageLinkInput = popupAddImage.querySelector(selectors.popupImageLinkInput);
-const popupCloseButtonImage = popupAddImage.querySelector(selectors.popupCloseButton);
 const template = document.querySelector(selectors.template);
 const templateElement = document.querySelector(selectors.templateElement);
 const templateTitleImageCard = template.querySelector(selectors.templateTitleImageCard);
@@ -50,7 +48,6 @@ const temlateLinkImageCard = template.querySelector(selectors.temlateLinkImageCa
 const popupViewImage = document.querySelector(selectors.popupViewImage);
 const popupImage = popupViewImage.querySelector(selectors.popupImage);
 const popupImageName = popupViewImage.querySelector(selectors.popupImageName);
-const popupCloseButtonViewImage = popupViewImage.querySelector(selectors.popupCloseButton);
 const popupFormAddImage = popupAddImage.querySelector(selectors.popupFormAddImage);
 const popupFormEditProfile = popupEditProfile.querySelector(selectors.popupFormEditProfile);
 
@@ -115,7 +112,7 @@ function closePopupProfile() {
 // Обработчик «отправки» формы редактирования профиля, хотя пока
 // она никуда отправляться не будет
 function handleFormSubmirProfile(evt) {
-//  evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
+  //  evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
 
   // Вставляем новые значения с помощью textContent
   profileName.textContent = popupProfileNameInput.value;
@@ -144,7 +141,6 @@ function openPopupViewImage(item) {
   popupImage.alt = item.name;
 
   popupImageName.textContent = popupImage.alt;
-
 }
 
 // Функция закрытия popup view image
@@ -183,7 +179,7 @@ function getElement(item) {
 
 // Функция добавления новой карточки
 function handleAddNewImage(evt) {
-//  evt.preventDefault();
+  //  evt.preventDefault();
 
   const nameValue = popupImageNameInput.value;
   const linkValue = popupImageLinkInput.value;
@@ -230,12 +226,14 @@ function smoothAnimationClose(item) {
 // Функция обработки всех popup, вызова функций анимации и закрития при нажатии на внешнюю область
 function popupList() {
   const popupList = document.querySelectorAll(selectors.popup);
-  popupList.forEach(popup => {
+  popupList.forEach((popup) => {
     smoothAnimationOpen(popup);
     smoothAnimationClose(popup);
     popup.addEventListener("mousedown", closePopupByClickOverlay);
+    const buttonClosePopup = popup.querySelector(selectors.popupCloseButton);
+    buttonClosePopup.addEventListener("click", () => closePopup(popup));
   });
-  }
+}
 
 // Функция будет следить за событием “submit” - «отправка» формы редактирования профиля и добавления фотографии
 function selectSubmitForm(item) {
@@ -243,7 +241,7 @@ function selectSubmitForm(item) {
 
   popupForm.addEventListener("submit", function (event) {
     event.preventDefault();
-     if (event.target === popupFormEditProfile) {
+    if (event.target === popupFormEditProfile) {
       handleFormSubmirProfile();
     }
 
@@ -256,17 +254,8 @@ function selectSubmitForm(item) {
 //Вызывает функцию открытия popup profile при прослушивании click
 profileEditButton.addEventListener("click", openPopupProfile);
 
-//Вызывает функцию закрытия popup profile при прослушивании click
-popupCloseButtonProfile.addEventListener("click", closePopupProfile);
-
 // Вызывает функцию открытия popup add image при прослушивании click
 imageAddButton.addEventListener("click", openPopupAddImage);
-
-// Вызывает функцию закрытия popup profile при прослушивании click
-popupCloseButtonImage.addEventListener("click", closePopupAddImage);
-
-// Вызывает функцию закрытия popup просмотра фотографии
-popupCloseButtonViewImage.addEventListener("click", closePopupViewImage);
 
 // Вызывает функцию работы с массивом
 cloneArrayPhotoCards();

@@ -202,30 +202,10 @@ function handleAddLikePhoto(evt) {
   element.classList.toggle("element__like-button_active");
 }
 
-// Функция анимации при открытии popup
-function smoothAnimationOpen(item) {
-  item.addEventListener("animationstart", function (evt) {
-    if (evt.animationName === "fade-in") {
-      evt.target.classList.add("did-fade-in");
-    }
-  });
-}
-
-// Функция анимации при закрытии popup
-function smoothAnimationClose(item) {
-  item.addEventListener("animationend", function (evt) {
-    if (evt.animationName === "fade-out") {
-      evt.target.classList.remove("did-fade-in");
-    }
-  });
-}
-
 // Функция обработки всех popup, вызова функций анимации и закрития при нажатии на внешнюю область
 function popupList() {
   const popupList = document.querySelectorAll(selectors.popup);
   popupList.forEach((popup) => {
-    smoothAnimationOpen(popup);
-    smoothAnimationClose(popup);
     popup.addEventListener("mousedown", closePopupByClickOverlay);
     const buttonClosePopup = popup.querySelector(selectors.popupCloseButton);
     buttonClosePopup.addEventListener("click", () => closePopup(popup));

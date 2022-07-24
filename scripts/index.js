@@ -53,6 +53,7 @@ const popupImageName = popupViewImage.querySelector(selectors.popupImageName);
 const popupCloseButtonViewImage = popupViewImage.querySelector(selectors.popupCloseButton);
 const popupFormAddImage = popupAddImage.querySelector(selectors.popupFormAddImage);
 const popupFormEditProfile = popupEditProfile.querySelector(selectors.popupFormEditProfile);
+const popupList = document.querySelectorAll(selectors.popup);
 
 // Массив с карточками
 const initialCards = [
@@ -82,17 +83,25 @@ const initialCards = [
   },
 ];
 
+function popupList() {
+  
+  popupList.forEach(popup => {
+    smoothAnimationOpen(popup);
+    smoothAnimationClose(popup);
+    popup.addEventListener("mousedown", closePopupByClickOverlay);
+  });
+  }
+  
+  popupList()
+
 // Функция открытия popup
 function openPopup(item) {
   item.classList.add("popup_opened");
-  smoothAnimationOpen(item);
-  item.addEventListener("click", closePopupByClickOverlay);
 }
 
 // Функция закрытия popup
 function closePopup(item) {
   item.classList.remove("popup_opened");
-  smoothAnimationClose(item);
 }
 
 // Функция закрытия popup при нажатии на внешнюю область
@@ -130,6 +139,7 @@ function handleFormSubmirProfile(evt) {
 // Функция открытия popup add image
 function openPopupAddImage() {
   openPopup(popupAddImage);
+
   selectSubmitForm(popupAddImage);
 }
 
@@ -146,6 +156,7 @@ function openPopupViewImage(item) {
   popupImage.alt = item.name;
 
   popupImageName.textContent = popupImage.alt;
+
 }
 
 // Функция закрытия popup view image

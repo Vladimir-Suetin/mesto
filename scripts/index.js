@@ -53,7 +53,6 @@ const popupImageName = popupViewImage.querySelector(selectors.popupImageName);
 const popupCloseButtonViewImage = popupViewImage.querySelector(selectors.popupCloseButton);
 const popupFormAddImage = popupAddImage.querySelector(selectors.popupFormAddImage);
 const popupFormEditProfile = popupEditProfile.querySelector(selectors.popupFormEditProfile);
-const popupList = document.querySelectorAll(selectors.popup);
 
 // Массив с карточками
 const initialCards = [
@@ -82,17 +81,6 @@ const initialCards = [
     link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg",
   },
 ];
-
-function popupList() {
-  
-  popupList.forEach(popup => {
-    smoothAnimationOpen(popup);
-    smoothAnimationClose(popup);
-    popup.addEventListener("mousedown", closePopupByClickOverlay);
-  });
-  }
-  
-  popupList()
 
 // Функция открытия popup
 function openPopup(item) {
@@ -238,6 +226,16 @@ function smoothAnimationClose(item) {
     }
   });
 }
+
+// Функция обрабатывает все popup, вызывает функции плавного закрытия и закрытия при click overlay
+function popupList() {
+  const popupList = document.querySelectorAll(selectors.popup);
+  popupList.forEach(popup => {
+    smoothAnimationOpen(popup);
+    smoothAnimationClose(popup);
+    popup.addEventListener("mousedown", closePopupByClickOverlay);
+  });
+  }
 
 // Функция будет следить за событием “submit” - «отправка» формы редактирования профиля и добавления фотографии
 function selectSubmitForm(item) {

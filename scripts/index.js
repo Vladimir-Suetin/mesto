@@ -227,7 +227,7 @@ function smoothAnimationClose(item) {
   });
 }
 
-// Функция обрабатывает все popup, вызывает функции плавного закрытия и закрытия при click overlay
+// Функция обработки всех popup, вызова функций анимации и закрития при нажатии на внешнюю область
 function popupList() {
   const popupList = document.querySelectorAll(selectors.popup);
   popupList.forEach(popup => {
@@ -270,3 +270,6 @@ popupCloseButtonViewImage.addEventListener("click", closePopupViewImage);
 
 // Вызывает функцию работы с массивом
 cloneArrayPhotoCards();
+
+// Вызывает функцию обработки popup
+popupList();

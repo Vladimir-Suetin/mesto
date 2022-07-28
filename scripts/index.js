@@ -203,7 +203,7 @@ function handleAddLikePhoto(evt) {
 }
 
 // Функция обработки всех popup, вызова функций анимации и закрития при нажатии на внешнюю область
-function popupList() {
+function sortPopup() {
   const popupList = document.querySelectorAll(selectors.popup);
   popupList.forEach((popup) => {
     popup.addEventListener("mousedown", closePopupByClickOverlay);
@@ -228,4 +228,4 @@ imageAddButton.addEventListener("click", openPopupAddImage);
 cloneArrayPhotoCards();
 
 // Вызывает функцию обработки popup
-popupList();
+sortPopup();

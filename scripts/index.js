@@ -26,6 +26,10 @@ const selectors = {
   popupForm: ".popup__container",
   popupFormAddImage: ".popup__container_add-image",
   popupFormEditProfile: ".popup__container_edit-profile",
+  popupFieldError: 'popup__field_error',
+  popupSubmitButton: '.popup__submit-button',
+  popupSubmitButtonActive: 'popup__submit-button',
+  popupSubmitButtonNotActive: 'popup__submit-button_not-active',
 };
 
 // Поиск элементов в документе
@@ -101,6 +105,7 @@ function openPopupProfile() {
   openPopup(popupEditProfile);
   popupProfileNameInput.value = profileName.textContent;
   popupProfileJobInput.value = profilejob.textContent;
+  enableValidation(popupFormEditProfile);
 }
 
 // Функция закрытия popup profile
@@ -117,8 +122,98 @@ function handleFormSubmirProfile(evt) {
   profileName.textContent = popupProfileNameInput.value;
   profilejob.textContent = popupProfileJobInput.value;
 
+//   const form = evt.currentTarget;
+
+// //  const isValid = form.checkValidity();
+
+//   // // 2. Вывести алерт.
+//   // if (!isValid) {
+//   //   input.setCustomValidity("Ввод слишком короткий");
+//   // }
+//   enableValidation(evt);
+  
+
   closePopupProfile();
 }
+
+// находит форму в документе и вешает слушатели
+function enableValidation(form) {
+  form.addEventListener("input", (event) => handleFormInput(event));
+}
+
+function handleFormInput(event) {
+  // найдем активный инпут
+  const input = event.target;
+  // определить форму
+  const form = event.currentTarget;
+
+  //важен порядок вызова ошибок !!!
+  // устанавливаем кастомный текст ошибок
+  setCustomError(input);
+  // показать ошибки в контейнере под полем
+  showFieldError(input);
+  // включить или отключить кнопку отправки формы
+  setSubmitButtonState(form);
+}
+
+// Функция кастомного текста ошибок
+function setCustomError(input) {
+  // создаем переменную проверки валидности
+  const validity = input.validity;
+
+
+  // Устанавливаем кастомную ошибку
+  input.setCustomValidity("");
+
+  if (validity.tooShort) {
+    input.setCustomValidity("Ввод слишком короткий");
+  }
+
+  if (validity.tooLong) {
+    input.setCustomValidity("Ввод слишком длинный");
+  }
+
+  if (validity.typeMismatch && input.type === "url") {
+    input.setCustomValidity("Введите ссылку на картинку");
+  }
+
+  if (validity.valueMissing) {
+    input.setCustomValidity("пустое поле не допускается");
+  }
+
+  if (validity) {
+input.classList.add(selectors.popupFieldError);
+  } 
+
+  if (!validity){
+    input.classList.remove(selectors.popupFieldError);
+  }
+}
+
+// функция показа ошибки
+function showFieldError(input) {
+  const span = input.nextElementSibling;
+  span.textContent = input.validationMessage;
+}
+
+// функция включения кнопки отправки
+function setSubmitButtonState(form) {
+  const button = form.querySelector(selectors.popupSubmitButton);
+
+  const isValid = form.checkValidity();
+
+  if (isValid) {
+    button.removeAttribute("disabled");
+    button.classList.remove(selectors.popupSubmitButtonNotActive);
+    //button.classList.add(selectors.popupSubmitButtonActive);
+  } else {
+    button.setAttribute("disabled", true);
+    //button.classList.remove(selectors.popupSubmitButtonActive);
+    button.classList.add(selectors.popupSubmitButtonNotActive);
+  }
+}
+
+
 
 // Функция открытия popup add image
 function openPopupAddImage() {

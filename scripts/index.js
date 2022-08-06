@@ -223,6 +223,8 @@ function setSubmitButtonState(form) {
 // Функция открытия popup add image
 function openPopupAddImage() {
   openPopup(popupAddImage);
+  setSubmitButtonState(popupFormAddImage);
+  enableValidation(popupFormAddImage);
 }
 
 // Функция закрытия popup add image

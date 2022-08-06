@@ -26,10 +26,8 @@ const selectors = {
   popupForm: ".popup__container",
   popupFormAddImage: ".popup__container_add-image",
   popupFormEditProfile: ".popup__container_edit-profile",
-  popupFieldError: 'popup__field_error',
-  popupSubmitButton: '.popup__submit-button',
-  // popupSubmitButtonActive: 'popup__submit-button',
-  // popupSubmitButtonNotActive: 'popup__submit-button_not-active',
+  popupFieldError: "popup__field_error",
+  popupSubmitButton: ".popup__submit-button",
 };
 
 // Поиск элементов в документе
@@ -100,12 +98,18 @@ function closePopupByClickOverlay(event) {
   }
 }
 
+// Функция закрытия попап при нажатии escape
+function closePopupByPressEsc(event) {
+  if (event.key === "Escape") {
+    closePopup(event.currentTarget);
+  }
+}
+
 // Функция открытия popup profile
 function openPopupProfile() {
   openPopup(popupEditProfile);
   popupProfileNameInput.value = profileName.textContent;
   popupProfileJobInput.value = profilejob.textContent;
-  // enableValidation(popupFormEditProfile);
 }
 
 // Функция закрытия popup profile
@@ -116,7 +120,7 @@ function closePopupProfile() {
 // Обработчик «отправки» формы редактирования профиля, хотя пока
 // она никуда отправляться не будет
 function handleFormSubmirProfile(evt) {
-    evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
+  evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
 
   // Вставляем новые значения с помощью textContent
   profileName.textContent = popupProfileNameInput.value;
@@ -125,95 +129,9 @@ function handleFormSubmirProfile(evt) {
   closePopupProfile();
 }
 
-// // находит форму в документе и вешает слушатели
-// function enableValidation(form) {
-//   form.addEventListener("input", (event) => handleFormInput(event));
-// }
-
-// function handleFormInput(event) {
-//   // найдем активный инпут
-//   const input = event.target;
-//   // определить форму
-//   const form = event.currentTarget;
-
-//   //важен порядок вызова ошибок !!!
-//   // устанавливаем кастомный текст ошибок
-//   setCustomError(input);
-//   // подсветка input invalid
-//   accentInputInvalid(form, input);
-//   // показать ошибки в контейнере под полем
-//   showFieldError(input);
-//   // включить или отключить кнопку отправки формы
-//   setSubmitButtonState(form);
-// }
-
-// // Функция кастомного текста ошибок
-// function setCustomError(input) {
-//   // создаем переменную проверки валидности
-//   const validity = input.validity;
-
-
-//   // Устанавливаем кастомную ошибку
-//   input.setCustomValidity("");
-
-//   if (validity.tooShort) {
-//     input.setCustomValidity("Ввод слишком короткий");
-//   }
-
-//   if (validity.tooLong) {
-//     input.setCustomValidity("Ввод слишком длинный");
-//   }
-
-//   if (validity.typeMismatch && input.type === "url") {
-//     input.setCustomValidity("Введите ссылку на картинку");
-//   }
-
-//   if (validity.valueMissing) {
-//     input.setCustomValidity("пустое поле не допускается");
-//   }
-// }
-
-// // функция показа ошибки
-// function showFieldError(input) {
-//   const span = input.nextElementSibling;
-//   span.textContent = input.validationMessage;
-// }
-
-// // Функция подсветки input invalid
-// function accentInputInvalid(form, input) {
-//   const isValid = form.checkValidity();
-
-//   if (isValid) {
-//     input.classList.remove(selectors.popupFieldError);
-//   } else {
-//     input.classList.add(selectors.popupFieldError);
-//   }
-// }
-
-// // функция включения кнопки отправки
-// function setSubmitButtonState(form) {
-//   const button = form.querySelector(selectors.popupSubmitButton);
-
-//   const isValid = form.checkValidity();
-
-//   if (isValid) {
-//     button.removeAttribute("disabled");
-//     button.classList.remove(selectors.popupSubmitButtonNotActive);
-//     //button.classList.add(selectors.popupSubmitButtonActive);
-//   } else {
-//     button.setAttribute("disabled", true);
-//     //button.classList.remove(selectors.popupSubmitButtonActive);
-//     button.classList.add(selectors.popupSubmitButtonNotActive);
-//   }
-// }
-
-
-
 // Функция открытия popup add image
 function openPopupAddImage() {
   openPopup(popupAddImage);
-  // setSubmitButtonState(popupFormAddImage);
-  // enableValidation(popupFormAddImage);
 }
 
 // Функция закрытия popup add image
@@ -297,9 +215,10 @@ function handleAddLikePhoto(evt) {
 function sortPopup() {
   const popupList = document.querySelectorAll(selectors.popup);
   popupList.forEach((popup) => {
-    popup.addEventListener("mousedown", closePopupByClickOverlay);
     const buttonClosePopup = popup.querySelector(selectors.popupCloseButton);
     buttonClosePopup.addEventListener("click", () => closePopup(popup));
+    popup.addEventListener("keydown", closePopupByPressEsc);
+    popup.addEventListener("mousedown", closePopupByClickOverlay);
   });
 }
 

@@ -1,10 +1,10 @@
 const selectorsValidation = {
-  formSelector: '.popup__container',
-  inputSelector: '.popup__field',
-  submitButtonSelector: '.popup__submit-button',
-  inactiveButtonClass: 'popup__submit-button_disabled',
-  inputErrorClass: 'popup__field_type_error',
-  errorClass: 'popup__error',
+  formSelector: ".popup__container",
+  inputSelector: ".popup__field",
+  submitButtonSelector: ".popup__submit-button",
+  inactiveButtonClass: "popup__submit-button_disabled",
+  inputErrorClass: "popup__field_type_error",
+  errorClass: "popup__error",
 };
 
 // Функция находит форму в документе и вешает слушатель на input
@@ -12,7 +12,7 @@ function enableValidation(config) {
   const form = document.querySelectorAll(config.formSelector);
   form.forEach((formElement) => {
     formElement.addEventListener("input", (event) => handleFormInput(event));
-  })
+  });
 }
 
 // Функция работы с input
@@ -37,7 +37,6 @@ function handleFormInput(event) {
 function setCustomError(input) {
   // создаем переменную проверки валидности
   const validity = input.validity;
-
 
   // Функция установки кастомной ошибки
   input.setCustomValidity("");
@@ -85,10 +84,8 @@ function setSubmitButtonState(form) {
   if (isValid) {
     button.removeAttribute("disabled");
     button.classList.remove(selectorsValidation.inactiveButtonClass);
-    //button.classList.add(selectorsValidation.popupSubmitButtonActive);
   } else {
     button.setAttribute("disabled", true);
-    //button.classList.remove(selectorsValidation.popupSubmitButtonActive);
     button.classList.add(selectorsValidation.inactiveButtonClass);
   }
 }

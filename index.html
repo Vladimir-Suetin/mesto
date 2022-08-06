@@ -46,14 +46,20 @@
             class="popup__name popup__field popup__name_value"
             required
             placeholder="Имя"
+            minlength="3"
+            maxlength="20"
           />
+          <span class="popup__error">Ошибка Ошибка</span>
           <input
             name="popup-job"
             type="text"
             class="popup__job popup__field popup__job_value"
             required
             placeholder="О себе"
+            minlength="3"
+            maxlength="20"
           />
+          <span class="popup__error">Ошибка Ошибка</span>
           <button type="submit" class="popup__submit-button">Сохранить</button>
         </form>
         <button type="button" class="popup__close-icon" aria-label="закрыть форму"></button>
@@ -70,14 +76,18 @@
             class="popup__name-image popup__field popup__name-image_value"
             required
             placeholder="Название"
+            minlength="3"
+            maxlength="20"
           />
+          <span class="popup__error">Ошибка Ошибка</span>
           <input
             name="popup-link-image"
-            type="text"
+            type="url"
             class="popup__link-image popup__field popup__link-image_value"
             required
             placeholder="Ссылка на картинку"
           />
+          <span class="popup__error">Ошибка Ошибка</span>
           <button type="submit" class="popup__submit-button">Создать</button>
         </form>
         <button type="button" class="popup__close-icon" aria-label="закрыть форму"></button>

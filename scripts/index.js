@@ -150,6 +150,8 @@ function handleFormInput(event) {
   //важен порядок вызова ошибок !!!
   // устанавливаем кастомный текст ошибок
   setCustomError(input);
+  // подсветка input invalid
+  accentInputInvalid(form, input);
   // показать ошибки в контейнере под полем
   showFieldError(input);
   // включить или отключить кнопку отправки формы
@@ -180,20 +182,23 @@ function setCustomError(input) {
   if (validity.valueMissing) {
     input.setCustomValidity("пустое поле не допускается");
   }
-
-  if (validity) {
-input.classList.add(selectors.popupFieldError);
-  } 
-
-  if (!validity){
-    input.classList.remove(selectors.popupFieldError);
-  }
 }
 
 // функция показа ошибки
 function showFieldError(input) {
   const span = input.nextElementSibling;
   span.textContent = input.validationMessage;
+}
+
+// Функция подсветки input invalid
+function accentInputInvalid(form, input) {
+  const isValid = form.checkValidity();
+
+  if (isValid) {
+    input.classList.remove(selectors.popupFieldError);
+  } else {
+    input.classList.add(selectors.popupFieldError);
+  }
 }
 
 // функция включения кнопки отправки

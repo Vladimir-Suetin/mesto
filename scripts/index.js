@@ -28,8 +28,8 @@ const selectors = {
   popupFormEditProfile: ".popup__container_edit-profile",
   popupFieldError: 'popup__field_error',
   popupSubmitButton: '.popup__submit-button',
-  popupSubmitButtonActive: 'popup__submit-button',
-  popupSubmitButtonNotActive: 'popup__submit-button_not-active',
+  // popupSubmitButtonActive: 'popup__submit-button',
+  // popupSubmitButtonNotActive: 'popup__submit-button_not-active',
 };
 
 // Поиск элементов в документе
@@ -105,7 +105,7 @@ function openPopupProfile() {
   openPopup(popupEditProfile);
   popupProfileNameInput.value = profileName.textContent;
   popupProfileJobInput.value = profilejob.textContent;
-  enableValidation(popupFormEditProfile);
+  // enableValidation(popupFormEditProfile);
 }
 
 // Функция закрытия popup profile
@@ -122,109 +122,98 @@ function handleFormSubmirProfile(evt) {
   profileName.textContent = popupProfileNameInput.value;
   profilejob.textContent = popupProfileJobInput.value;
 
-//   const form = evt.currentTarget;
-
-// //  const isValid = form.checkValidity();
-
-//   // // 2. Вывести алерт.
-//   // if (!isValid) {
-//   //   input.setCustomValidity("Ввод слишком короткий");
-//   // }
-//   enableValidation(evt);
-  
-
   closePopupProfile();
 }
 
-// находит форму в документе и вешает слушатели
-function enableValidation(form) {
-  form.addEventListener("input", (event) => handleFormInput(event));
-}
+// // находит форму в документе и вешает слушатели
+// function enableValidation(form) {
+//   form.addEventListener("input", (event) => handleFormInput(event));
+// }
 
-function handleFormInput(event) {
-  // найдем активный инпут
-  const input = event.target;
-  // определить форму
-  const form = event.currentTarget;
+// function handleFormInput(event) {
+//   // найдем активный инпут
+//   const input = event.target;
+//   // определить форму
+//   const form = event.currentTarget;
 
-  //важен порядок вызова ошибок !!!
-  // устанавливаем кастомный текст ошибок
-  setCustomError(input);
-  // подсветка input invalid
-  accentInputInvalid(form, input);
-  // показать ошибки в контейнере под полем
-  showFieldError(input);
-  // включить или отключить кнопку отправки формы
-  setSubmitButtonState(form);
-}
+//   //важен порядок вызова ошибок !!!
+//   // устанавливаем кастомный текст ошибок
+//   setCustomError(input);
+//   // подсветка input invalid
+//   accentInputInvalid(form, input);
+//   // показать ошибки в контейнере под полем
+//   showFieldError(input);
+//   // включить или отключить кнопку отправки формы
+//   setSubmitButtonState(form);
+// }
 
-// Функция кастомного текста ошибок
-function setCustomError(input) {
-  // создаем переменную проверки валидности
-  const validity = input.validity;
+// // Функция кастомного текста ошибок
+// function setCustomError(input) {
+//   // создаем переменную проверки валидности
+//   const validity = input.validity;
 
 
-  // Устанавливаем кастомную ошибку
-  input.setCustomValidity("");
+//   // Устанавливаем кастомную ошибку
+//   input.setCustomValidity("");
 
-  if (validity.tooShort) {
-    input.setCustomValidity("Ввод слишком короткий");
-  }
+//   if (validity.tooShort) {
+//     input.setCustomValidity("Ввод слишком короткий");
+//   }
 
-  if (validity.tooLong) {
-    input.setCustomValidity("Ввод слишком длинный");
-  }
+//   if (validity.tooLong) {
+//     input.setCustomValidity("Ввод слишком длинный");
+//   }
 
-  if (validity.typeMismatch && input.type === "url") {
-    input.setCustomValidity("Введите ссылку на картинку");
-  }
+//   if (validity.typeMismatch && input.type === "url") {
+//     input.setCustomValidity("Введите ссылку на картинку");
+//   }
 
-  if (validity.valueMissing) {
-    input.setCustomValidity("пустое поле не допускается");
-  }
-}
+//   if (validity.valueMissing) {
+//     input.setCustomValidity("пустое поле не допускается");
+//   }
+// }
 
-// функция показа ошибки
-function showFieldError(input) {
-  const span = input.nextElementSibling;
-  span.textContent = input.validationMessage;
-}
+// // функция показа ошибки
+// function showFieldError(input) {
+//   const span = input.nextElementSibling;
+//   span.textContent = input.validationMessage;
+// }
 
-// Функция подсветки input invalid
-function accentInputInvalid(form, input) {
-  const isValid = form.checkValidity();
+// // Функция подсветки input invalid
+// function accentInputInvalid(form, input) {
+//   const isValid = form.checkValidity();
 
-  if (isValid) {
-    input.classList.remove(selectors.popupFieldError);
-  } else {
-    input.classList.add(selectors.popupFieldError);
-  }
-}
+//   if (isValid) {
+//     input.classList.remove(selectors.popupFieldError);
+//   } else {
+//     input.classList.add(selectors.popupFieldError);
+//   }
+// }
 
-// функция включения кнопки отправки
-function setSubmitButtonState(form) {
-  const button = form.querySelector(selectors.popupSubmitButton);
+// // функция включения кнопки отправки
+// function setSubmitButtonState(form) {
+//   const button = form.querySelector(selectors.popupSubmitButton);
 
-  const isValid = form.checkValidity();
+//   const isValid = form.checkValidity();
 
-  if (isValid) {
-    button.removeAttribute("disabled");
-    button.classList.remove(selectors.popupSubmitButtonNotActive);
-    //button.classList.add(selectors.popupSubmitButtonActive);
-  } else {
-    button.setAttribute("disabled", true);
-    //button.classList.remove(selectors.popupSubmitButtonActive);
-    button.classList.add(selectors.popupSubmitButtonNotActive);
-  }
-}
+//   if (isValid) {
+//     button.removeAttribute("disabled");
+//     button.classList.remove(selectors.popupSubmitButtonNotActive);
+//     //button.classList.add(selectors.popupSubmitButtonActive);
+//   } else {
+//     button.setAttribute("disabled", true);
+//     //button.classList.remove(selectors.popupSubmitButtonActive);
+//     button.classList.add(selectors.popupSubmitButtonNotActive);
+//   }
+// }
 
 
 
 // Функция открытия popup add image
 function openPopupAddImage() {
   openPopup(popupAddImage);
-  setSubmitButtonState(popupFormAddImage);
-  enableValidation(popupFormAddImage);
+  // setSubmitButtonState(popupFormAddImage);
+  // enableValidation(popupFormAddImage);
 }
 
 // Функция закрытия popup add image

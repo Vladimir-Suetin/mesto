@@ -26,6 +26,8 @@ const selectors = {
   popupForm: ".popup__container",
   popupFormAddImage: ".popup__container_add-image",
   popupFormEditProfile: ".popup__container_edit-profile",
+  popupFieldError: "popup__field_error",
+  popupSubmitButton: ".popup__submit-button",
 };
 
 // Поиск элементов в документе
@@ -96,6 +98,13 @@ function closePopupByClickOverlay(event) {
   }
 }
 
+// Функция закрытия попап при нажатии escape
+function closePopupByPressEsc(event) {
+  if (event.key === "Escape") {
+    closePopup(event.currentTarget);
+  }
+}
+
 // Функция открытия popup profile
 function openPopupProfile() {
   openPopup(popupEditProfile);
@@ -111,7 +120,7 @@ function closePopupProfile() {
 // Обработчик «отправки» формы редактирования профиля, хотя пока
 // она никуда отправляться не будет
 function handleFormSubmirProfile(evt) {
-    evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
+  evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
 
   // Вставляем новые значения с помощью textContent
   profileName.textContent = popupProfileNameInput.value;
@@ -206,9 +215,10 @@ function handleAddLikePhoto(evt) {
 function sortPopup() {
   const popupList = document.querySelectorAll(selectors.popup);
   popupList.forEach((popup) => {
-    popup.addEventListener("mousedown", closePopupByClickOverlay);
     const buttonClosePopup = popup.querySelector(selectors.popupCloseButton);
     buttonClosePopup.addEventListener("click", () => closePopup(popup));
+    popup.addEventListener("keydown", closePopupByPressEsc);
+    popup.addEventListener("mousedown", closePopupByClickOverlay);
   });
 }
 

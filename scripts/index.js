@@ -84,11 +84,13 @@ const initialCards = [
 // Функция открытия popup
 function openPopup(item) {
   item.classList.add("popup_opened");
+  closePopupByPressEsc(item);
 }
 
 // Функция закрытия popup
 function closePopup(item) {
   item.classList.remove("popup_opened");
+  document.removeEventListener("keydown", closePopupByPressEsc);
 }
 
 // Функция закрытия popup при нажатии на внешнюю область
@@ -99,10 +101,12 @@ function closePopupByClickOverlay(event) {
 }
 
 // Функция закрытия попап при нажатии escape
-function closePopupByPressEsc(event) {
-  if (event.key === "Escape") {
-    closePopup(event.currentTarget);
-  }
+function closePopupByPressEsc(popup) {
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      closePopup(popup);
+    }
+  });
 }
 
 // Функция открытия popup profile
@@ -217,7 +221,6 @@ function sortPopup() {
   popupList.forEach((popup) => {
     const buttonClosePopup = popup.querySelector(selectors.popupCloseButton);
     buttonClosePopup.addEventListener("click", () => closePopup(popup));
-    popup.addEventListener("keydown", closePopupByPressEsc);
     popup.addEventListener("mousedown", closePopupByClickOverlay);
   });
 }

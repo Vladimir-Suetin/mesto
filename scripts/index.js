@@ -90,7 +90,6 @@ function openPopup(item) {
 // Функция закрытия popup
 function closePopup(item) {
   item.classList.remove("popup_opened");
-  document.removeEventListener("keydown", closePopupByPressEsc);
 }
 
 // Функция закрытия popup при нажатии на внешнюю область

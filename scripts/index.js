@@ -84,28 +84,28 @@ const initialCards = [
 // Функция открытия popup
 function openPopup(item) {
   item.classList.add("popup_opened");
-  closePopupByPressEsc(item);
+  document.addEventListener("keydown", closeByEscape);
 }
 
 // Функция закрытия popup
 function closePopup(item) {
   item.classList.remove("popup_opened");
+  document.removeEventListener("keydown", closeByEscape);
 }
 
 // Функция закрытия popup при нажатии на внешнюю область
-function closePopupByClickOverlay(event) {
-  if (event.target === event.currentTarget) {
-    closePopup(event.currentTarget);
+function closePopupByClickOverlay(evt) {
+  if (evt.target === evt.currentTarget) {
+    closePopup(evt.currentTarget);
   }
 }
 
 // Функция закрытия попап при нажатии escape
-function closePopupByPressEsc(popup) {
-  document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape") {
-      closePopup(popup);
-    }
-  });
+function closeByEscape(evt) {
+  if (evt.key === "Escape") {
+    const openedPopup = document.querySelector(".popup_opened");
+    closePopup(openedPopup);
+  }
 }
 
 // Функция открытия popup profile

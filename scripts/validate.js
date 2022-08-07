@@ -7,20 +7,29 @@ const selectorsValidation = {
   errorClass: "popup__error",
 };
 
-// Функция находит форму в документе и вешает слушатель на input
+// Функция находит форму в документе и вешает слушатели
 function enableValidation(config) {
   const form = document.querySelectorAll(config.formSelector);
   form.forEach((formElement) => {
-    formElement.addEventListener("input", (event) => handleFormInput(event));
+    formElement.addEventListener("input", (evt) => handleFormInput(evt));
+    formElement.addEventListener("submit", (evt) => handleFormSubmit(evt));
   });
 }
 
+function handleFormSubmit(evt) {
+  evt.preventDefault();
+
+  const form = evt.currentTarget;
+
+  setSubmitButtonState(form);
+}
+
 // Функция работы с input
-function handleFormInput(event) {
+function handleFormInput(evt) {
   // определить форму
-  const form = event.currentTarget;
+  const form = evt.currentTarget;
   // найдем активный инпут
-  const input = event.target;
+  const input = evt.target;
 
   //важен порядок вызова ошибок !!!
   // устанавливаем кастомный текст ошибок

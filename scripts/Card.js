@@ -27,8 +27,35 @@ const initialCards = [
 ];
 
 class Card {
-  constructor() {
-    
+  constructor(array, cardSelector) {
+    this._name = array.name;
+    this._link = array.link;
+    this._cardSelector = cardSelector;
+  }
+
+  _getTemplate() {
+    const getElementTemlate = document.querySelector(this._cardSelector).template.content.cloneNode(true);
+    return getElementTemlate;
+  }
+
+  generateCard() {
+    this._element = this._getTemplate();
+    this._title = this.element.querySelector(selectors.templateTitleImageCard);
+    this._link = this.element.querySelector(selectors.temlateLinkImageCard);
+    this._elementButtonRemove = this.element.querySelector(selectors.templateElementButtonRemove);
+    this._templateLikeButton = this.element.querySelector(selectors.templateLikeButton);
+
+    this._title.textContent = this._name;
+    this._link.src = this._link;
+    this._link.alt = this._name;
+
+    this._link.addEventListener("click", openPopupViewImage);
+
+    this._elementButtonRemove.addEventListener("click", handleRemoveElement);
+
+    this._templateLikeButton.addEventListener("click", handleAddLikePhoto);
+
+    return this._element;
   }
 }
 

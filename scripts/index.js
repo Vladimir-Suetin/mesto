@@ -13,10 +13,10 @@ const selectors = {
   popupImageNameInput: ".popup__name-image",
   popupImageLinkInput: ".popup__link-image",
   imageAddButton: ".profile__add-button",
-  template: ".template-list",
+  templateCard: ".template-list",
   templateElement: ".element",
   templateTitleImageCard: ".element__title",
-  temlateLinkImageCard: ".element__mask-group",
+  templateLinkImageCard: ".element__mask-group",
   templateElementButtonRemove: ".element__button-remove",
   templateLikeButton: ".element__like-button",
   popupViewImage: ".popup_view_image",
@@ -43,10 +43,10 @@ const popupAddImage = document.querySelector(selectors.popupAddImage);
 const imageAddButton = profile.querySelector(selectors.imageAddButton);
 const popupImageNameInput = popupAddImage.querySelector(selectors.popupImageNameInput);
 const popupImageLinkInput = popupAddImage.querySelector(selectors.popupImageLinkInput);
-const template = document.querySelector(selectors.template);
+const templateCard = document.querySelector(selectors.templateCard);
 const templateElement = document.querySelector(selectors.templateElement);
-const templateTitleImageCard = template.querySelector(selectors.templateTitleImageCard);
-const temlateLinkImageCard = template.querySelector(selectors.temlateLinkImageCard);
+const templateTitleImageCard = templateCard.querySelector(selectors.templateTitleImageCard);
+const templateLinkImageCard = templateCard.querySelector(selectors.templateLinkImageCard);
 const popupViewImage = document.querySelector(selectors.popupViewImage);
 const popupImage = popupViewImage.querySelector(selectors.popupImage);
 const popupImageName = popupViewImage.querySelector(selectors.popupImageName);
@@ -80,6 +80,11 @@ const initialCards = [
     link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg",
   },
 ];
+
+const proba = {
+  name: "Архыз",
+  link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg",
+};
 
 // Функция открытия popup
 function openPopup(item) {
@@ -158,33 +163,108 @@ function closePopupViewImage() {
 }
 
 // Функция перебирает клонирует массив и вставляет в разметку
-function cloneArrayPhotoCards() {
-  const array = initialCards.map((newArray) => getElement(newArray));
+// function cloneArrayPhotoCards() {
+//   const array = initialCards.map((newArray) => getElement(newArray));
 
-  listCardPhotoGrid.prepend(...array);
-}
+//   listCardPhotoGrid.prepend(...array);
+// }
 
 // Функция работы с элементами template photo cards
-function getElement(item) {
-  const getElementTemlate = template.content.cloneNode(true);
-  const title = getElementTemlate.querySelector(selectors.templateTitleImageCard);
-  const link = getElementTemlate.querySelector(selectors.temlateLinkImageCard);
-  const elementButtonRemove = getElementTemlate.querySelector(selectors.templateElementButtonRemove);
-  const templateLikeButton = getElementTemlate.querySelector(selectors.templateLikeButton);
+// function getElement(item) {
+//   const getElementTemplate = template.content.cloneNode(true);
+//   const title = getElementTemplate.querySelector(selectors.templateTitleImageCard);
+//   const link = getElementTemplate.querySelector(selectors.templateLinkImageCard);
+//   const elementButtonRemove = getElementTemplate.querySelector(selectors.templateElementButtonRemove);
+//   const templateLikeButton = getElementTemplate.querySelector(selectors.templateLikeButton);
 
-  title.textContent = item.name;
+//   title.textContent = item.name;
 
-  link.setAttribute("src", `${item.link}`);
-  link.setAttribute("alt", `${item.name}`);
+//   link.setAttribute("src", `${item.link}`);
+//   link.setAttribute("alt", `${item.name}`);
 
-  link.addEventListener("click", () => openPopupViewImage(item));
+//   link.addEventListener("click", () => openPopupViewImage(item));
 
-  elementButtonRemove.addEventListener("click", handleRemoveElement);
+//   elementButtonRemove.addEventListener("click", handleRemoveElement);
 
-  templateLikeButton.addEventListener("click", handleAddLikePhoto);
+//   templateLikeButton.addEventListener("click", handleAddLikePhoto);
 
-  return getElementTemlate;
+//   return getElementTemplate;
+// }
+
+class Card {
+  _link;
+  _name;
+  _template;
+
+  constructor(arrayCard, template) {
+    this._link = arrayCard.link;
+    this._name = arrayCard.name;
+    this._template = template;
+  }
+
+  _delClickHandler() {
+    this._elementTemplate.remove();
+  }
+
+  _likeClickHandler() {
+    if (this._likeButton.classList.contains("element__like-button_active")) {
+      this._likeButton.classList.remove("element__like-button_active");
+    } else {
+      this._likeButton.classList.add("element__like-button_active");
+    }
+  }
+
+  getElementTemplate() {
+    this._getElementTemplate = this._template.content.cloneNode(true);
+    return this._getElementTemplate;
+  }
+
+  generateCard() {
+    this._elementTemplate = this._getElementTemplate.querySelector(selectors.templateElement);
+    this._title = this._elementTemplate.querySelector(selectors.templateTitleImageCard);
+    this._image = this._elementTemplate.querySelector(selectors.templateLinkImageCard);
+    this._removeButton = this._elementTemplate.querySelector(selectors.templateElementButtonRemove);
+    this._likeButton = this._elementTemplate.querySelector(selectors.templateLikeButton);
+
+    this._title.textContent = this._name;
+
+    this._image.src = this._link;
+    this._image.alt = this._name;
+
+    this._setEventListeners();
+
+    return this._elementTemplate;
+  }
+
+  _setEventListeners() {
+    this._removeButton.addEventListener("click", () => {
+      this._delClickHandler();
+    });
+
+    this._image.addEventListener("click", () => {
+      openPopupViewImage(this._image);
+    });
+
+    this._likeButton.addEventListener("click", () => {
+      this._likeClickHandler();
+    });
+  }
 }
+
+// class CreateCards {
+//   constructor(card) {
+//     this._card = card;
+//   }
+
+// _renderCards() {
+// return card.map(array => new Card(array))
+// }
+
+// }
+
+const card = new Card(proba, templateCard);
+console.log(card.getElementTemplate());
+listCardPhotoGrid.prepend(card.generateCard());
 
 // Функция добавления новой карточки
 function handleAddNewImage(evt) {
@@ -203,16 +283,16 @@ function handleAddNewImage(evt) {
 }
 
 // Функция удаления карточки
-function handleRemoveElement(evt) {
-  const element = evt.target.closest(selectors.templateElement);
-  element.remove();
-}
+// function handleRemoveElement(evt) {
+//   const element = evt.target.closest(selectors.templateElement);
+//   element.remove();
+// }
 
 // Функция like
-function handleAddLikePhoto(evt) {
-  const element = evt.target.closest(selectors.templateLikeButton);
-  element.classList.toggle("element__like-button_active");
-}
+// function handleAddLikePhoto(evt) {
+//   const element = evt.target.closest(selectors.templateLikeButton);
+//   element.classList.toggle("element__like-button_active");
+// }
 
 // Функция обработки всех popup, вызова функций анимации и закрития при нажатии на внешнюю область
 function sortPopup() {
@@ -237,7 +317,7 @@ profileEditButton.addEventListener("click", openPopupProfile);
 imageAddButton.addEventListener("click", openPopupAddImage);
 
 // Вызывает функцию работы с массивом
-cloneArrayPhotoCards();
+// cloneArrayPhotoCards();
 
 // Вызывает функцию обработки popup
 sortPopup();

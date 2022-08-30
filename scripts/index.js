@@ -189,7 +189,7 @@ function closePopupViewImage() {
 //   templateLikeButton.addEventListener("click", handleAddLikePhoto);
 
 //   return getElementTemplate;
-// }
+//  }
 
 class Card {
   _link;

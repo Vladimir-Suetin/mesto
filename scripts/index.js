@@ -151,8 +151,8 @@ function closePopupAddImage() {
 function openPopupViewImage(item) {
   openPopup(popupViewImage);
 
-  popupImage.src = item.link;
-  popupImage.alt = item.name;
+  popupImage.src = item.src;
+  popupImage.alt = item.alt;
 
   popupImageName.textContent = popupImage.alt;
 }
@@ -196,6 +196,14 @@ class Card {
   _name;
   _template;
 
+  _getElementTemplate;
+  _elementTemplate;
+  _title;
+  _image;
+  _removeButton;
+  _likeButton;
+
+
   constructor(arrayCard, template) {
     this._link = arrayCard.link;
     this._name = arrayCard.name;
@@ -220,7 +228,7 @@ class Card {
   }
 
   generateCard() {
-    this._elementTemplate = this._getElementTemplate.querySelector(selectors.templateElement);
+    this._elementTemplate = this.getElementTemplate().querySelector(selectors.templateElement);
     this._title = this._elementTemplate.querySelector(selectors.templateTitleImageCard);
     this._image = this._elementTemplate.querySelector(selectors.templateLinkImageCard);
     this._removeButton = this._elementTemplate.querySelector(selectors.templateElementButtonRemove);
@@ -263,7 +271,6 @@ class Card {
 // }
 
 const card = new Card(proba, templateCard);
-console.log(card.getElementTemplate());
 listCardPhotoGrid.prepend(card.generateCard());
 
 // Функция добавления новой карточки

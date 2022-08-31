@@ -196,17 +196,16 @@ class Card {
   _name;
   _template;
 
-  _getElementTemplate;
+  _cloneElementTemplate;
   _elementTemplate;
   _title;
   _image;
   _removeButton;
   _likeButton;
 
-
-  constructor(arrayCard, template) {
-    this._link = arrayCard.link;
-    this._name = arrayCard.name;
+  constructor(card, template) {
+    this._link = card.link;
+    this._name = card.name;
     this._template = template;
   }
 
@@ -222,13 +221,13 @@ class Card {
     }
   }
 
-  getElementTemplate() {
-    this._getElementTemplate = this._template.content.cloneNode(true);
-    return this._getElementTemplate;
+  cloneElementTemplate() {
+    this._cloneElementTemplate = this._template.content.cloneNode(true);
+    return this._cloneElementTemplate;
   }
 
   generateCard() {
-    this._elementTemplate = this.getElementTemplate().querySelector(selectors.templateElement);
+    this._elementTemplate = this.cloneElementTemplate().querySelector(selectors.templateElement);
     this._title = this._elementTemplate.querySelector(selectors.templateTitleImageCard);
     this._image = this._elementTemplate.querySelector(selectors.templateLinkImageCard);
     this._removeButton = this._elementTemplate.querySelector(selectors.templateElementButtonRemove);
@@ -259,6 +258,27 @@ class Card {
   }
 }
 
+class ListCards {
+  constructor(data, itemTemlate, domElement) {
+    this._data = data;
+    this._itemTemplate = itemTemlate;
+    this._domElement = domElement;
+
+  }
+
+  // getCards() {
+  //   this._data.forEach((item) => {
+  //     generateCard(item);
+  //   });
+  // }
+
+  setCards() {
+    const card = new Card(this._data, this._itemTemplate);
+    const result = card.generateCard();
+    this._domElement.prepend(result);
+  }
+}
+
 // class CreateCards {
 //   constructor(card) {
 //     this._card = card;
@@ -270,19 +290,22 @@ class Card {
 
 // }
 
-const card = new Card(proba, templateCard);
-listCardPhotoGrid.prepend(card.generateCard());
+// const card = new Card(proba, templateCard);
+// listCardPhotoGrid.prepend(card.generateCard());
+
+const cards = new ListCards(proba, templateCard, listCardPhotoGrid);
+cards.setCards();
 
 // Функция добавления новой карточки
 function handleAddNewImage(evt) {
   evt.preventDefault();
 
-  const nameValue = popupImageNameInput.value;
-  const linkValue = popupImageLinkInput.value;
+   const nameValue = popupImageNameInput.value;
+   const linkValue = popupImageLinkInput.value;
 
-  const element = getElement({ name: nameValue, link: linkValue });
+   const element = getElement({ name: nameValue, link: linkValue });
 
-  listCardPhotoGrid.prepend(element);
+   listCardPhotoGrid.prepend(element);
 
   popupFormAddImage.reset();
 

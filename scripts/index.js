@@ -1,4 +1,5 @@
-import Card from './Card.js'
+import Card from './Card.js';
+import CardsList from './CardsList.js';
 import {selectors, profile, profileName, profilejob, profileEditButton, popupEditProfile,
   popupProfileNameInput, popupProfileJobInput, listCardPhotoGrid, popupAddImage, imageAddButton,
   popupImageNameInput, popupImageLinkInput, templateCard, templateCardElement, templateTitleImageCard,
@@ -174,9 +175,17 @@ function closePopupViewImage() {
 
 // }
 
- const card = new Card(proba, templateCard, selectors);
- const generateCard = card.generateCard();
- listCardPhotoGrid.prepend(generateCard);
+
+
+
+const cards = new CardsList(initialCards, listCardPhotoGrid, templateCard, selectors);
+initialCards.forEach((element) => {
+  cards.addCard(element);
+})
+
+//  const card = new Card(trtrt, templateCard, selectors);
+//  const generateCard = card.generateCard();
+//  listCardPhotoGrid.prepend(generateCard);
 
 
 

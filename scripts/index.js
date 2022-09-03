@@ -1,57 +1,8 @@
-// Cелекторы
-const selectors = {
-  profile: ".profile",
-  profileName: ".profile__name",
-  profilejob: ".profile__job",
-  profileEditButton: ".profile__edit-button",
-  popupEditProfile: ".popup_edit_profile",
-  popupProfileNameInput: ".popup__name_value",
-  popupProfileJobInput: ".popup__job_value",
-  popupCloseButton: ".popup__close-icon",
-  listCardPhotoGrid: ".cards__photo-grid",
-  popupAddImage: ".popup_add_image",
-  popupImageNameInput: ".popup__name-image",
-  popupImageLinkInput: ".popup__link-image",
-  imageAddButton: ".profile__add-button",
-  templateCard: ".template-list",
-  templateElement: ".element",
-  templateTitleImageCard: ".element__title",
-  templateLinkImageCard: ".element__mask-group",
-  templateElementButtonRemove: ".element__button-remove",
-  templateLikeButton: ".element__like-button",
-  popupViewImage: ".popup_view_image",
-  popupImage: ".popup__image",
-  popupImageName: ".popup__image-title",
-  popup: ".popup",
-  popupForm: ".popup__container",
-  popupFormAddImage: ".popup__container_add-image",
-  popupFormEditProfile: ".popup__container_edit-profile",
-  popupFieldError: "popup__field_error",
-  popupSubmitButton: ".popup__submit-button",
-};
-
-// Поиск элементов в документе
-const profile = document.querySelector(selectors.profile);
-const profileName = profile.querySelector(selectors.profileName);
-const profilejob = profile.querySelector(selectors.profilejob);
-const profileEditButton = profile.querySelector(selectors.profileEditButton);
-const popupEditProfile = document.querySelector(selectors.popupEditProfile);
-const popupProfileNameInput = popupEditProfile.querySelector(selectors.popupProfileNameInput);
-const popupProfileJobInput = popupEditProfile.querySelector(selectors.popupProfileJobInput);
-const listCardPhotoGrid = document.querySelector(selectors.listCardPhotoGrid);
-const popupAddImage = document.querySelector(selectors.popupAddImage);
-const imageAddButton = profile.querySelector(selectors.imageAddButton);
-const popupImageNameInput = popupAddImage.querySelector(selectors.popupImageNameInput);
-const popupImageLinkInput = popupAddImage.querySelector(selectors.popupImageLinkInput);
-const templateCard = document.querySelector(selectors.templateCard);
-const templateElement = document.querySelector(selectors.templateElement);
-const templateTitleImageCard = templateCard.querySelector(selectors.templateTitleImageCard);
-const templateLinkImageCard = templateCard.querySelector(selectors.templateLinkImageCard);
-const popupViewImage = document.querySelector(selectors.popupViewImage);
-const popupImage = popupViewImage.querySelector(selectors.popupImage);
-const popupImageName = popupViewImage.querySelector(selectors.popupImageName);
-const popupFormAddImage = popupAddImage.querySelector(selectors.popupFormAddImage);
-const popupFormEditProfile = popupEditProfile.querySelector(selectors.popupFormEditProfile);
+import Card from './Card.js'
+import {selectors, profile, profileName, profilejob, profileEditButton, popupEditProfile,
+  popupProfileNameInput, popupProfileJobInput, listCardPhotoGrid, popupAddImage, imageAddButton,
+  popupImageNameInput, popupImageLinkInput, templateCard, templateCardElement, templateTitleImageCard,
+  templateLinkImageCard, popupViewImage, popupFormAddImage, popupFormEditProfile} from './constants.js'
 
 // Массив с карточками
 const initialCards = [
@@ -82,7 +33,7 @@ const initialCards = [
 ];
 
 const proba = {
-  name: "Архыз",
+  name: "АрAPAP",
   link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg",
 };
 
@@ -191,93 +142,26 @@ function closePopupViewImage() {
 //   return getElementTemplate;
 //  }
 
-class Card {
-  _link;
-  _name;
-  _template;
+// class ListCards {
+//   constructor(data, itemTemlate, domElement) {
+//     this._data = data;
+//     this._itemTemplate = itemTemlate;
+//     this._domElement = domElement;
 
-  _cloneElementTemplate;
-  _elementTemplate;
-  _title;
-  _image;
-  _removeButton;
-  _likeButton;
+//   }
 
-  constructor(card, template) {
-    this._link = card.link;
-    this._name = card.name;
-    this._template = template;
-  }
+//   // getCards() {
+//   //   this._data.forEach((item) => {
+//   //     generateCard(item);
+//   //   });
+//   // }
 
-  _delClickHandler() {
-    this._elementTemplate.remove();
-  }
-
-  _likeClickHandler() {
-    if (this._likeButton.classList.contains("element__like-button_active")) {
-      this._likeButton.classList.remove("element__like-button_active");
-    } else {
-      this._likeButton.classList.add("element__like-button_active");
-    }
-  }
-
-  cloneElementTemplate() {
-    this._cloneElementTemplate = this._template.content.cloneNode(true);
-    return this._cloneElementTemplate;
-  }
-
-  generateCard() {
-    this._elementTemplate = this.cloneElementTemplate().querySelector(selectors.templateElement);
-    this._title = this._elementTemplate.querySelector(selectors.templateTitleImageCard);
-    this._image = this._elementTemplate.querySelector(selectors.templateLinkImageCard);
-    this._removeButton = this._elementTemplate.querySelector(selectors.templateElementButtonRemove);
-    this._likeButton = this._elementTemplate.querySelector(selectors.templateLikeButton);
-
-    this._title.textContent = this._name;
-
-    this._image.src = this._link;
-    this._image.alt = this._name;
-
-    this._setEventListeners();
-
-    return this._elementTemplate;
-  }
-
-  _setEventListeners() {
-    this._removeButton.addEventListener("click", () => {
-      this._delClickHandler();
-    });
-
-    this._image.addEventListener("click", () => {
-      openPopupViewImage(this._image);
-    });
-
-    this._likeButton.addEventListener("click", () => {
-      this._likeClickHandler();
-    });
-  }
-}
-
-class ListCards {
-  constructor(data, itemTemlate, domElement) {
-    this._data = data;
-    this._itemTemplate = itemTemlate;
-    this._domElement = domElement;
-
-  }
-
-  // getCards() {
-  //   this._data.forEach((item) => {
-  //     generateCard(item);
-  //   });
-  // }
-
-  setCards() {
-    const card = new Card(this._data, this._itemTemplate);
-    const result = card.generateCard();
-    this._domElement.prepend(result);
-  }
-}
+//   setCards() {
+//     const card = new Card(this._data, this._itemTemplate);
+//     const result = card.generateCard();
+//     this._domElement.prepend(result);
+//   }
+// }
 
 // class CreateCards {
 //   constructor(card) {
@@ -290,11 +174,11 @@ class ListCards {
 
 // }
 
-// const card = new Card(proba, templateCard);
-// listCardPhotoGrid.prepend(card.generateCard());
+ const card = new Card(proba, templateCard, selectors);
+ const generateCard = card.generateCard();
+ listCardPhotoGrid.prepend(generateCard);
 
-const cards = new ListCards(proba, templateCard, listCardPhotoGrid);
-cards.setCards();
+
 
 // Функция добавления новой карточки
 function handleAddNewImage(evt) {

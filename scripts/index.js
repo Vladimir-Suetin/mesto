@@ -179,9 +179,10 @@ function closePopupViewImage() {
 
 
 const cards = new CardsList(initialCards, listCardPhotoGrid, templateCard, selectors);
-initialCards.forEach((element) => {
-  cards.addCard(element);
-})
+cards.sortCard();
+// initialCards.forEach((element) => {
+//   cards.addCard(element);
+// })
 
 //  const card = new Card(trtrt, templateCard, selectors);
 //  const generateCard = card.generateCard();

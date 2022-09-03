@@ -7,16 +7,11 @@ export default class CardsList {
     this._selectors = selectors;
   }
 
-  // sortCard() {
-  //  this._card.forEach((element) => {
-  //     renderCard(element)
-  //  });
-
-  // renderCard() {
-  //   this._card.forEach((element) => {
-  //     this.addCard(element);
-  //   });
-  // }
+  sortCard() {
+    this._card.forEach((element) => {
+      this.addCard(element);
+    });
+  }
 
   addCard(element) {
     const item = new Card(element, this._template, this._selectors);

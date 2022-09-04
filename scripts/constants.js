@@ -56,4 +56,4 @@ const popupFormEditProfile = popupEditProfile.querySelector(selectors.popupFormE
 export {selectors, profile, profileName, profilejob, profileEditButton, popupEditProfile,
   popupProfileNameInput, popupProfileJobInput, listCardPhotoGrid, popupAddImage, imageAddButton,
   popupImageNameInput, popupImageLinkInput, templateCard, templateCardElement, templateTitleImageCard,
-  templateLinkImageCard, popupViewImage, popupFormAddImage, popupFormEditProfile}
+  templateLinkImageCard, popupViewImage, popupImage, popupImageName, popupFormAddImage, popupFormEditProfile}

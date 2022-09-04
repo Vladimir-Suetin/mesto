@@ -3,7 +3,8 @@ import CardsList from './CardsList.js';
 import {selectors, profile, profileName, profilejob, profileEditButton, popupEditProfile,
   popupProfileNameInput, popupProfileJobInput, listCardPhotoGrid, popupAddImage, imageAddButton,
   popupImageNameInput, popupImageLinkInput, templateCard, templateCardElement, templateTitleImageCard,
-  templateLinkImageCard, popupViewImage, popupFormAddImage, popupFormEditProfile} from './constants.js'
+  templateLinkImageCard, popupViewImage, popupImage, popupImageName, popupFormAddImage, 
+  popupFormEditProfile} from './constants.js'
 
 // Массив с карточками
 const initialCards = [
@@ -33,10 +34,8 @@ const initialCards = [
   },
 ];
 
-const proba = {
-  name: "АрAPAP",
-  link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg",
-};
+const cards = new CardsList(initialCards, listCardPhotoGrid, templateCard, selectors);
+cards.sortCard();
 
 // Функция открытия popup
 function openPopup(item) {
@@ -178,8 +177,7 @@ function closePopupViewImage() {
 
 
 
-const cards = new CardsList(initialCards, listCardPhotoGrid, templateCard, selectors);
-cards.sortCard();
+
 // initialCards.forEach((element) => {
 //   cards.addCard(element);
 // })

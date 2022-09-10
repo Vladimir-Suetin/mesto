@@ -7,13 +7,13 @@ export default class CardsList {
     this._selectors = selectors;
   }
 
-  sortCard() {
+  sortCard = () => {
     this._card.forEach((element) => {
       this.addCard(element);
     });
   }
 
-  addCard(element) {
+  addCard = (element) => {
     const item = new Card(element, this._template, this._selectors);
     this._list.prepend(item.generateCard());
   }

@@ -10,12 +10,13 @@ export default class CardForm {
     this._form = formAddImage;
   }
 
-  submitHandler(evt) {
+  _submitHandler = (evt) => {
     evt.preventDefault();
+
     this.getElement();
   }
 
-  getElement() {
+  getElement = () => {
     this._nameValue = this._nameInput.value;
     this._linkValue = this._linkInput.value;
     this._object = { name: this._nameValue, link: this._linkValue };
@@ -25,7 +26,7 @@ export default class CardForm {
     this._list.prepend(this.element.generateCard());
   }
 
-  eventListener() {
-    this._form.addEventListener("submit", this.submitHandler);
+  eventListener = () => {
+    this._form.addEventListener("submit", this._submitHandler);
   }
 }

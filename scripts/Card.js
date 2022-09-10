@@ -6,11 +6,11 @@ export default class Card {
     this._selectors = selectors;
   }
 
-  _delClickHandler() {
+  _delClickHandler = () => {
     this._elementTemplate.remove();
   }
 
-  _likeClickHandler() {
+  _likeClickHandler = () => {
     if (this._likeButton.classList.contains("element__like-button_active")) {
       this._likeButton.classList.remove("element__like-button_active");
     } else {
@@ -18,13 +18,13 @@ export default class Card {
     }
   }
 
-  cloneElementTemplate() {
+  _cloneElement = () => {
     this._cloneElementTemplate = this._template.content.cloneNode(true);
     return this._cloneElementTemplate;
   }
 
-  generateCard() {
-    this._elementTemplate = this.cloneElementTemplate().querySelector(this._selectors.templateCardElement);
+  generateCard = () => {
+    this._elementTemplate = this._cloneElement().querySelector(this._selectors.templateCardElement);
     this._title = this._elementTemplate.querySelector(this._selectors.templateTitleImageCard);
     this._image = this._elementTemplate.querySelector(this._selectors.templateLinkImageCard);
     this._removeButton = this._elementTemplate.querySelector(this._selectors.templateElementButtonRemove);
@@ -40,7 +40,7 @@ export default class Card {
     return this._elementTemplate;
   }
 
-  _setEventListeners() {
+  _setEventListeners = () => {
     this._removeButton.addEventListener("click", () => {
       this._delClickHandler();
     });

@@ -1,15 +1,4 @@
 export default class Card {
-  _link;
-  _name;
-  _template;
-
-  _cloneElementTemplate;
-  _elementTemplate;
-  _title;
-  _image;
-  _removeButton;
-  _likeButton;
-
   constructor(card, template, selectors) {
     this._link = card.link;
     this._name = card.name;

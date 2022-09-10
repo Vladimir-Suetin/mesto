@@ -1,4 +1,5 @@
 import Card from './Card.js';
+import CardForm from './CardForm.js';
 import CardsList from './CardsList.js';
 import {selectors, profile, profileName, profilejob, profileEditButton, popupEditProfile,
   popupProfileNameInput, popupProfileJobInput, listCardPhotoGrid, popupAddImage, imageAddButton,
@@ -36,6 +37,9 @@ const initialCards = [
 
 const cards = new CardsList(initialCards, listCardPhotoGrid, templateCard, selectors);
 cards.sortCard();
+
+const cardForm = new CardForm(selectors, templateCard, popupImageNameInput, popupImageLinkInput, listCardPhotoGrid, popupFormAddImage);
+
 
 // Функция открытия popup
 function openPopup(item) {
@@ -189,20 +193,20 @@ function closePopupViewImage() {
 
 
 // Функция добавления новой карточки
-function handleAddNewImage(evt) {
-  evt.preventDefault();
+// function handleAddNewImage(evt) {
+//   evt.preventDefault();
 
-   const nameValue = popupImageNameInput.value;
-   const linkValue = popupImageLinkInput.value;
+//    const nameValue = popupImageNameInput.value;
+//    const linkValue = popupImageLinkInput.value;
 
-   const element = getElement({ name: nameValue, link: linkValue });
+//    const element = getElement({ name: nameValue, link: linkValue });
 
-   listCardPhotoGrid.prepend(element);
+//    listCardPhotoGrid.prepend(element);
 
-  popupFormAddImage.reset();
+//   popupFormAddImage.reset();
 
-  closePopupAddImage();
-}
+//   closePopupAddImage();
+// }
 
 // Функция удаления карточки
 // function handleRemoveElement(evt) {
@@ -227,7 +231,7 @@ function sortPopup() {
 }
 
 // Вызывает функцию добавления карточки
-popupFormAddImage.addEventListener("submit", handleAddNewImage);
+// popupFormAddImage.addEventListener("submit", handleAddNewImage);
 
 // Вызывает функцию редактирования popup
 popupFormEditProfile.addEventListener("submit", handleFormSubmirProfile);
@@ -243,3 +247,5 @@ imageAddButton.addEventListener("click", openPopupAddImage);
 
 // Вызывает функцию обработки popup
 sortPopup();
+
+cardForm.eventListener();

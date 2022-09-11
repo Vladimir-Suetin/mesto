@@ -28,6 +28,10 @@ const selectors = {
   popupFormEditProfile: ".popup__container_edit-profile",
   popupFieldError: "popup__field_error",
   popupSubmitButton: ".popup__submit-button",
+  inputSelector: ".popup__field",
+  inactiveButtonClass: "popup__submit-button_disabled",
+  inputErrorClass: "popup__field_type_error",
+  errorClass: "popup__error",
 };
 
 // Поиск элементов в документе
@@ -81,8 +85,28 @@ const initialCards = [
   },
 ];
 
-export {selectors, profile, profileName, profilejob, profileEditButton, popupEditProfile,
-  popupProfileNameInput, popupProfileJobInput, listCardPhotoGrid, popupAddImage, imageAddButton,
-  popupImageNameInput, popupImageLinkInput, templateCard, templateCardElement, templateTitleImageCard,
-  templateLinkImageCard, popupViewImage, popupImage, popupImageName, popupFormAddImage, 
-  initialCards, popupFormEditProfile}
+export {
+  selectors,
+  profile,
+  profileName,
+  profilejob,
+  profileEditButton,
+  popupEditProfile,
+  popupProfileNameInput,
+  popupProfileJobInput,
+  listCardPhotoGrid,
+  popupAddImage,
+  imageAddButton,
+  popupImageNameInput,
+  popupImageLinkInput,
+  templateCard,
+  templateCardElement,
+  templateTitleImageCard,
+  templateLinkImageCard,
+  popupViewImage,
+  popupImage,
+  popupImageName,
+  popupFormAddImage,
+  initialCards,
+  popupFormEditProfile,
+};

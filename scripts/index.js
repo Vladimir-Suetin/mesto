@@ -1,5 +1,6 @@
 import CardForm from "./CardForm.js";
 import CardsList from "./CardsList.js";
+import FormValidator from "./FormValidator.js";
 import {
   selectors,
   profile,
@@ -26,7 +27,7 @@ import {
   initialCards,
 } from "./constants.js";
 
-const cards = new CardsList(initialCards, listCardPhotoGrid, templateCard, selectors);
+const cards = new CardsList(initialCards, listCardPhotoGrid, templateCard, selectors, openPopupViewImage);
 
 const cardForm = new CardForm(
   selectors,
@@ -36,8 +37,10 @@ const cardForm = new CardForm(
   listCardPhotoGrid,
   popupFormAddImage,
   closePopupAddImage,
-  getTemplateImage,
+  openPopupViewImage
 );
+
+const formValidator = new FormValidator(selectors);
 
 // Функция открытия popup
 function openPopup(item) {
@@ -111,15 +114,15 @@ function openPopupViewImage(element) {
 }
 
 // Функция обработки нажатия для просмотра изображения
-function getTemplateImage() {
-  const images = document.querySelectorAll(selectors.templateLinkImageCard);
+// function getTemplateImage() {
+//   const images = document.querySelectorAll(selectors.templateLinkImageCard);
 
-  images.forEach((element) => {
-    element.addEventListener("click", (evt) => {
-      openPopupViewImage(evt.currentTarget);
-    });
-  });
-}
+//   images.forEach((element) => {
+//     element.addEventListener("click", (evt) => {
+//       openPopupViewImage(evt.currentTarget);
+//     });
+//   });
+// }
 
 // Функция обработки всех popup, вызова функций анимации и закрытия при нажатии на внешнюю область
 function sortPopup() {
@@ -130,7 +133,6 @@ function sortPopup() {
     popup.addEventListener("mousedown", closePopupByClickOverlay);
   });
 }
-
 
 // Вызывает функцию редактирования popup
 popupFormEditProfile.addEventListener("submit", handleFormSubmirProfile);
@@ -151,4 +153,7 @@ cards.sortCard();
 cardForm.eventListener();
 
 // Вызывает функцию обработчика view image popup
-getTemplateImage();
+// getTemplateImage();
+
+// Вызывает метод валидации форм
+formValidator.enableValidation();

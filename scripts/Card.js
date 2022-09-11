@@ -1,14 +1,27 @@
 export default class Card {
-  constructor(card, template, selectors) {
+  _link;
+  _name;
+  _template;
+  _selectors;
+  _openPopupViewImage;
+  _cloneElementTemplate;
+  _elementTemplate;
+  _title;
+  _image;
+  _removeButton;
+  _likeButton;
+
+  constructor(card, template, selectors, openPopupViewImage) {
     this._link = card.link;
     this._name = card.name;
     this._template = template;
     this._selectors = selectors;
+    this._openPopupViewImage = openPopupViewImage;
   }
 
   _delClickHandler = () => {
     this._elementTemplate.remove();
-  }
+  };
 
   _likeClickHandler = () => {
     if (this._likeButton.classList.contains("element__like-button_active")) {
@@ -16,12 +29,12 @@ export default class Card {
     } else {
       this._likeButton.classList.add("element__like-button_active");
     }
-  }
+  };
 
   _cloneElement = () => {
     this._cloneElementTemplate = this._template.content.cloneNode(true);
     return this._cloneElementTemplate;
-  }
+  };
 
   generateCard = () => {
     this._elementTemplate = this._cloneElement().querySelector(this._selectors.templateCardElement);
@@ -38,19 +51,19 @@ export default class Card {
     this._setEventListeners();
 
     return this._elementTemplate;
-  }
+  };
 
   _setEventListeners = () => {
     this._removeButton.addEventListener("click", () => {
       this._delClickHandler();
     });
 
-    // this._image.addEventListener("click", () => {
-    //   this.openPopupViewImage(this._image);
-    // });
+    this._image.addEventListener("click", () => {
+      this._openPopupViewImage(this._image);
+    });
 
     this._likeButton.addEventListener("click", () => {
       this._likeClickHandler();
     });
-  }
+  };
 }

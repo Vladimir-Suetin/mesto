@@ -45,9 +45,9 @@ export default class Card {
       this._delClickHandler();
     });
 
-    this._image.addEventListener("click", () => {
-      this.openPopupViewImage(this._image);
-    });
+    // this._image.addEventListener("click", () => {
+    //   this.openPopupViewImage(this._image);
+    // });
 
     this._likeButton.addEventListener("click", () => {
       this._likeClickHandler();

@@ -53,7 +53,36 @@ const popupImageName = popupViewImage.querySelector(selectors.popupImageName);
 const popupFormAddImage = popupAddImage.querySelector(selectors.popupFormAddImage);
 const popupFormEditProfile = popupEditProfile.querySelector(selectors.popupFormEditProfile);
 
+// Массив с карточками
+const initialCards = [
+  {
+    name: "Архыз",
+    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg",
+  },
+  {
+    name: "Челябинская область",
+    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg",
+  },
+  {
+    name: "Иваново",
+    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg",
+  },
+  {
+    name: "Камчатка",
+    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg",
+  },
+  {
+    name: "Холмогорский район",
+    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg",
+  },
+  {
+    name: "Байкал",
+    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg",
+  },
+];
+
 export {selectors, profile, profileName, profilejob, profileEditButton, popupEditProfile,
   popupProfileNameInput, popupProfileJobInput, listCardPhotoGrid, popupAddImage, imageAddButton,
   popupImageNameInput, popupImageLinkInput, templateCard, templateCardElement, templateTitleImageCard,
-  templateLinkImageCard, popupViewImage, popupImage, popupImageName, popupFormAddImage, popupFormEditProfile}
+  templateLinkImageCard, popupViewImage, popupImage, popupImageName, popupFormAddImage, 
+  initialCards, popupFormEditProfile}

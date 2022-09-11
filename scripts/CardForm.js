@@ -1,19 +1,24 @@
 import Card from "./Card.js";
 
 export default class CardForm {
-  constructor(selectors, template, nameInput, linkInput, list, formAddImage) {
+  constructor(selectors, template, nameInput, linkInput, list, formAddImage, closePopup) {
     this._selectors = selectors;
     this._template = template;
     this._nameInput = nameInput;
     this._linkInput = linkInput;
     this._list = list;
     this._form = formAddImage;
+    this.closePopup = closePopup;
   }
 
   _submitHandler = (evt) => {
     evt.preventDefault();
 
     this.getElement();
+
+    this._form.reset();
+
+    this.closePopup();
   }
 
   getElement = () => {

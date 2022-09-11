@@ -1,45 +1,42 @@
-import Card from './Card.js';
-import CardForm from './CardForm.js';
-import CardsList from './CardsList.js';
-import {selectors, profile, profileName, profilejob, profileEditButton, popupEditProfile,
-  popupProfileNameInput, popupProfileJobInput, listCardPhotoGrid, popupAddImage, imageAddButton,
-  popupImageNameInput, popupImageLinkInput, templateCard, templateCardElement, templateTitleImageCard,
-  templateLinkImageCard, popupViewImage, popupImage, popupImageName, popupFormAddImage, 
-  popupFormEditProfile} from './constants.js'
-
-// Массив с карточками
-const initialCards = [
-  {
-    name: "Архыз",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg",
-  },
-  {
-    name: "Челябинская область",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg",
-  },
-  {
-    name: "Иваново",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg",
-  },
-  {
-    name: "Камчатка",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg",
-  },
-  {
-    name: "Холмогорский район",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg",
-  },
-  {
-    name: "Байкал",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg",
-  },
-];
+import CardForm from "./CardForm.js";
+import CardsList from "./CardsList.js";
+import {
+  selectors,
+  profile,
+  profileName,
+  profilejob,
+  profileEditButton,
+  popupEditProfile,
+  popupProfileNameInput,
+  popupProfileJobInput,
+  listCardPhotoGrid,
+  popupAddImage,
+  imageAddButton,
+  popupImageNameInput,
+  popupImageLinkInput,
+  templateCard,
+  templateCardElement,
+  templateTitleImageCard,
+  templateLinkImageCard,
+  popupViewImage,
+  popupImage,
+  popupImageName,
+  popupFormAddImage,
+  popupFormEditProfile,
+  initialCards,
+} from "./constants.js";
 
 const cards = new CardsList(initialCards, listCardPhotoGrid, templateCard, selectors);
-cards.sortCard();
 
-const cardForm = new CardForm(selectors, templateCard, popupImageNameInput, popupImageLinkInput, listCardPhotoGrid, popupFormAddImage);
-
+const cardForm = new CardForm(
+  selectors,
+  templateCard,
+  popupImageNameInput,
+  popupImageLinkInput,
+  listCardPhotoGrid,
+  popupFormAddImage,
+  closePopupAddImage
+);
 
 // Функция открытия popup
 function openPopup(item) {
@@ -103,19 +100,29 @@ function closePopupAddImage() {
 }
 
 // Функция открытия popup view image
-function openPopupViewImage(item) {
+function openPopupViewImage(element) {
   openPopup(popupViewImage);
 
-  popupImage.src = item.src;
-  popupImage.alt = item.alt;
+  popupImage.src = element.src;
+  popupImage.alt = element.alt;
 
   popupImageName.textContent = popupImage.alt;
 }
 
-// Функция закрытия popup view image
-function closePopupViewImage() {
-  closePopup(popupViewImage);
+function getTemplateImage() {
+  const images = document.querySelectorAll(selectors.templateLinkImageCard);
+
+  images.forEach((element) => {
+    element.addEventListener("click", (evt) => {
+      openPopupViewImage(evt.currentTarget);
+    });
+  });
 }
+
+// Функция закрытия popup view image
+// function closePopupViewImage() {
+//   closePopup(popupViewImage);
+// }
 
 // Функция перебирает клонирует массив и вставляет в разметку
 // function cloneArrayPhotoCards() {
@@ -178,10 +185,6 @@ function closePopupViewImage() {
 
 // }
 
-
-
-
-
 // initialCards.forEach((element) => {
 //   cards.addCard(element);
 // })
@@ -189,8 +192,6 @@ function closePopupViewImage() {
 //  const card = new Card(trtrt, templateCard, selectors);
 //  const generateCard = card.generateCard();
 //  listCardPhotoGrid.prepend(generateCard);
-
-
 
 // Функция добавления новой карточки
 // function handleAddNewImage(evt) {
@@ -220,7 +221,7 @@ function closePopupViewImage() {
 //   element.classList.toggle("element__like-button_active");
 // }
 
-// Функция обработки всех popup, вызова функций анимации и закрития при нажатии на внешнюю область
+// Функция обработки всех popup, вызова функций анимации и закрытия при нажатии на внешнюю область
 function sortPopup() {
   const popupList = document.querySelectorAll(selectors.popup);
   popupList.forEach((popup) => {
@@ -248,4 +249,19 @@ imageAddButton.addEventListener("click", openPopupAddImage);
 // Вызывает функцию обработки popup
 sortPopup();
 
+// Вызывает метод создания карточек
+cards.sortCard();
+
+// Добавляет прослушивать submit при создании новой карточки
 cardForm.eventListener();
+
+// templateLinkImageCard.addEventListener("click", (evt) => {
+//    openPopupViewImage(evt.target)});
+// templateLinkImageCard.addEventListener("click", openPopupViewImage)
+
+//  ara.addEventListener("click", openPopupViewImage)
+document.addEventListener("click", (evt) => {
+  console.log(evt.target);
+});
+
+getTemplateImage();

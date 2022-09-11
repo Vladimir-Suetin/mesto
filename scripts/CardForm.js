@@ -1,14 +1,15 @@
 import Card from "./Card.js";
 
 export default class CardForm {
-  constructor(selectors, template, nameInput, linkInput, list, formAddImage, closePopup) {
+  constructor(selectors, template, nameInput, linkInput, list, formAddImage, closePopup, getTemplateImage) {
     this._selectors = selectors;
     this._template = template;
     this._nameInput = nameInput;
     this._linkInput = linkInput;
     this._list = list;
     this._form = formAddImage;
-    this.closePopup = closePopup;
+    this._closePopup = closePopup;
+    this._getTemplateImage = getTemplateImage;
   }
 
   _submitHandler = (evt) => {
@@ -18,8 +19,10 @@ export default class CardForm {
 
     this._form.reset();
 
-    this.closePopup();
-  }
+    this._closePopup();
+
+    this._getTemplateImage();
+  };
 
   getElement = () => {
     this._nameValue = this._nameInput.value;
@@ -29,9 +32,9 @@ export default class CardForm {
     this.element = new Card(this._object, this._template, this._selectors);
 
     this._list.prepend(this.element.generateCard());
-  }
+  };
 
   eventListener = () => {
     this._form.addEventListener("submit", this._submitHandler);
-  }
+  };
 }

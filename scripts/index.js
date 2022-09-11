@@ -35,7 +35,8 @@ const cardForm = new CardForm(
   popupImageLinkInput,
   listCardPhotoGrid,
   popupFormAddImage,
-  closePopupAddImage
+  closePopupAddImage,
+  getTemplateImage,
 );
 
 // Функция открытия popup
@@ -109,6 +110,7 @@ function openPopupViewImage(element) {
   popupImageName.textContent = popupImage.alt;
 }
 
+// Функция обработки нажатия для просмотра изображения
 function getTemplateImage() {
   const images = document.querySelectorAll(selectors.templateLinkImageCard);
 
@@ -118,108 +120,6 @@ function getTemplateImage() {
     });
   });
 }
-
-// Функция закрытия popup view image
-// function closePopupViewImage() {
-//   closePopup(popupViewImage);
-// }
-
-// Функция перебирает клонирует массив и вставляет в разметку
-// function cloneArrayPhotoCards() {
-//   const array = initialCards.map((newArray) => getElement(newArray));
-
-//   listCardPhotoGrid.prepend(...array);
-// }
-
-// Функция работы с элементами template photo cards
-// function getElement(item) {
-//   const getElementTemplate = template.content.cloneNode(true);
-//   const title = getElementTemplate.querySelector(selectors.templateTitleImageCard);
-//   const link = getElementTemplate.querySelector(selectors.templateLinkImageCard);
-//   const elementButtonRemove = getElementTemplate.querySelector(selectors.templateElementButtonRemove);
-//   const templateLikeButton = getElementTemplate.querySelector(selectors.templateLikeButton);
-
-//   title.textContent = item.name;
-
-//   link.setAttribute("src", `${item.link}`);
-//   link.setAttribute("alt", `${item.name}`);
-
-//   link.addEventListener("click", () => openPopupViewImage(item));
-
-//   elementButtonRemove.addEventListener("click", handleRemoveElement);
-
-//   templateLikeButton.addEventListener("click", handleAddLikePhoto);
-
-//   return getElementTemplate;
-//  }
-
-// class ListCards {
-//   constructor(data, itemTemlate, domElement) {
-//     this._data = data;
-//     this._itemTemplate = itemTemlate;
-//     this._domElement = domElement;
-
-//   }
-
-//   // getCards() {
-//   //   this._data.forEach((item) => {
-//   //     generateCard(item);
-//   //   });
-//   // }
-
-//   setCards() {
-//     const card = new Card(this._data, this._itemTemplate);
-//     const result = card.generateCard();
-//     this._domElement.prepend(result);
-//   }
-// }
-
-// class CreateCards {
-//   constructor(card) {
-//     this._card = card;
-//   }
-
-// _renderCards() {
-// return card.map(array => new Card(array))
-// }
-
-// }
-
-// initialCards.forEach((element) => {
-//   cards.addCard(element);
-// })
-
-//  const card = new Card(trtrt, templateCard, selectors);
-//  const generateCard = card.generateCard();
-//  listCardPhotoGrid.prepend(generateCard);
-
-// Функция добавления новой карточки
-// function handleAddNewImage(evt) {
-//   evt.preventDefault();
-
-//    const nameValue = popupImageNameInput.value;
-//    const linkValue = popupImageLinkInput.value;
-
-//    const element = getElement({ name: nameValue, link: linkValue });
-
-//    listCardPhotoGrid.prepend(element);
-
-//   popupFormAddImage.reset();
-
-//   closePopupAddImage();
-// }
-
-// Функция удаления карточки
-// function handleRemoveElement(evt) {
-//   const element = evt.target.closest(selectors.templateElement);
-//   element.remove();
-// }
-
-// Функция like
-// function handleAddLikePhoto(evt) {
-//   const element = evt.target.closest(selectors.templateLikeButton);
-//   element.classList.toggle("element__like-button_active");
-// }
 
 // Функция обработки всех popup, вызова функций анимации и закрытия при нажатии на внешнюю область
 function sortPopup() {
@@ -231,8 +131,6 @@ function sortPopup() {
   });
 }
 
-// Вызывает функцию добавления карточки
-// popupFormAddImage.addEventListener("submit", handleAddNewImage);
 
 // Вызывает функцию редактирования popup
 popupFormEditProfile.addEventListener("submit", handleFormSubmirProfile);
@@ -243,25 +141,14 @@ profileEditButton.addEventListener("click", openPopupProfile);
 // Вызывает функцию открытия popup add image при прослушивании click
 imageAddButton.addEventListener("click", openPopupAddImage);
 
-// Вызывает функцию работы с массивом
-// cloneArrayPhotoCards();
-
 // Вызывает функцию обработки popup
 sortPopup();
 
 // Вызывает метод создания карточек
 cards.sortCard();
 
-// Добавляет прослушивать submit при создании новой карточки
+// Вызывает метод слушателя submit при создании новой карточки
 cardForm.eventListener();
 
-// templateLinkImageCard.addEventListener("click", (evt) => {
-//    openPopupViewImage(evt.target)});
-// templateLinkImageCard.addEventListener("click", openPopupViewImage)
-
-//  ara.addEventListener("click", openPopupViewImage)
-document.addEventListener("click", (evt) => {
-  console.log(evt.target);
-});
-
+// Вызывает функцию обработчика view image popup
 getTemplateImage();

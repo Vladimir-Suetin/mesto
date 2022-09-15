@@ -37,7 +37,7 @@ export default class FormValidator {
 
     //важен порядок вызова ошибок !!!
     // устанавливаем кастомный текст ошибок
-    this._setCustomError(this._input);
+    //    this._setCustomError(this._input);
     // подсветка input invalid
     this._accentInputInvalid(this._input);
     // показать ошибки в контейнере под полем
@@ -47,29 +47,29 @@ export default class FormValidator {
   };
 
   // Функция кастомного текста ошибок
-  _setCustomError = (input) => {
-    // создаем переменную проверки валидности
-    this._validity = input.validity;
+  // _setCustomError = (input) => {
+  //   // создаем переменную проверки валидности
+  //   this._validity = input.validity;
 
-    // Функция установки кастомной ошибки
-    input.setCustomValidity("");
+  //   // Функция установки кастомной ошибки
+  //   input.setCustomValidity("");
 
-    if (this._validity.tooShort) {
-      input.setCustomValidity("Минимальное количество символов = 2");
-    }
+  //   if (this._validity.tooShort) {
+  //     input.setCustomValidity("Минимальное количество символов = 2");
+  //   }
 
-    if (this._validity.tooLong) {
-      input.setCustomValidity("Ввод слишком длинный");
-    }
+  //   if (this._validity.tooLong) {
+  //     input.setCustomValidity("Ввод слишком длинный");
+  //   }
 
-    if (this._validity.typeMismatch && input.type === "url") {
-      input.setCustomValidity("Введите ссылку на картинку");
-    }
+  //   if (this._validity.typeMismatch && input.type === "url") {
+  //     input.setCustomValidity("Введите ссылку на картинку");
+  //   }
 
-    if (this._validity.valueMissing) {
-      input.setCustomValidity("пустое поле не допускается");
-    }
-  };
+  //   if (this._validity.valueMissing) {
+  //     input.setCustomValidity("пустое поле не допускается");
+  //   }
+  // };
 
   // функция показа ошибки
   _showFieldError = (input) => {

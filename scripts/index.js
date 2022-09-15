@@ -2,6 +2,7 @@ import Card from "./Card.js";
 import FormValidator from "./FormValidator.js";
 import {
   selectors,
+  objectValidation,
   profile,
   profileName,
   profilejob,
@@ -26,20 +27,8 @@ import {
   initialCards,
 } from "./constants.js";
 
-// const cards = new CardsList(initialCards, listCardPhotoGrid, templateCard, selectors, openPopupViewImage);
-
-// const cardForm = new CardForm(
-//   selectors,
-//   templateCard,
-//   popupImageNameInput,
-//   popupImageLinkInput,
-//   listCardPhotoGrid,
-//   popupFormAddImage,
-//   closePopupAddImage,
-//   openPopupViewImage
-// );
-
-const formValidator = new FormValidator(selectors);
+const addCardFormValidator = new FormValidator(objectValidation, popupAddImage);
+const editProfileFormValidator = new FormValidator(objectValidation, popupEditProfile);
 
 // Функция открытия popup
 function openPopup(item) {
@@ -80,18 +69,6 @@ function closePopupProfile() {
   closePopup(popupEditProfile);
 }
 
-// Обработчик «отправки» формы редактирования профиля, хотя пока
-// она никуда отправляться не будет
-function handleSubmitFormProfile(evt) {
-  evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
-
-  // Вставляем новые значения с помощью textContent
-  profileName.textContent = popupProfileNameInput.value;
-  profilejob.textContent = popupProfileJobInput.value;
-
-  closePopupProfile();
-}
-
 // Функция открытия popup add image
 function openPopupAddImage() {
   openPopup(popupAddImage);
@@ -111,6 +88,29 @@ function openPopupViewImage(element) {
 
   popupImageName.textContent = popupImage.alt;
 }
+
+// Функция обработки всех popup, вызова функций анимации и закрытия при нажатии на внешнюю область
+function sortPopup() {
+  const popupList = document.querySelectorAll(selectors.popup);
+  popupList.forEach((popup) => {
+    const buttonClosePopup = popup.querySelector(selectors.popupCloseButton);
+    buttonClosePopup.addEventListener("click", () => closePopup(popup));
+    popup.addEventListener("mousedown", closePopupByClickOverlay);
+  });
+}
+
+// Обработчик «отправки» формы редактирования профиля, хотя пока
+// она никуда отправляться не будет
+function handleSubmitFormProfile(evt) {
+  evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
+
+  // Вставляем новые значения с помощью textContent
+  profileName.textContent = popupProfileNameInput.value;
+  profilejob.textContent = popupProfileJobInput.value;
+
+  closePopupProfile();
+}
+
 
 // Функция обработки карточек
 function sortCards() {
@@ -160,21 +160,25 @@ function getTemplateImage() {
   });
 }
 
-// Функция обработки всех popup, вызова функций анимации и закрытия при нажатии на внешнюю область
-function sortPopup() {
-  const popupList = document.querySelectorAll(selectors.popup);
-  popupList.forEach((popup) => {
-    const buttonClosePopup = popup.querySelector(selectors.popupCloseButton);
-    buttonClosePopup.addEventListener("click", () => closePopup(popup));
-    popup.addEventListener("mousedown", closePopupByClickOverlay);
-  });
-}
+// Вызывает функцию обработки popup
+sortPopup();
+
+// Вызывает функцию обработки карточек
+sortCards();
+
+// Вызывает функцию обработчика view image popup
+getTemplateImage();
+
+// Вызывает метод валидации форм
+addCardFormValidator.enableValidation();
+
+// Вызывает метод валидации форм
+editProfileFormValidator.enableValidation();
 
 // Вызывает функцию редактирования popup
 popupFormEditProfile.addEventListener("submit", handleSubmitFormProfile);
 
 // Вызывает функцию добавления карточки
-
 popupAddImage.addEventListener("submit", handleSubmitAddImage);
 
 // Вызывает функцию открытия popup profile при прослушивании click
@@ -183,20 +187,3 @@ profileEditButton.addEventListener("click", openPopupProfile);
 // Вызывает функцию открытия popup add image при прослушивании click
 imageAddButton.addEventListener("click", openPopupAddImage);
 
-// Вызывает функцию обработки popup
-sortPopup();
-
-// Вызывает функцию обработки карточек
-sortCards();
-
-// Вызывает метод создания карточек
-// cards.sortCard();
-
-// Вызывает метод слушателя submit при создании новой карточки
-// cardForm.eventListener();
-
-// Вызывает функцию обработчика view image popup
-getTemplateImage();
-
-// Вызывает метод валидации форм
-formValidator.enableValidation();

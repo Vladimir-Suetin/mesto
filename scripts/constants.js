@@ -23,15 +23,10 @@ const selectors = {
   popupImage: ".popup__image",
   popupImageName: ".popup__image-title",
   popup: ".popup",
-  popupForm: ".popup__container",
   popupFormAddImage: ".popup__container_add-image",
   popupFormEditProfile: ".popup__container_edit-profile",
   popupFieldError: "popup__field_error",
   popupSubmitButton: ".popup__submit-button",
-  inputSelector: ".popup__field",
-  inactiveButtonClass: "popup__submit-button_disabled",
-  inputErrorClass: "popup__field_type_error",
-  errorClass: "popup__error",
 };
 
 // Поиск элементов в документе
@@ -56,6 +51,15 @@ const popupImage = popupViewImage.querySelector(selectors.popupImage);
 const popupImageName = popupViewImage.querySelector(selectors.popupImageName);
 const popupFormAddImage = popupAddImage.querySelector(selectors.popupFormAddImage);
 const popupFormEditProfile = popupEditProfile.querySelector(selectors.popupFormEditProfile);
+
+const objectValidation = {
+  formSelector: ".popup__container",
+  inputSelector: ".popup__field",
+  errorSelector: ".popup__error",
+  submitButtonSelector: ".popup__submit-button",
+  inactiveButtonClass: "popup__submit-button_disabled",
+  inputErrorClass: "popup__field_type_error",
+};
 
 // Массив с карточками
 const initialCards = [
@@ -87,6 +91,7 @@ const initialCards = [
 
 export {
   selectors,
+  objectValidation,
   profile,
   profileName,
   profilejob,

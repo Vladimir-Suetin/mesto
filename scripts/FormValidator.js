@@ -1,37 +1,31 @@
 export default class FormValidator {
-  _selectors;
+  _objectValidation;
+  _elementValidation;
   _form;
-  _input;
-  _validity;
-  _span;
-  _isValid;
   _button;
+  _inputElement;
+  _input;
+  textError;
+  _isValid;
 
-  constructor(selectors) {
-    this._selectors = selectors;
+  constructor(objectValidation, elementValidation) {
+    this._objectValidation = objectValidation;
+    this._elementValidation = elementValidation;
+    this._form = this._elementValidation.querySelector(this._objectValidation.formSelector);
+    this._button = this._form.querySelector(this._objectValidation.submitButtonSelector);
   }
 
-  // Функция находит форму в документе и вешает слушатели
+  // Метод находит форму в документе и вешает слушатели
   enableValidation = () => {
-    this._form = document.querySelectorAll(this._selectors.popupForm);
-    this._form.forEach((formElement) => {
+    this._inputElement = this._elementValidation.querySelectorAll(this._objectValidation.inputSelector);
+
+    this._inputElement.forEach((formElement) => {
       formElement.addEventListener("input", (evt) => this._handleFormInput(evt));
-      formElement.addEventListener("submit", (evt) => this._handleFormSubmit(evt));
     });
   };
 
-  _handleFormSubmit = (evt) => {
-    evt.preventDefault();
-
-    this._form = evt.currentTarget;
-
-    this._setSubmitButtonState(this._form);
-  };
-
-  // Функция работы с input
+  // Метод работы с input
   _handleFormInput = (evt) => {
-    // определить форму
-    this._form = evt.currentTarget;
     // найдем активный инпут
     this._input = evt.target;
 
@@ -43,7 +37,7 @@ export default class FormValidator {
     // показать ошибки в контейнере под полем
     this._showFieldError(this._input);
     // включить или отключить кнопку отправки формы
-    this._setSubmitButtonState(this._form);
+    this._setSubmitButtonState();
   };
 
   // Функция кастомного текста ошибок
@@ -73,8 +67,9 @@ export default class FormValidator {
 
   // функция показа ошибки
   _showFieldError = (input) => {
-    this._span = input.nextElementSibling;
-    this._span.textContent = input.validationMessage;
+    //this.textError = input.nextElementSibling; выбирает соседний елемент за input
+    this.textError = this._form.querySelector(`${this._objectValidation.errorSelector}_${input.name}`);
+    this.textError.textContent = input.validationMessage;
   };
 
   // Функция подсветки input invalid
@@ -82,24 +77,22 @@ export default class FormValidator {
     this._isValid = input.checkValidity();
 
     if (this._isValid) {
-      input.classList.remove(this._selectors.inputErrorClass);
+      input.classList.remove(this._objectValidation.inputErrorClass);
     } else {
-      input.classList.add(this._selectors.inputErrorClass);
+      input.classList.add(this._objectValidation.inputErrorClass);
     }
   };
 
-  // функция включения кнопки отправки
-  _setSubmitButtonState = (form) => {
-    this._button = form.querySelector(this._selectors.popupSubmitButton);
-
-    this._isValid = form.checkValidity();
+  // Метод включения кнопки отправки
+  _setSubmitButtonState = () => {
+    this._isValid = this._form.checkValidity();
 
     if (this._isValid) {
       this._button.removeAttribute("disabled");
-      this._button.classList.remove(this._selectors.inactiveButtonClass);
+      this._button.classList.remove(this._objectValidation.inactiveButtonClass);
     } else {
       this._button.setAttribute("disabled", true);
-      this._button.classList.add(this._selectors.inactiveButtonClass);
+      this._button.classList.add(this._objectValidation.inactiveButtonClass);
     }
   };
 }

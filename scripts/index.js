@@ -15,17 +15,13 @@ import {
   imageAddButton,
   popupImageNameInput,
   popupImageLinkInput,
-  templateCard,
-  templateCardElement,
-  templateTitleImageCard,
-  templateLinkImageCard,
   popupViewImage,
   popupImage,
   popupImageName,
   popupFormAddImage,
   popupFormEditProfile,
   initialCards,
-} from "./constants.js";
+} from "../utils/constants.js";
 
 const addCardFormValidator = new FormValidator(objectValidation, popupAddImage);
 const editProfileFormValidator = new FormValidator(objectValidation, popupEditProfile);
@@ -111,7 +107,6 @@ function handleSubmitFormProfile(evt) {
   closePopupProfile();
 }
 
-
 // Функция обработки карточек
 function sortCards() {
   initialCards.forEach((element) => {
@@ -186,4 +181,3 @@ profileEditButton.addEventListener("click", openPopupProfile);
 
 // Вызывает функцию открытия popup add image при прослушивании click
 imageAddButton.addEventListener("click", openPopupAddImage);
-

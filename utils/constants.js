@@ -42,10 +42,6 @@ const popupAddImage = document.querySelector(selectors.popupAddImage);
 const imageAddButton = profile.querySelector(selectors.imageAddButton);
 const popupImageNameInput = popupAddImage.querySelector(selectors.popupImageNameInput);
 const popupImageLinkInput = popupAddImage.querySelector(selectors.popupImageLinkInput);
-const templateCard = document.querySelector(selectors.templateCard);
-const templateCardElement = document.querySelector(selectors.templateCardElement);
-const templateTitleImageCard = templateCard.querySelector(selectors.templateTitleImageCard);
-const templateLinkImageCard = templateCard.querySelector(selectors.templateLinkImageCard);
 const popupViewImage = document.querySelector(selectors.popupViewImage);
 const popupImage = popupViewImage.querySelector(selectors.popupImage);
 const popupImageName = popupViewImage.querySelector(selectors.popupImageName);
@@ -104,10 +100,6 @@ export {
   imageAddButton,
   popupImageNameInput,
   popupImageLinkInput,
-  templateCard,
-  templateCardElement,
-  templateTitleImageCard,
-  templateLinkImageCard,
   popupViewImage,
   popupImage,
   popupImageName,

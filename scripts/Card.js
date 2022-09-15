@@ -35,7 +35,7 @@ export default class Card {
   };
 
   generateCard = () => {
-    this._elementTemplate = this._cloneElement().querySelector('.element');
+    this._elementTemplate = this._cloneElement().querySelector(".element");
     this._title = this._elementTemplate.querySelector(".element__title");
     this._image = this._elementTemplate.querySelector(".element__mask-group");
     this._removeButton = this._elementTemplate.querySelector(".element__button-remove");

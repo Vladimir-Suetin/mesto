@@ -58,21 +58,25 @@ function openPopupProfile() {
   openPopup(popupEditProfile);
   popupProfileNameInput.value = profileName.textContent;
   popupProfileJobInput.value = profilejob.textContent;
+  editProfileFormValidator.enableValidation();
 }
 
 // Функция закрытия popup profile
 function closePopupProfile() {
   closePopup(popupEditProfile);
+  editProfileFormValidator.resetValidation();
 }
 
 // Функция открытия popup add image
 function openPopupAddImage() {
   openPopup(popupAddImage);
+  addCardFormValidator.enableValidation();
 }
 
 // Функция закрытия popup add image
 function closePopupAddImage() {
   closePopup(popupAddImage);
+  addCardFormValidator.resetValidation();
 }
 
 // Функция открытия popup view image
@@ -163,12 +167,6 @@ sortCards();
 
 // Вызывает функцию обработчика view image popup
 getTemplateImage();
-
-// Вызывает метод валидации форм
-addCardFormValidator.enableValidation();
-
-// Вызывает метод валидации форм
-editProfileFormValidator.enableValidation();
 
 // Вызывает функцию редактирования popup
 popupFormEditProfile.addEventListener("submit", handleSubmitFormProfile);

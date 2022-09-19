@@ -3,9 +3,9 @@ export default class FormValidator {
   _elementValidation;
   _form;
   _button;
-  _inputElement;
+  _inputElements;
   _input;
-  textError;
+  _textError;
   _isValid;
 
   constructor(objectValidation, elementValidation) {
@@ -13,22 +13,32 @@ export default class FormValidator {
     this._elementValidation = elementValidation;
     this._form = this._elementValidation.querySelector(this._objectValidation.formSelector);
     this._button = this._form.querySelector(this._objectValidation.submitButtonSelector);
+    this._inputElements = Array.from(this._elementValidation.querySelectorAll(this._objectValidation.inputSelector));
   }
 
   // Метод находит форму в документе и вешает слушатели
   enableValidation = () => {
-    this._inputElement = this._elementValidation.querySelectorAll(this._objectValidation.inputSelector);
-
-    this._inputElement.forEach((formElement) => {
+    this._inputElements.forEach((formElement) => {
       formElement.addEventListener("input", (evt) => this._handleFormInput(evt));
     });
+  };
+
+  resetValidation = () => {
+    this._inputElements.forEach((formElement) => {
+      this._textError = this._form.querySelector(`${this._objectValidation.errorSelector}_${formElement.name}`);
+      this._textError.textContent = "";
+      formElement.classList.remove(this._objectValidation.inputErrorClass);
+    });
+
+    this._button.setAttribute("disabled", true);
+    this._button.classList.add(this._objectValidation.inactiveButtonClass);
   };
 
   // Метод работы с input
   _handleFormInput = (evt) => {
     // найдем активный инпут
     this._input = evt.target;
-
+    
     //важен порядок вызова ошибок !!!
     // устанавливаем кастомный текст ошибок
     //    this._setCustomError(this._input);
@@ -68,8 +78,8 @@ export default class FormValidator {
   // функция показа ошибки
   _showFieldError = (input) => {
     //this.textError = input.nextElementSibling; выбирает соседний елемент за input
-    this.textError = this._form.querySelector(`${this._objectValidation.errorSelector}_${input.name}`);
-    this.textError.textContent = input.validationMessage;
+    this._textError = this._form.querySelector(`${this._objectValidation.errorSelector}_${input.name}`);
+    this._textError.textContent = input.validationMessage;
   };
 
   // Функция подсветки input invalid

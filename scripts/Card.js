@@ -18,6 +18,7 @@ export default class Card {
 
   _delClickHandler = () => {
     this._elementTemplate.remove();
+    this. _elementTemplate = null;
   };
 
   _likeClickHandler = () => {

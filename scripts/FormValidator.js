@@ -1,6 +1,5 @@
 export default class FormValidator {
   _objectValidation;
-  _elementValidation;
   _form;
   _button;
   _inputElements;
@@ -8,19 +7,16 @@ export default class FormValidator {
   _textError;
   _isValid;
 
-  constructor(objectValidation, elementValidation) {
+  constructor(objectValidation, formValidation) {
     this._objectValidation = objectValidation;
-    this._elementValidation = elementValidation;
-    this._form = this._elementValidation.querySelector(this._objectValidation.formSelector);
+    this._form = formValidation;
     this._button = this._form.querySelector(this._objectValidation.submitButtonSelector);
-    this._inputElements = Array.from(this._elementValidation.querySelectorAll(this._objectValidation.inputSelector));
+    this._inputElements = Array.from(this._form.querySelectorAll(this._objectValidation.inputSelector));
   }
 
   // Метод находит форму в документе и вешает слушатели
   enableValidation = () => {
-    this._inputElements.forEach((formElement) => {
-      formElement.addEventListener("input", (evt) => this._handleFormInput(evt));
-    });
+    this._form.addEventListener("input", (evt) => this._handleFormInput(evt));
   };
 
   resetValidation = () => {

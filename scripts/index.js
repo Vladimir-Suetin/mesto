@@ -23,8 +23,8 @@ import {
   initialCards,
 } from "../utils/constants.js";
 
-const addCardFormValidator = new FormValidator(objectValidation, popupAddImage);
-const editProfileFormValidator = new FormValidator(objectValidation, popupEditProfile);
+const cardElementFormValidator = new FormValidator(objectValidation, popupFormAddImage);
+const profileElementFormValidator = new FormValidator(objectValidation, popupFormEditProfile);
 
 // Функция открытия popup
 function openPopup(item) {
@@ -58,25 +58,25 @@ function openPopupProfile() {
   openPopup(popupEditProfile);
   popupProfileNameInput.value = profileName.textContent;
   popupProfileJobInput.value = profilejob.textContent;
-  editProfileFormValidator.enableValidation();
+  profileElementFormValidator.enableValidation();
 }
 
 // Функция закрытия popup profile
 function closePopupProfile() {
   closePopup(popupEditProfile);
-  editProfileFormValidator.resetValidation();
+  profileElementFormValidator.resetValidation();
 }
 
 // Функция открытия popup add image
 function openPopupAddImage() {
   openPopup(popupAddImage);
-  addCardFormValidator.enableValidation();
+  cardElementFormValidator.enableValidation();
 }
 
 // Функция закрытия popup add image
 function closePopupAddImage() {
   closePopup(popupAddImage);
-  addCardFormValidator.resetValidation();
+  cardElementFormValidator.resetValidation();
 }
 
 // Функция открытия popup view image
@@ -111,18 +111,24 @@ function handleSubmitFormProfile(evt) {
   closePopupProfile();
 }
 
-// Функция обработки карточек
-function sortCards() {
-  initialCards.forEach((element) => {
-    addCards(element);
+// Функция обработки карточек из массива
+function sortCards(cards) {
+  cards.forEach((element) => {
+    createCard(element);
   });
 }
 
-// Функция добавления карточек из массива
-function addCards(element) {
+// Функция создания карточки
+function createCard(element) {
   const cardElement = new Card(element, selectors.templateCard, openPopupViewImage);
-  listCardPhotoGrid.prepend(cardElement.generateCard());
+  addCards(cardElement.generateCard());
 }
+
+// Функция добавления карточек
+function addCards(cardElements) {
+  listCardPhotoGrid.prepend(cardElements);
+}
+
 
 // Функция обработчик события при создании новой карточки
 function handleSubmitAddImage(evt) {
@@ -134,7 +140,7 @@ function handleSubmitAddImage(evt) {
 
   closePopupAddImage();
 
-  getTemplateImage();
+  // getTemplateImage();
 }
 
 // Функция добавления новой карточки
@@ -143,7 +149,7 @@ function addNewCard() {
   const linkValue = popupImageLinkInput.value;
   const cardValue = { name: nameValue, link: linkValue };
 
-  const element = new Card(cardValue, selectors.templateCard);
+  const element = new Card(cardValue, selectors.templateCard, openPopupViewImage);
 
   listCardPhotoGrid.prepend(element.generateCard());
 }
@@ -163,7 +169,7 @@ function addNewCard() {
 sortPopup();
 
 // Вызывает функцию обработки карточек
-sortCards();
+sortCards(initialCards);
 
 // Вызывает функцию обработчика view image popup
 // getTemplateImage();

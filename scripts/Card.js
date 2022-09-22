@@ -19,15 +19,10 @@ export default class Card {
 
   _delClickHandler = () => {
     this._elementTemplate.remove();
-    this. _elementTemplate = null;
+    this._elementTemplate = null;
   };
 
   _likeClickHandler = () => {
-    // if (this._likeButton.classList.contains("element__like-button_active")) {
-    //   this._likeButton.classList.remove("element__like-button_active");
-    // } else {
-    //   this._likeButton.classList.add("element__like-button_active");
-    // }
     this._likeButton.classList.toggle("element__like-button_active");
   };
 
@@ -58,9 +53,9 @@ export default class Card {
       this._delClickHandler();
     });
 
-    this._image.addEventListener('click', () => {
+    this._image.addEventListener("click", () => {
       this._functionViewImage(this._image);
-    } )
+    });
 
     this._likeButton.addEventListener("click", () => {
       this._likeClickHandler();

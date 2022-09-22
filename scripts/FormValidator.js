@@ -34,42 +34,16 @@ export default class FormValidator {
   _handleFormInput = (evt) => {
     // найдем активный инпут
     this._input = evt.target;
-    
-    //важен порядок вызова ошибок !!!
-    // устанавливаем кастомный текст ошибок
-    //    this._setCustomError(this._input);
+
     // подсветка input invalid
     this._accentInputInvalid(this._input);
+
     // показать ошибки в контейнере под полем
     this._showFieldError(this._input);
+
     // включить или отключить кнопку отправки формы
     this._setSubmitButtonState();
   };
-
-  // Функция кастомного текста ошибок
-  // _setCustomError = (input) => {
-  //   // создаем переменную проверки валидности
-  //   this._validity = input.validity;
-
-  //   // Функция установки кастомной ошибки
-  //   input.setCustomValidity("");
-
-  //   if (this._validity.tooShort) {
-  //     input.setCustomValidity("Минимальное количество символов = 2");
-  //   }
-
-  //   if (this._validity.tooLong) {
-  //     input.setCustomValidity("Ввод слишком длинный");
-  //   }
-
-  //   if (this._validity.typeMismatch && input.type === "url") {
-  //     input.setCustomValidity("Введите ссылку на картинку");
-  //   }
-
-  //   if (this._validity.valueMissing) {
-  //     input.setCustomValidity("пустое поле не допускается");
-  //   }
-  // };
 
   // функция показа ошибки
   _showFieldError = (input) => {

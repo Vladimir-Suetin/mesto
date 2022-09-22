@@ -10,10 +10,11 @@ export default class Card {
   _removeButton;
   _likeButton;
 
-  constructor(card, cardSelector) {
+  constructor(card, cardSelector, viewImage) {
     this._link = card.link;
     this._name = card.name;
     this._template = cardSelector;
+    this._functionViewImage = viewImage;
   }
 
   _delClickHandler = () => {
@@ -56,6 +57,10 @@ export default class Card {
     this._removeButton.addEventListener("click", () => {
       this._delClickHandler();
     });
+
+    this._image.addEventListener('click', () => {
+      this._functionViewImage(this._image);
+    } )
 
     this._likeButton.addEventListener("click", () => {
       this._likeClickHandler();

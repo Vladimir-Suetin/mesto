@@ -120,7 +120,7 @@ function sortCards() {
 
 // Функция добавления карточек из массива
 function addCards(element) {
-  const cardElement = new Card(element, selectors.templateCard);
+  const cardElement = new Card(element, selectors.templateCard, openPopupViewImage);
   listCardPhotoGrid.prepend(cardElement.generateCard());
 }
 

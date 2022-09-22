@@ -139,8 +139,6 @@ function handleSubmitAddImage(evt) {
   popupFormAddImage.reset();
 
   closePopupAddImage();
-
-  // getTemplateImage();
 }
 
 // Функция добавления новой карточки
@@ -154,25 +152,11 @@ function addNewCard() {
   listCardPhotoGrid.prepend(element.generateCard());
 }
 
-// // Функция обработки нажатия для просмотра изображения
-// function getTemplateImage() {
-//   const images = document.querySelectorAll(selectors.templateLinkImageCard);
-
-//   images.forEach((element) => {
-//     element.addEventListener("click", (evt) => {
-//       openPopupViewImage(evt.currentTarget);
-//     });
-//   });
-// }
-
 // Вызывает функцию обработки popup
 sortPopup();
 
 // Вызывает функцию обработки карточек
 sortCards(initialCards);
-
-// Вызывает функцию обработчика view image popup
-// getTemplateImage();
 
 // Вызывает функцию редактирования popup
 popupFormEditProfile.addEventListener("submit", handleSubmitFormProfile);

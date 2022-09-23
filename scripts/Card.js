@@ -54,7 +54,7 @@ export default class Card {
     });
 
     this._image.addEventListener("click", () => {
-      this._functionViewImage(this._image);
+      this._functionViewImage(this._name, this._link);
     });
 
     this._likeButton.addEventListener("click", () => {

@@ -80,11 +80,11 @@ function closePopupAddImage() {
 }
 
 // Функция открытия popup view image
-function openPopupViewImage(element) {
+function openPopupViewImage(name, link) {
   openPopup(popupViewImage);
 
-  popupImage.src = element.src;
-  popupImage.alt = element.alt;
+  popupImage.src = link;
+  popupImage.alt = name;
 
   popupImageName.textContent = popupImage.alt;
 }
@@ -114,21 +114,22 @@ function handleSubmitFormProfile(evt) {
 // Функция обработки карточек из массива
 function sortCards(cards) {
   cards.forEach((element) => {
-    createCard(element);
+    addCards(element);
   });
 }
 
 // Функция создания карточки
 function createCard(element) {
   const cardElement = new Card(element, selectors.templateCard, openPopupViewImage);
-  addCards(cardElement.generateCard());
+  const result = cardElement.generateCard();
+  return result;
 }
 
 // Функция добавления карточек
-function addCards(cardElements) {
-  listCardPhotoGrid.prepend(cardElements);
+function addCards(element) {
+  const result = createCard(element);
+  listCardPhotoGrid.prepend(result);
 }
-
 
 // Функция обработчик события при создании новой карточки
 function handleSubmitAddImage(evt) {
@@ -147,15 +148,13 @@ function addNewCard() {
   const linkValue = popupImageLinkInput.value;
   const cardValue = { name: nameValue, link: linkValue };
 
-  const element = new Card(cardValue, selectors.templateCard, openPopupViewImage);
-
-  listCardPhotoGrid.prepend(element.generateCard());
+  addCards(cardValue);
 }
 
 // Вызывает функцию обработки popup
 sortPopup();
 
-// Вызывает функцию обработки карточек
+// Вызывает функцию сортировки карточек
 sortCards(initialCards);
 
 // Вызывает функцию редактирования popup

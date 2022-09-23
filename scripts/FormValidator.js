@@ -19,15 +19,18 @@ export default class FormValidator {
     this._form.addEventListener("input", (evt) => this._handleFormInput(evt));
   };
 
+  _buttonDisabled = () => {
+    this._button.setAttribute("disabled", true);
+    this._button.classList.add(this._objectValidation.inactiveButtonClass);
+  }
+
   resetValidation = () => {
     this._inputElements.forEach((formElement) => {
       this._textError = this._form.querySelector(`${this._objectValidation.errorSelector}_${formElement.name}`);
       this._textError.textContent = "";
       formElement.classList.remove(this._objectValidation.inputErrorClass);
     });
-
-    this._button.setAttribute("disabled", true);
-    this._button.classList.add(this._objectValidation.inactiveButtonClass);
+    this._buttonDisabled();
   };
 
   // Метод работы с input
@@ -71,8 +74,7 @@ export default class FormValidator {
       this._button.removeAttribute("disabled");
       this._button.classList.remove(this._objectValidation.inactiveButtonClass);
     } else {
-      this._button.setAttribute("disabled", true);
-      this._button.classList.add(this._objectValidation.inactiveButtonClass);
+      this._buttonDisabled();
     }
   };
 }

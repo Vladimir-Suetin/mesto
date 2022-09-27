@@ -1,5 +1,5 @@
-import Card from "./Card.js";
-import FormValidator from "./FormValidator.js";
+import Card from '../scripts/Card.js';
+import FormValidator from '../scripts/FormValidator.js';
 import {
   selectors,
   objectValidation,
@@ -21,21 +21,21 @@ import {
   popupFormAddImage,
   popupFormEditProfile,
   initialCards,
-} from "../utils/constants.js";
+} from '../utils/constants.js';
 
 const cardElementFormValidator = new FormValidator(objectValidation, popupFormAddImage);
 const profileElementFormValidator = new FormValidator(objectValidation, popupFormEditProfile);
 
 // Функция открытия popup
 function openPopup(item) {
-  item.classList.add("popup_opened");
-  document.addEventListener("keydown", closeByEscape);
+  item.classList.add('popup_opened');
+  document.addEventListener('keydown', closeByEscape);
 }
 
 // Функция закрытия popup
 function closePopup(item) {
-  item.classList.remove("popup_opened");
-  document.removeEventListener("keydown", closeByEscape);
+  item.classList.remove('popup_opened');
+  document.removeEventListener('keydown', closeByEscape);
 }
 
 // Функция закрытия popup при нажатии на внешнюю область
@@ -47,8 +47,8 @@ function closePopupByClickOverlay(evt) {
 
 // Функция закрытия попап при нажатии escape
 function closeByEscape(evt) {
-  if (evt.key === "Escape") {
-    const openedPopup = document.querySelector(".popup_opened");
+  if (evt.key === 'Escape') {
+    const openedPopup = document.querySelector('.popup_opened');
     closePopup(openedPopup);
   }
 }
@@ -94,8 +94,8 @@ function sortPopup() {
   const popupList = document.querySelectorAll(selectors.popup);
   popupList.forEach((popup) => {
     const buttonClosePopup = popup.querySelector(selectors.popupCloseButton);
-    buttonClosePopup.addEventListener("click", () => closePopup(popup));
-    popup.addEventListener("mousedown", closePopupByClickOverlay);
+    buttonClosePopup.addEventListener('click', () => closePopup(popup));
+    popup.addEventListener('mousedown', closePopupByClickOverlay);
   });
 }
 
@@ -158,13 +158,13 @@ sortPopup();
 sortCards(initialCards);
 
 // Вызывает функцию редактирования popup
-popupFormEditProfile.addEventListener("submit", handleSubmitFormProfile);
+popupFormEditProfile.addEventListener('submit', handleSubmitFormProfile);
 
 // Вызывает функцию добавления карточки
-popupAddImage.addEventListener("submit", handleSubmitAddImage);
+popupAddImage.addEventListener('submit', handleSubmitAddImage);
 
 // Вызывает функцию открытия popup profile при прослушивании click
-profileEditButton.addEventListener("click", openPopupProfile);
+profileEditButton.addEventListener('click', openPopupProfile);
 
 // Вызывает функцию открытия popup add image при прослушивании click
-imageAddButton.addEventListener("click", openPopupAddImage);
+imageAddButton.addEventListener('click', openPopupAddImage);

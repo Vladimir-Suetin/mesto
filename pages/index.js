@@ -29,11 +29,7 @@ const profileElementFormValidator = new FormValidator(objectValidation, popupFor
 const cardSection = new Section(
   {
     items: initialCards,
-    renderer: (element) => {
-      const cardElement = new Card(element, selectors.templateCard, openPopupViewImage);
-      const result = cardElement.generateCard();
-      cardSection.addItem(result);
-    },
+    renderer: createCard,
   },
   '.cards__photo-grid'
 );
@@ -131,11 +127,12 @@ function handleSubmitFormProfile(evt) {
 // }
 
 // Функция создания карточки
-// function createCard(element) {
-//   const cardElement = new Card(element, selectors.templateCard, openPopupViewImage);
-//   const result = cardElement.generateCard();
-//   return result;
-// }
+function createCard(element) {
+  const cardElement = new Card(element, selectors.templateCard, openPopupViewImage);
+  const result = cardElement.generateCard();
+  cardSection.addItem(result);
+  
+}
 
 // Функция добавления карточек
 // function addCards(element) {
@@ -160,7 +157,7 @@ function addNewCard() {
   const linkValue = popupImageLinkInput.value;
   const cardValue = { name: nameValue, link: linkValue };
 
-  cardSection.addItem(cardValue);
+  createCard(cardValue);
 }
 
 // Вызывает функцию обработки popup

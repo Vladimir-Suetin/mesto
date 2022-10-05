@@ -1,5 +1,6 @@
-import Card from '../scripts/Card.js';
-import FormValidator from '../scripts/FormValidator.js';
+import Card from '../components/Card.js';
+import FormValidator from '../components/FormValidator.js';
+import Section from '../components/Section.js';
 import {
   selectors,
   objectValidation,
@@ -25,6 +26,17 @@ import {
 
 const cardElementFormValidator = new FormValidator(objectValidation, popupFormAddImage);
 const profileElementFormValidator = new FormValidator(objectValidation, popupFormEditProfile);
+const cardSection = new Section(
+  {
+    items: initialCards,
+    renderer: (element) => {
+      const cardElement = new Card(element, selectors.templateCard, openPopupViewImage);
+      const result = cardElement.generateCard();
+      cardSection.addItem(result);
+    },
+  },
+  '.cards__photo-grid'
+);
 
 // Функция открытия popup
 function openPopup(item) {
@@ -112,24 +124,24 @@ function handleSubmitFormProfile(evt) {
 }
 
 // Функция обработки карточек из массива
-function sortCards(cards) {
-  cards.forEach((element) => {
-    addCards(element);
-  });
-}
+// function sortCards(cards) {
+//   cards.forEach((element) => {
+//     addCards(element);
+//   });
+// }
 
 // Функция создания карточки
-function createCard(element) {
-  const cardElement = new Card(element, selectors.templateCard, openPopupViewImage);
-  const result = cardElement.generateCard();
-  return result;
-}
+// function createCard(element) {
+//   const cardElement = new Card(element, selectors.templateCard, openPopupViewImage);
+//   const result = cardElement.generateCard();
+//   return result;
+// }
 
 // Функция добавления карточек
-function addCards(element) {
-  const result = createCard(element);
-  listCardPhotoGrid.prepend(result);
-}
+// function addCards(element) {
+//   const result = createCard(element);
+//   listCardPhotoGrid.prepend(result);
+// }
 
 // Функция обработчик события при создании новой карточки
 function handleSubmitAddImage(evt) {
@@ -148,14 +160,17 @@ function addNewCard() {
   const linkValue = popupImageLinkInput.value;
   const cardValue = { name: nameValue, link: linkValue };
 
-  addCards(cardValue);
+  cardSection.addItem(cardValue);
 }
 
 // Вызывает функцию обработки popup
 sortPopup();
 
 // Вызывает функцию сортировки карточек
-sortCards(initialCards);
+// sortCards(initialCards);
+
+// Вызывает метод сортировки карточек
+cardSection.renderItems();
 
 // Вызывает функцию редактирования popup
 popupFormEditProfile.addEventListener('submit', handleSubmitFormProfile);

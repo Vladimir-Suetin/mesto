@@ -27,6 +27,8 @@ import {
 
 const cardElementFormValidator = new FormValidator(objectValidation, popupFormAddImage);
 const profileElementFormValidator = new FormValidator(objectValidation, popupFormEditProfile);
+const popupProfile = new Popup('.popup_edit_profile');
+const popupImageClass = new Popup('.popup_add_image'); // отредактировать наименование !!!
 const cardSection = new Section(
   {
     items: initialCards,
@@ -65,7 +67,6 @@ const cardSection = new Section(
 // Функция открытия popup profile
 function openPopupProfile() {
   // openPopup(popupEditProfile);
-  const popupProfile = new Popup('.popup_edit_profile')
   popupProfileNameInput.value = profileName.textContent;
   popupProfileJobInput.value = profilejob.textContent;
   popupProfile.open();
@@ -74,19 +75,22 @@ function openPopupProfile() {
 
 // Функция закрытия popup profile
 function closePopupProfile() {
-  closePopup(popupEditProfile);
+  // closePopup(popupEditProfile);
+  popupProfile.close();
   profileElementFormValidator.resetValidation();
 }
 
 // Функция открытия popup add image
 function openPopupAddImage() {
-  openPopup(popupAddImage);
+  // openPopup(popupAddImage);
+  popupImageClass.open();
   cardElementFormValidator.enableValidation();
 }
 
 // Функция закрытия popup add image
 function closePopupAddImage() {
-  closePopup(popupAddImage);
+  // closePopup(popupAddImage);
+  popupImageClass.close();
   cardElementFormValidator.resetValidation();
 }
 
@@ -172,6 +176,12 @@ function addNewCard() {
 // Вызывает метод сортировки карточек
 cardSection.renderItems();
 
+// Вызывает метод прослушивания событий для popupProfile
+popupProfile.setEventListeners();
+
+// Вызывает метод прослушивания событий для popupImageClass
+popupImageClass.setEventListeners();
+
 // Вызывает функцию редактирования popup
 popupFormEditProfile.addEventListener('submit', handleSubmitFormProfile);
 
@@ -179,7 +189,7 @@ popupFormEditProfile.addEventListener('submit', handleSubmitFormProfile);
 popupAddImage.addEventListener('submit', handleSubmitAddImage);
 
 // Вызывает функцию открытия popup profile при прослушивании click
- profileEditButton.addEventListener('click', openPopupProfile);
+profileEditButton.addEventListener('click', openPopupProfile);
 
 // Вызывает функцию открытия popup add image при прослушивании click
 imageAddButton.addEventListener('click', openPopupAddImage);

@@ -2,6 +2,7 @@ import Card from '../components/Card.js';
 import FormValidator from '../components/FormValidator.js';
 import Section from '../components/Section.js';
 import Popup from '../components/Popup.js';
+import PopupWithImage from '../components/PopupWithImage.js';
 import {
   selectors,
   objectValidation,
@@ -17,9 +18,9 @@ import {
   imageAddButton,
   popupImageNameInput,
   popupImageLinkInput,
-  popupViewImage,
-  popupImage,
-  popupImageName,
+  // popupViewImage,
+  // popupImage,
+  // popupImageName,
   popupFormAddImage,
   popupFormEditProfile,
   initialCards,
@@ -29,6 +30,7 @@ const cardElementFormValidator = new FormValidator(objectValidation, popupFormAd
 const profileElementFormValidator = new FormValidator(objectValidation, popupFormEditProfile);
 const popupProfile = new Popup('.popup_edit_profile');
 const popupImageClass = new Popup('.popup_add_image'); // отредактировать наименование !!!
+const popupViewImage = new PopupWithImage('.popup_view_image');
 const cardSection = new Section(
   {
     items: initialCards,
@@ -95,13 +97,14 @@ function closePopupAddImage() {
 }
 
 // Функция открытия popup view image
-function openPopupViewImage(name, link) {
-  openPopup(popupViewImage);
+ function handleCardClick(name, link) {
+  popupViewImage.open(name, link);
+//   openPopup(popupViewImage);
 
-  popupImage.src = link;
-  popupImage.alt = name;
+//   popupImage.src = link;
+//   popupImage.alt = name;
 
-  popupImageName.textContent = popupImage.alt;
+//   popupImageName.textContent = popupImage.alt;
 }
 
 // Функция обработки всех popup, вызова функций анимации и закрытия при нажатии на внешнюю область
@@ -135,7 +138,7 @@ function handleSubmitFormProfile(evt) {
 
 // Функция создания карточки
 function createCard(element) {
-  const cardElement = new Card(element, selectors.templateCard, openPopupViewImage);
+  const cardElement = new Card(element, selectors.templateCard, handleCardClick);
   const result = cardElement.generateCard();
   cardSection.addItem(result);
   
@@ -183,7 +186,10 @@ popupProfile.setEventListeners();
 popupImageClass.setEventListeners();
 
 // Вызывает функцию редактирования popup
-popupFormEditProfile.addEventListener('submit', handleSubmitFormProfile);
+ popupFormEditProfile.addEventListener('submit', handleSubmitFormProfile);
+// popupFormEditProfile.addEventListener('submit', () => {
+//   const 
+// });
 
 // Вызывает функцию добавления карточки
 popupAddImage.addEventListener('submit', handleSubmitAddImage);

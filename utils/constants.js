@@ -19,9 +19,9 @@ const selectors = {
   templateLinkImageCard: ".element__mask-group",
   templateElementButtonRemove: ".element__button-remove",
   templateLikeButton: ".element__like-button",
-  popupViewImage: ".popup_view_image",
-  popupImage: ".popup__image",
-  popupImageName: ".popup__image-title",
+  // popupViewImage: ".popup_view_image",
+  // popupImage: ".popup__image",
+  // popupImageName: ".popup__image-title",
   popup: ".popup",
   popupFormAddImage: ".popup__container_add-image",
   popupFormEditProfile: ".popup__container_edit-profile",
@@ -42,9 +42,9 @@ const popupAddImage = document.querySelector(selectors.popupAddImage);
 const imageAddButton = profile.querySelector(selectors.imageAddButton);
 const popupImageNameInput = popupAddImage.querySelector(selectors.popupImageNameInput);
 const popupImageLinkInput = popupAddImage.querySelector(selectors.popupImageLinkInput);
-const popupViewImage = document.querySelector(selectors.popupViewImage);
-const popupImage = popupViewImage.querySelector(selectors.popupImage);
-const popupImageName = popupViewImage.querySelector(selectors.popupImageName);
+// const popupViewImage = document.querySelector(selectors.popupViewImage);
+// const popupImage = popupViewImage.querySelector(selectors.popupImage);
+// const popupImageName = popupViewImage.querySelector(selectors.popupImageName);
 const popupFormAddImage = popupAddImage.querySelector(selectors.popupFormAddImage);
 const popupFormEditProfile = popupEditProfile.querySelector(selectors.popupFormEditProfile);
 
@@ -100,9 +100,9 @@ export {
   imageAddButton,
   popupImageNameInput,
   popupImageLinkInput,
-  popupViewImage,
-  popupImage,
-  popupImageName,
+  // popupViewImage,
+  // popupImage,
+  // popupImageName,
   popupFormAddImage,
   initialCards,
   popupFormEditProfile,

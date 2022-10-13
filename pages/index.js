@@ -30,7 +30,6 @@ const cardElementFormValidator = new FormValidator(objectValidation, popupFormAd
 const profileElementFormValidator = new FormValidator(objectValidation, popupFormEditProfile);
 const popupProfile = new Popup('.popup_edit_profile');
 const popupImageClass = new Popup('.popup_add_image'); // отредактировать наименование !!!
-const popupViewImage = new PopupWithImage('.popup_view_image');
 const cardSection = new Section(
   {
     items: initialCards,
@@ -98,6 +97,7 @@ function closePopupAddImage() {
 
 // Функция открытия popup view image
  function handleCardClick(name, link) {
+  const popupViewImage = new PopupWithImage('.popup_view_image');
   popupViewImage.open(name, link);
 //   openPopup(popupViewImage);
 

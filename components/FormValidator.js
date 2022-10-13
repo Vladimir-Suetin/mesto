@@ -15,16 +15,16 @@ export default class FormValidator {
   }
 
   // Метод находит форму в документе и вешает слушатели
-  enableValidation = () => {
+  enableValidation() {
     this._form.addEventListener("input", (evt) => this._handleFormInput(evt));
   };
 
-  _buttonDisabled = () => {
+  _buttonDisabled() {
     this._button.setAttribute("disabled", true);
     this._button.classList.add(this._objectValidation.inactiveButtonClass);
   }
 
-  resetValidation = () => {
+  resetValidation() {
     this._inputElements.forEach((formElement) => {
       this._textError = this._form.querySelector(`${this._objectValidation.errorSelector}_${formElement.name}`);
       this._textError.textContent = "";
@@ -34,7 +34,7 @@ export default class FormValidator {
   };
 
   // Метод работы с input
-  _handleFormInput = (evt) => {
+  _handleFormInput(evt) {
     // найдем активный инпут
     this._input = evt.target;
 
@@ -49,14 +49,14 @@ export default class FormValidator {
   };
 
   // функция показа ошибки
-  _showFieldError = (input) => {
+  _showFieldError(input) {
     //this.textError = input.nextElementSibling; выбирает соседний елемент за input
     this._textError = this._form.querySelector(`${this._objectValidation.errorSelector}_${input.name}`);
     this._textError.textContent = input.validationMessage;
   };
 
   // Функция подсветки input invalid
-  _accentInputInvalid = (input) => {
+  _accentInputInvalid(input) {
     this._isValid = input.checkValidity();
 
     if (this._isValid) {
@@ -67,7 +67,7 @@ export default class FormValidator {
   };
 
   // Метод включения кнопки отправки
-  _setSubmitButtonState = () => {
+  _setSubmitButtonState() {
     this._isValid = this._form.checkValidity();
 
     if (this._isValid) {

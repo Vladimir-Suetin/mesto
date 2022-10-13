@@ -17,21 +17,21 @@ export default class Card {
     this._handleCardClick = handleCardClick;
   }
 
-  _delClickHandler = () => {
+  _delClickHandler() {
     this._elementTemplate.remove();
     this._elementTemplate = null;
   };
 
-  _likeClickHandler = () => {
+  _likeClickHandler() {
     this._likeButton.classList.toggle("element__like-button_active");
   };
 
-  _cloneElement = () => {
+  _cloneElement() {
     this._cloneElementTemplate = document.querySelector(this._template).content.cloneNode(true);
     return this._cloneElementTemplate;
   };
 
-  generateCard = () => {
+  generateCard() {
     this._elementTemplate = this._cloneElement().querySelector(".element");
     this._title = this._elementTemplate.querySelector(".element__title");
     this._image = this._elementTemplate.querySelector(".element__mask-group");
@@ -48,7 +48,7 @@ export default class Card {
     return this._elementTemplate;
   };
 
-  _setEventListeners = () => {
+  _setEventListeners() {
     this._removeButton.addEventListener("click", () => {
       this._delClickHandler();
     });

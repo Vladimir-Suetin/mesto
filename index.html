@@ -41,7 +41,7 @@
         <h3 class="popup__title">Редактировать профиль</h3>
         <form name="popup-edit-profile" class="popup__container popup__container_edit-profile">
           <input
-            name="profile-name"
+            name="profile_name"
             type="text"
             class="popup__name popup__field popup__name_value"
             required
@@ -49,9 +49,9 @@
             minlength="2"
             maxlength="40"
           />
-          <span class="popup__error popup__error_profile-name"></span>
+          <span class="popup__error popup__error_profile_name"></span>
           <input
-            name="profile-job"
+            name="profile_job"
             type="text"
             class="popup__job popup__field popup__job_value"
             required
@@ -59,7 +59,7 @@
             minlength="2"
             maxlength="200"
           />
-          <span class="popup__error popup__error_profile-job"></span>
+          <span class="popup__error popup__error_profile_job"></span>
           <button disabled type="submit" class="popup__submit-button popup__submit-button_disabled">Сохранить</button>
         </form>
         <button type="button" class="popup__close-icon" aria-label="закрыть форму"></button>
@@ -71,7 +71,7 @@
         <h3 class="popup__title">Новое место</h3>
         <form name="popup-add-image" class="popup__container popup__container_add-image">
           <input
-            name="name-image"
+            name="name_image"
             type="text"
             class="popup__name-image popup__field popup__name-image_value"
             required
@@ -79,15 +79,15 @@
             minlength="2"
             maxlength="30"
           />
-          <span class="popup__error popup__error_name-image"></span>
+          <span class="popup__error popup__error_name_image"></span>
           <input
-            name="link-image"
+            name="link_image"
             type="url"
             class="popup__link-image popup__field popup__link-image_value"
             required
             placeholder="Ссылка на картинку"
           />
-          <span class="popup__error popup__error_link-image"></span>
+          <span class="popup__error popup__error_link_image"></span>
           <button disabled type="submit" class="popup__submit-button popup__submit-button_disabled">Создать</button>
         </form>
         <button type="button" class="popup__close-icon" aria-label="закрыть форму"></button>

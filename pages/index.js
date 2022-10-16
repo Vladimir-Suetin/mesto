@@ -3,6 +3,8 @@ import FormValidator from '../components/FormValidator.js';
 import Section from '../components/Section.js';
 import Popup from '../components/Popup.js';
 import PopupWithImage from '../components/PopupWithImage.js';
+import PopupWithForm from '../components/PopupWithForm.js';
+import UserInfo from '../components/UserInfo.js';
 import {
   selectors,
   objectValidation,
@@ -28,8 +30,11 @@ import {
 
 const cardElementFormValidator = new FormValidator(objectValidation, popupFormAddImage);
 const profileElementFormValidator = new FormValidator(objectValidation, popupFormEditProfile);
-const popupProfile = new Popup('.popup_edit_profile');
-const popupImageClass = new Popup('.popup_add_image'); // отредактировать наименование !!!
+// const popupProfile = new Popup('.popup_edit_profile');
+const popupImageClass = new PopupWithForm({ selector: '.popup_add_image', submitForm: handleSubmitAddImage }); // отредактировать наименование !!!
+const popupViewImage = new PopupWithImage({ selector: '.popup_view_image' });
+const popupProfile = new PopupWithForm({ selector: '.popup_edit_profile', submitForm: handleSubmitFormProfile });
+const profileInfo = new UserInfo({ selectorName: '.profile__name', selectorInfo: '.profile__job' });
 const cardSection = new Section(
   {
     items: initialCards,
@@ -68,18 +73,21 @@ const cardSection = new Section(
 // Функция открытия popup profile
 function openPopupProfile() {
   // openPopup(popupEditProfile);
-  popupProfileNameInput.value = profileName.textContent;
-  popupProfileJobInput.value = profilejob.textContent;
+  // popupProfileNameInput.value = profileName.textContent;
+  // popupProfileJobInput.value = profilejob.textContent;
+  const { userName, userInfo } = profileInfo.getUserInfo();
+  popupProfileNameInput.value = userName;
+  popupProfileJobInput.value = userInfo;
   popupProfile.open();
   profileElementFormValidator.enableValidation();
 }
 
 // Функция закрытия popup profile
-function closePopupProfile() {
-  // closePopup(popupEditProfile);
-  popupProfile.close();
-  profileElementFormValidator.resetValidation();
-}
+// function closePopupProfile() {
+//   // closePopup(popupEditProfile);
+//   popupProfile.close();
+//   profileElementFormValidator.resetValidation();
+// }
 
 // Функция открытия popup add image
 function openPopupAddImage() {
@@ -96,15 +104,14 @@ function closePopupAddImage() {
 }
 
 // Функция открытия popup view image
- function handleCardClick(name, link) {
-  const popupViewImage = new PopupWithImage('.popup_view_image');
+function handleCardClick(name, link) {
   popupViewImage.open(name, link);
-//   openPopup(popupViewImage);
+  //   openPopup(popupViewImage);
 
-//   popupImage.src = link;
-//   popupImage.alt = name;
+  //   popupImage.src = link;
+  //   popupImage.alt = name;
 
-//   popupImageName.textContent = popupImage.alt;
+  //   popupImageName.textContent = popupImage.alt;
 }
 
 // Функция обработки всех popup, вызова функций анимации и закрытия при нажатии на внешнюю область
@@ -119,14 +126,20 @@ function closePopupAddImage() {
 
 // Обработчик «отправки» формы редактирования профиля, хотя пока
 // она никуда отправляться не будет
-function handleSubmitFormProfile(evt) {
+
+function handleSubmitFormProfile(evt, objectValue) {
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
-
+  // const { profile_name, profile_job } = objectValue;
   // Вставляем новые значения с помощью textContent
-  profileName.textContent = popupProfileNameInput.value;
-  profilejob.textContent = popupProfileJobInput.value;
+  // profileName.textContent = nameValue;
+  // profilejob.textContent = jonValue;
+  // profileName.textContent = profile_name;
+  // profilejob.textContent = profile_job;
+  profileInfo.setUserInfo(objectValue);
 
-  closePopupProfile();
+  popupProfile.close();
+
+  profileElementFormValidator.resetValidation();
 }
 
 // Функция обработки карточек из массива
@@ -141,7 +154,6 @@ function createCard(element) {
   const cardElement = new Card(element, selectors.templateCard, handleCardClick);
   const result = cardElement.generateCard();
   cardSection.addItem(result);
-  
 }
 
 // Функция добавления карточек
@@ -151,10 +163,12 @@ function createCard(element) {
 // }
 
 // Функция обработчик события при создании новой карточки
-function handleSubmitAddImage(evt) {
+function handleSubmitAddImage(evt, objectValue) {
   evt.preventDefault();
 
-  addNewCard();
+  const { name_image: name, link_image: link } = objectValue;
+
+  createCard({ name, link });
 
   popupFormAddImage.reset();
 
@@ -162,13 +176,13 @@ function handleSubmitAddImage(evt) {
 }
 
 // Функция добавления новой карточки
-function addNewCard() {
-  const nameValue = popupImageNameInput.value;
-  const linkValue = popupImageLinkInput.value;
-  const cardValue = { name: nameValue, link: linkValue };
+// function addNewCard() {
+//   // const nameValue = popupImageNameInput.value;
+//   // const linkValue = popupImageLinkInput.value;
+//   // const cardValue = { name: nameValue, link: linkValue };
 
-  createCard(cardValue);
-}
+//   createCard(cardValue);
+// }
 
 // Вызывает функцию обработки popup
 // sortPopup();
@@ -185,14 +199,13 @@ popupProfile.setEventListeners();
 // Вызывает метод прослушивания событий для popupImageClass
 popupImageClass.setEventListeners();
 
+popupViewImage.setEventListeners();
+
 // Вызывает функцию редактирования popup
- popupFormEditProfile.addEventListener('submit', handleSubmitFormProfile);
-// popupFormEditProfile.addEventListener('submit', () => {
-//   const 
-// });
+// popupFormEditProfile.addEventListener('submit', handleSubmitFormProfile);
 
 // Вызывает функцию добавления карточки
-popupAddImage.addEventListener('submit', handleSubmitAddImage);
+// popupAddImage.addEventListener('submit', handleSubmitAddImage);
 
 // Вызывает функцию открытия popup profile при прослушивании click
 profileEditButton.addEventListener('click', openPopupProfile);

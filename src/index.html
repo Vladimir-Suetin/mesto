@@ -9,16 +9,15 @@
     />
     <meta name="keywords" content="фотография, добавить, поделиться" />
     <meta name="author" content="Suetin Vladimir" />
-    <link rel="stylesheet" href="./pages/index.css" />
     <title>Mesto</title>
   </head>
   <body class="page">
     <header class="header">
-      <img src="./images/logo.svg" alt="логотип сайта Mesto" class="header__logo" />
+      <img src="<%=require('./images/logo.svg')%>" alt="логотип сайта Mesto" class="header__logo" />
     </header>
     <main>
       <section class="profile">
-        <img src="./images/custo.jpg" alt="аватар" class="profile__avatar" />
+        <img src="<%=require('./images/custo.jpg')%>" alt="аватар" class="profile__avatar" />
         <div class="profile__info">
           <h1 class="profile__name">Жак-Ив Кусто</h1>
           <button type="button" class="profile__edit-button" aria-label="редактировать профиль"></button>
@@ -112,7 +111,5 @@
         <button type="button" class="element__button-remove"></button>
       </li>
     </template>
-
-    <script src="./pages/index.js" type="module"></script>
   </body>
 </html>

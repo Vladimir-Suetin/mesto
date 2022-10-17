@@ -19,9 +19,6 @@ const selectors = {
   templateLinkImageCard: ".element__mask-group",
   templateElementButtonRemove: ".element__button-remove",
   templateLikeButton: ".element__like-button",
-  // popupViewImage: ".popup_view_image",
-  // popupImage: ".popup__image",
-  // popupImageName: ".popup__image-title",
   popup: ".popup",
   popupFormAddImage: ".popup__container_add-image",
   popupFormEditProfile: ".popup__container_edit-profile",
@@ -31,20 +28,12 @@ const selectors = {
 
 // Поиск элементов в документе
 const profile = document.querySelector(selectors.profile);
-const profileName = profile.querySelector(selectors.profileName);
-const profilejob = profile.querySelector(selectors.profilejob);
 const profileEditButton = profile.querySelector(selectors.profileEditButton);
 const popupEditProfile = document.querySelector(selectors.popupEditProfile);
 const popupProfileNameInput = popupEditProfile.querySelector(selectors.popupProfileNameInput);
 const popupProfileJobInput = popupEditProfile.querySelector(selectors.popupProfileJobInput);
-const listCardPhotoGrid = document.querySelector(selectors.listCardPhotoGrid);
 const popupAddImage = document.querySelector(selectors.popupAddImage);
 const imageAddButton = profile.querySelector(selectors.imageAddButton);
-const popupImageNameInput = popupAddImage.querySelector(selectors.popupImageNameInput);
-const popupImageLinkInput = popupAddImage.querySelector(selectors.popupImageLinkInput);
-// const popupViewImage = document.querySelector(selectors.popupViewImage);
-// const popupImage = popupViewImage.querySelector(selectors.popupImage);
-// const popupImageName = popupViewImage.querySelector(selectors.popupImageName);
 const popupFormAddImage = popupAddImage.querySelector(selectors.popupFormAddImage);
 const popupFormEditProfile = popupEditProfile.querySelector(selectors.popupFormEditProfile);
 
@@ -88,22 +77,12 @@ const initialCards = [
 export {
   selectors,
   objectValidation,
-  profile,
-  profileName,
-  profilejob,
   profileEditButton,
   popupEditProfile,
   popupProfileNameInput,
   popupProfileJobInput,
-  listCardPhotoGrid,
-  popupAddImage,
   imageAddButton,
-  popupImageNameInput,
-  popupImageLinkInput,
-  // popupViewImage,
-  // popupImage,
-  // popupImageName,
   popupFormAddImage,
-  initialCards,
   popupFormEditProfile,
+  initialCards,
 };

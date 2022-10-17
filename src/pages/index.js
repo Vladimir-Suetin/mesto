@@ -9,8 +9,6 @@ import {
   selectors,
   objectValidation,
   profileEditButton,
-  popupProfileNameInput,
-  popupProfileJobInput,
   imageAddButton,
   popupFormAddImage,
   popupFormEditProfile,
@@ -33,21 +31,16 @@ const cardSection = new Section(
 
 // Функция открытия popup profile
 function openPopupProfile() {
-  const { userName, userInfo } = profileInfo.getUserInfo();
+  const profileData = profileInfo.getUserInfo();
 
-  popupProfileNameInput.value = userName;
-  popupProfileJobInput.value = userInfo;
+  popupEditProfile.setInputValues(profileData);
 
   popupEditProfile.open();
-
-  profileElementFormValidator.enableValidation();
 }
 
 // Функция открытия popup add image
 function openPopupAddImage() {
   popupEditImage.open();
-
-  cardElementFormValidator.enableValidation();
 }
 
 // Функция закрытия popup add image
@@ -78,7 +71,7 @@ function createCard(element) {
 
   const result = cardElement.generateCard();
 
-  cardSection.addItem(result);
+  return result;
 }
 
 // Функция обработчик события при создании новой карточки
@@ -87,12 +80,16 @@ function handleSubmitAddImage(evt, objectValue) {
 
   const { name_image: name, link_image: link } = objectValue;
 
-  createCard({ name, link });
-
-  popupFormAddImage.reset();
+  cardSection.addItem({ name, link });
 
   closePopupAddImage();
 }
+
+// Вызывает метод валидации профиля
+profileElementFormValidator.enableValidation();
+
+// Вызывает метод валидации карточки
+cardElementFormValidator.enableValidation();
 
 // Вызывает метод сортировки карточек
 cardSection.renderItems();

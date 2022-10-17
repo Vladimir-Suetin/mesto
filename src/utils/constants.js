@@ -30,8 +30,6 @@ const selectors = {
 const profile = document.querySelector(selectors.profile);
 const profileEditButton = profile.querySelector(selectors.profileEditButton);
 const popupEditProfile = document.querySelector(selectors.popupEditProfile);
-const popupProfileNameInput = popupEditProfile.querySelector(selectors.popupProfileNameInput);
-const popupProfileJobInput = popupEditProfile.querySelector(selectors.popupProfileJobInput);
 const popupAddImage = document.querySelector(selectors.popupAddImage);
 const imageAddButton = profile.querySelector(selectors.imageAddButton);
 const popupFormAddImage = popupAddImage.querySelector(selectors.popupFormAddImage);
@@ -79,8 +77,6 @@ export {
   objectValidation,
   profileEditButton,
   popupEditProfile,
-  popupProfileNameInput,
-  popupProfileJobInput,
   imageAddButton,
   popupFormAddImage,
   popupFormEditProfile,

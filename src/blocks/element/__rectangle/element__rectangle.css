@@ -1,9 +1,0 @@
-.element__rectangle {
-  box-sizing: border-box;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  width: 100%;
-  background-color: #fff;
-  padding: 25px 20px;
-}

@@ -34,12 +34,13 @@ const cardSection = new Section(
   '.cards__photo-grid'
 );
 
-api.getUserInfo()
-.then((data) => {
-   return console.log(data.name, data.about, data.avatar)
-
-})
-.catch((err) => api.serverResponseError(err))
+api
+  .getUserInfo()
+  .then((data) => {
+    const {name: profile_name, about: profile_job } = data;
+    profileInfo.setUserInfo({ profile_name, profile_job });
+  })
+  .catch((err) => api.serverResponseError(err));
 
 // Функция открытия popup profile
 function openPopupProfile() {

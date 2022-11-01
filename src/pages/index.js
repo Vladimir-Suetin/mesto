@@ -24,7 +24,8 @@ const popupEditProfile = new PopupWithForm({ selector: '.popup_edit_profile', su
 const profileInfo = new UserInfo({ selectorName: '.profile__name', selectorInfo: '.profile__job' });
 const api = new Api({
   serverUrl: 'https://nomoreparties.co/v1/cohort-52/users/me',
-  headers: { authorization: '6692dfb4-7777-450f-b6ba-68fb20b8c9ff' },
+  headers: { authorization: '6692dfb4-7777-450f-b6ba-68fb20b8c9ff',
+  'Content-Type': 'application/json' },
 });
 const cardSection = new Section(
   {
@@ -34,10 +35,10 @@ const cardSection = new Section(
   '.cards__photo-grid'
 );
 
-api
-  .getUserInfo()
-  .then((data) => {
-    const {name: profile_name, about: profile_job } = data;
+// Промис рендеринга карточек и данных пользователя
+const renderData = Promise.all([api.getUserInfo()])
+  .then(([userData]) => {
+    const {name: profile_name, about: profile_job } = userData;
     profileInfo.setUserInfo({ profile_name, profile_job });
   })
   .catch((err) => api.serverResponseError(err));

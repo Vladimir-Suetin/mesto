@@ -5,6 +5,7 @@ import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
+import Api from '../components/Api.js';
 import {
   selectors,
   objectValidation,
@@ -21,6 +22,10 @@ const popupEditImage = new PopupWithForm({ selector: '.popup_add_image', submitF
 const popupViewImage = new PopupWithImage({ selector: '.popup_view_image' });
 const popupEditProfile = new PopupWithForm({ selector: '.popup_edit_profile', submitForm: handleSubmitFormProfile });
 const profileInfo = new UserInfo({ selectorName: '.profile__name', selectorInfo: '.profile__job' });
+const api = new Api({
+  serverUrl: 'https://nomoreparties.co/v1/cohort-52/users/me',
+  headers: { authorization: '6692dfb4-7777-450f-b6ba-68fb20b8c9ff' },
+});
 const cardSection = new Section(
   {
     items: initialCards,
@@ -28,6 +33,13 @@ const cardSection = new Section(
   },
   '.cards__photo-grid'
 );
+
+api.getUserInfo()
+.then((data) => {
+   return console.log(data.name, data.about, data.avatar)
+
+})
+.catch((err) => api.serverResponseError(err))
 
 // Функция открытия popup profile
 function openPopupProfile() {

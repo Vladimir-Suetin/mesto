@@ -13,7 +13,7 @@ import {
   imageAddButton,
   popupFormAddImage,
   popupFormEditProfile,
-  initialCards,
+  // initialCards,
 } from '../utils/constants.js';
 
 const cardElementFormValidator = new FormValidator(objectValidation, popupFormAddImage);
@@ -23,23 +23,24 @@ const popupViewImage = new PopupWithImage({ selector: '.popup_view_image' });
 const popupEditProfile = new PopupWithForm({ selector: '.popup_edit_profile', submitForm: handleSubmitFormProfile });
 const profileInfo = new UserInfo({ selectorName: '.profile__name', selectorInfo: '.profile__job' });
 const api = new Api({
-  serverUrl: 'https://nomoreparties.co/v1/cohort-52/users/me',
-  headers: { authorization: '6692dfb4-7777-450f-b6ba-68fb20b8c9ff',
-  'Content-Type': 'application/json' },
+  cohortId: 'cohort-52',
+  headers: { authorization: '6692dfb4-7777-450f-b6ba-68fb20b8c9ff', 'Content-Type': 'application/json' },
 });
 const cardSection = new Section(
   {
-    items: initialCards,
     renderer: createCard,
   },
   '.cards__photo-grid'
 );
 
 // Промис рендеринга карточек и данных пользователя
-const renderData = Promise.all([api.getUserInfo()])
-  .then(([userData]) => {
-    const {name: profile_name, about: profile_job } = userData;
+const renderData = Promise.all([api.getCards(), api.getUserInfo()])
+  .then(([cardsData, userData]) => {
+    const { name: profile_name, about: profile_job, avatar, _id } = userData;
+    // const { name: nameCard, link: linkCard, _id: idCard } = cardsData;
     profileInfo.setUserInfo({ profile_name, profile_job });
+    // Вызывает метод сортировки карточек
+    cardSection.renderItems(cardsData);
   })
   .catch((err) => api.serverResponseError(err));
 
@@ -74,6 +75,8 @@ function handleSubmitFormProfile(evt, objectValue) {
 
   profileInfo.setUserInfo(objectValue);
 
+  api.editUserInfo(objectValue);
+
   popupEditProfile.close();
 
   profileElementFormValidator.resetValidation();
@@ -104,9 +107,6 @@ profileElementFormValidator.enableValidation();
 
 // Вызывает метод валидации карточки
 cardElementFormValidator.enableValidation();
-
-// Вызывает метод сортировки карточек
-cardSection.renderItems();
 
 // Вызывает метод прослушивания событий для popupEditProfile
 popupEditProfile.setEventListeners();

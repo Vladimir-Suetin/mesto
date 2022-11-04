@@ -1,6 +1,6 @@
 export default class Api {
-  constructor({ serverUrl, headers }) {
-    this._serverUrl = serverUrl;
+  constructor({ cohortId, headers }) {
+    this._cohortId = cohortId;
     this._headers = headers;
   }
 
@@ -17,10 +17,29 @@ export default class Api {
   }
 
   getUserInfo() {
-    return fetch(this._serverUrl, {
+    return fetch(`https://nomoreparties.co/v1/${this._cohortId}/users/me`, {
       headers: this._headers,
     })
     .then((res) => this._serverResponse(res))
     // .catch((err) => this._serverResponseError(err))
+  }
+
+  getCards() {
+    return fetch( `https://mesto.nomoreparties.co/v1/${this._cohortId}/cards`, {
+      headers: this._headers,
+    })
+    .then((res) => this._serverResponse(res))
+  }
+
+  editUserInfo(data) {
+    return fetch(`https://mesto.nomoreparties.co/v1/${this._cohortId}/users/me`, {
+      method: 'PATCH',
+      headers: this._headers,
+      body: JSON.stringify({
+        name: data.profile_name,
+        about: data.profile_job,
+      })
+    })
+    .then((res) => this._serverResponse(res))
   }
 }

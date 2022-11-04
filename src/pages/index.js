@@ -13,7 +13,6 @@ import {
   imageAddButton,
   popupFormAddImage,
   popupFormEditProfile,
-  // initialCards,
 } from '../utils/constants.js';
 
 const cardElementFormValidator = new FormValidator(objectValidation, popupFormAddImage);
@@ -37,14 +36,18 @@ const cardSection = new Section(
 const renderData = Promise.all([api.getCards(), api.getUserInfo()])
   .then(([cardsData, userData]) => {
     const { name: profile_name, about: profile_job, avatar, _id } = userData;
-    // const { name: nameCard, link: linkCard, _id: idCard } = cardsData;
+    // const { name: nameCard, link: linkCard, _id: cardId } = cardsData;
     profileInfo.setUserInfo({ profile_name, profile_job });
     // Вызывает метод сортировки карточек
     cardSection.renderItems(cardsData);
   })
   .catch((err) => api.serverResponseError(err));
 
-  // api.deleteCard('636542164b3e610f8081b92a')
+// api.deleteCard('636542164b3e610f8081b92a')
+
+function setLikes(cardId) {
+  api.setLikes(cardId).then;
+}
 
 // Функция открытия popup profile
 function openPopupProfile() {
@@ -75,13 +78,16 @@ function handleCardClick(name, link) {
 function handleSubmitFormProfile(evt, objectValue) {
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
 
-  profileInfo.setUserInfo(objectValue);
+  api
+    .editUserInfo(objectValue)
+    .then(() => {
+      profileInfo.setUserInfo(objectValue);
 
-  api.editUserInfo(objectValue);
+      popupEditProfile.close();
 
-  popupEditProfile.close();
-
-  profileElementFormValidator.resetValidation();
+      profileElementFormValidator.resetValidation();
+    })
+    .catch((err) => api.serverResponseError(err));
 }
 
 // Функция создания карточки
@@ -99,11 +105,14 @@ function handleSubmitAddImage(evt, objectValue) {
 
   const { name_image: name, link_image: link } = objectValue;
 
-  api.addNewCard({ name, link });
+  api
+    .addNewCard({ name, link })
+    .then(({ name, link }) => {
+      cardSection.addItem({ name, link });
 
-  cardSection.addItem({ name, link });
-
-  closePopupAddImage();
+      closePopupAddImage();
+    })
+    .catch((err) => api.serverResponseError(err));
 }
 
 // Вызывает метод валидации профиля

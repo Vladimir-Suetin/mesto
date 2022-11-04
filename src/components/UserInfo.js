@@ -12,6 +12,7 @@ export default class UserInfo {
   }
 
   setUserInfo(data) {
+    console.log(data)
     const { profile_name = 'Имя не определено', profile_job = 'Деятельность не определена' } = data;
 
     this._profileUserName.textContent = profile_name;

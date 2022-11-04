@@ -52,8 +52,15 @@ export default class Api {
   }
 
   deleteCard(idCard) {
-    return fetch(`https://mesto.nomoreparties.co/v1/${this._cohortId}/cards/${idCard}`, {
+    return fetch(`https://mesto.nomoreparties.co/v1/${this._cohortId}/cards/${cardId}`, {
       method: 'DELETE',
+      headers: this._headers,
+    }).then((res) => this._serverResponse(res));
+  }
+
+  setLikes(idCard) {
+    return fetch(`https://mesto.nomoreparties.co/v1/${this._cohortId}/cards/${cardId}/likes`, {
+      method: 'PUT',
       headers: this._headers,
     }).then((res) => this._serverResponse(res));
   }

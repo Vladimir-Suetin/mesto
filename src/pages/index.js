@@ -44,6 +44,8 @@ const renderData = Promise.all([api.getCards(), api.getUserInfo()])
   })
   .catch((err) => api.serverResponseError(err));
 
+  // api.deleteCard('636542164b3e610f8081b92a')
+
 // Функция открытия popup profile
 function openPopupProfile() {
   const profileData = profileInfo.getUserInfo();
@@ -96,6 +98,8 @@ function handleSubmitAddImage(evt, objectValue) {
   evt.preventDefault();
 
   const { name_image: name, link_image: link } = objectValue;
+
+  api.addNewCard({ name, link });
 
   cardSection.addItem({ name, link });
 

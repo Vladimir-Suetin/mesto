@@ -19,16 +19,14 @@ export default class Api {
   getUserInfo() {
     return fetch(`https://nomoreparties.co/v1/${this._cohortId}/users/me`, {
       headers: this._headers,
-    })
-    .then((res) => this._serverResponse(res))
+    }).then((res) => this._serverResponse(res));
     // .catch((err) => this._serverResponseError(err))
   }
 
   getCards() {
-    return fetch( `https://mesto.nomoreparties.co/v1/${this._cohortId}/cards`, {
+    return fetch(`https://mesto.nomoreparties.co/v1/${this._cohortId}/cards`, {
       headers: this._headers,
-    })
-    .then((res) => this._serverResponse(res))
+    }).then((res) => this._serverResponse(res));
   }
 
   editUserInfo(data) {
@@ -38,8 +36,25 @@ export default class Api {
       body: JSON.stringify({
         name: data.profile_name,
         about: data.profile_job,
-      })
-    })
-    .then((res) => this._serverResponse(res))
+      }),
+    }).then((res) => this._serverResponse(res));
+  }
+
+  addNewCard(data) {
+    return fetch(`https://mesto.nomoreparties.co/v1/${this._cohortId}/cards`, {
+      method: 'POST',
+      headers: this._headers,
+      body: JSON.stringify({
+        name: data.name,
+        link: data.link,
+      }),
+    }).then((res) => this._serverResponse(res));
+  }
+
+  deleteCard(idCard) {
+    return fetch(`https://mesto.nomoreparties.co/v1/${this._cohortId}/cards/${idCard}`, {
+      method: 'DELETE',
+      headers: this._headers,
+    }).then((res) => this._serverResponse(res));
   }
 }

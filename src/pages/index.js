@@ -4,6 +4,7 @@ import FormValidator from '../components/FormValidator.js';
 import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
+import PopupWithConfirmation from '../components/PopupWithConfirmation.js'
 import UserInfo from '../components/UserInfo.js';
 import Api from '../components/Api.js';
 import {
@@ -19,6 +20,7 @@ const cardElementFormValidator = new FormValidator(objectValidation, popupFormAd
 const profileElementFormValidator = new FormValidator(objectValidation, popupFormEditProfile);
 const popupEditImage = new PopupWithForm({ selector: '.popup_add_image', submitForm: handleSubmitAddImage }); // отредактировать наименование !!!
 const popupViewImage = new PopupWithImage({ selector: '.popup_view_image' });
+const popupWithConfirmation = new PopupWithConfirmation('.popup_delete_card');
 const popupEditProfile = new PopupWithForm({ selector: '.popup_edit_profile', submitForm: handleSubmitFormProfile });
 const profileInfo = new UserInfo({ selectorName: '.profile__name', selectorInfo: '.profile__job' });
 const api = new Api({
@@ -45,9 +47,7 @@ const renderData = Promise.all([api.getCards(), api.getUserInfo()])
 
 // api.deleteCard('636542164b3e610f8081b92a')
 
-function setLikes(cardId) {
-  api.setLikes(cardId).then;
-}
+// api.setLikes(cardId)
 
 // Функция открытия popup profile
 function openPopupProfile() {
@@ -75,6 +75,11 @@ function handleCardClick(name, link) {
   popupViewImage.open(name, link);
 }
 
+// Функция открытия popup с подтверждением удаления карточки
+function confirmsDeletion() {
+  popupWithConfirmation.open();
+}
+
 function handleSubmitFormProfile(evt, objectValue) {
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
 
@@ -92,7 +97,7 @@ function handleSubmitFormProfile(evt, objectValue) {
 
 // Функция создания карточки
 function createCard(element) {
-  const cardElement = new Card(element, selectors.templateCard, handleCardClick);
+  const cardElement = new Card(element, selectors.templateCard, handleCardClick, confirmsDeletion);
 
   const result = cardElement.generateCard();
 

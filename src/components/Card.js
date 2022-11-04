@@ -10,14 +10,16 @@ export default class Card {
   _removeButton;
   _likeButton;
 
-  constructor(card, cardSelector, handleCardClick) {
+  constructor(card, cardSelector, handleCardClick, confirmsDeletion) {
     this._link = card.link;
     this._name = card.name;
     this._template = cardSelector;
     this._handleCardClick = handleCardClick;
+    this._confirmsDeletion = confirmsDeletion;
   }
 
   _delClickHandler() {
+    this._confirmsDeletion();
     this._elementTemplate.remove();
     this._elementTemplate = null;
   };
@@ -25,6 +27,14 @@ export default class Card {
   _likeClickHandler() {
     this._likeButton.classList.toggle("element__like-button_active");
   };
+
+  // setLike(data) {
+
+  // }
+
+  // deleteLike(data) {
+
+  // }
 
   _cloneElement() {
     this._cloneElementTemplate = document.querySelector(this._template).content.cloneNode(true);

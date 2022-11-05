@@ -52,14 +52,14 @@ export default class Api {
   }
 
   deleteCard(idCard) {
-    return fetch(`https://mesto.nomoreparties.co/v1/${this._cohortId}/cards/${cardId}`, {
+    return fetch(`https://mesto.nomoreparties.co/v1/${this._cohortId}/cards/${idCard}`, {
       method: 'DELETE',
       headers: this._headers,
     }).then((res) => this._serverResponse(res));
   }
 
   setLikes(idCard) {
-    return fetch(`https://mesto.nomoreparties.co/v1/${this._cohortId}/cards/${cardId}/likes`, {
+    return fetch(`https://mesto.nomoreparties.co/v1/${this._cohortId}/cards/${idCard}/likes`, {
       method: 'PUT',
       headers: this._headers,
     }).then((res) => this._serverResponse(res));

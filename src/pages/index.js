@@ -95,6 +95,14 @@ function handleSubmitFormProfile(evt, objectValue) {
     .catch((err) => api.serverResponseError(err));
 }
 
+
+// api.setLikes("63665b3700d1bc1004af45c4")
+// .then((qty) => {
+//   console.log(qty)
+// }) 
+// .catch((err) => api.serverResponseError(err));
+
+
 // Функция создания карточки
 function createCard(element) {
   const cardElement = new Card(element, selectors.templateCard, handleCardClick, confirmsDeletion);

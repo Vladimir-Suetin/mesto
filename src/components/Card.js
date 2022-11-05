@@ -13,6 +13,8 @@ export default class Card {
   constructor(card, cardSelector, handleCardClick, confirmsDeletion) {
     this._link = card.link;
     this._name = card.name;
+    this._idCard = card._id;
+    this._likes = card.likes.length;
     this._template = cardSelector;
     this._handleCardClick = handleCardClick;
     this._confirmsDeletion = confirmsDeletion;
@@ -47,11 +49,16 @@ export default class Card {
     this._image = this._elementTemplate.querySelector(".element__mask-group");
     this._removeButton = this._elementTemplate.querySelector(".element__button-remove");
     this._likeButton = this._elementTemplate.querySelector(".element__like-button");
+    this._numberLikes = this._elementTemplate.querySelector(".element__number-likes");
 
     this._title.textContent = this._name;
 
     this._image.src = this._link;
     this._image.alt = this._name;
+
+    console.log(this._like)
+
+    this._numberLikes.textContent = this._likes;
 
     this._setEventListeners();
 

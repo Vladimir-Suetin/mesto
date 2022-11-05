@@ -4,7 +4,7 @@ import FormValidator from '../components/FormValidator.js';
 import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
-import PopupWithConfirmation from '../components/PopupWithConfirmation.js'
+import PopupWithConfirmation from '../components/PopupWithConfirmation.js';
 import UserInfo from '../components/UserInfo.js';
 import Api from '../components/Api.js';
 import {
@@ -34,10 +34,15 @@ const cardSection = new Section(
   '.cards__photo-grid'
 );
 
+// Переменные пользователя
+let userAvatar, mainId;
+
 // Промис рендеринга карточек и данных пользователя
-const renderData = Promise.all([api.getCards(), api.getUserInfo()])
+Promise.all([api.getCards(), api.getUserInfo()])
   .then(([cardsData, userData]) => {
     const { name: profile_name, about: profile_job, avatar, _id } = userData;
+    userAvatar = avatar;
+    mainId = _id;
     // const { name: nameCard, link: linkCard, _id: cardId } = cardsData;
     profileInfo.setUserInfo({ profile_name, profile_job });
     // Вызывает метод сортировки карточек
@@ -95,17 +100,31 @@ function handleSubmitFormProfile(evt, objectValue) {
     .catch((err) => api.serverResponseError(err));
 }
 
-
 // api.setLikes("63665b3700d1bc1004af45c4")
 // .then((qty) => {
 //   console.log(qty)
-// }) 
+// })
 // .catch((err) => api.serverResponseError(err));
 
+function setLikes(idCard) {
+  return api.setLikes(idCard);
+}
+
+function deleteLikes(idCard) {
+  return api.deleteLikes(idCard);
+}
 
 // Функция создания карточки
 function createCard(element) {
-  const cardElement = new Card(element, selectors.templateCard, handleCardClick, confirmsDeletion);
+  const cardElement = new Card({
+    card: element,
+    cardSelector: selectors.templateCard,
+    handleCardClick,
+    confirmsDeletion,
+    setLikes,
+    deleteLikes,
+    mainId,
+  });
 
   const result = cardElement.generateCard();
 
@@ -120,8 +139,8 @@ function handleSubmitAddImage(evt, objectValue) {
 
   api
     .addNewCard({ name, link })
-    .then(({ name, link }) => {
-      cardSection.addItem({ name, link });
+    .then(({ name, link, likes }) => {
+      cardSection.addItem({ name, link, likes });
 
       closePopupAddImage();
     })

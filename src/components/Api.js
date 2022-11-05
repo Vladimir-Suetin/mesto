@@ -64,4 +64,11 @@ export default class Api {
       headers: this._headers,
     }).then((res) => this._serverResponse(res));
   }
+
+  deleteLikes(idCard) {
+    return fetch(`https://mesto.nomoreparties.co/v1/${this._cohortId}/cards/${idCard}/likes`, {
+      method: 'DELETE',
+      headers: this._headers,
+    }).then((res) => this._serverResponse(res));
+  }
 }

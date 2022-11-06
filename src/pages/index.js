@@ -139,8 +139,8 @@ function handleSubmitAddImage(evt, objectValue) {
 
   api
     .addNewCard({ name, link })
-    .then(({ name, link, likes }) => {
-      cardSection.addItem({ name, link, likes });
+    .then((res) => {
+      cardSection.addItem(res);
 
       closePopupAddImage();
     })

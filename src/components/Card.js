@@ -63,14 +63,16 @@ export default class Card {
     this._image.src = this._link;
     this._image.alt = this._name;
 
-    this.likeCard();
+    this._checkLikeCard();
+    this._checkOwnerCard();
+    
 
     this._setEventListeners();
 
     return this._elementTemplate;
   }
 
-  likeCard() {
+  _checkLikeCard() {
     this._mainUser = this._likes.some((like) => {
       return like._id === this._mainId;
     });
@@ -79,7 +81,12 @@ export default class Card {
 
     if (this._mainUser) {
       this._likeButton.classList.add('element__like-button_active');
-      console.log(this._mainUser);
+    }
+  }
+
+  _checkOwnerCard() {
+    if(this._mainId !== this._card.owner._id) {
+      this._removeButton.remove();
     }
   }
 

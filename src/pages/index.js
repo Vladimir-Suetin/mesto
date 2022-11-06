@@ -34,24 +34,26 @@ const cardSection = new Section(
   '.cards__photo-grid'
 );
 
+
 // Переменные пользователя
-let userAvatar, mainId;
+ let userAvatar, mainId;
 
 // Промис рендеринга карточек и данных пользователя
 Promise.all([api.getCards(), api.getUserInfo()])
   .then(([cardsData, userData]) => {
     const { name: profile_name, about: profile_job, avatar, _id } = userData;
-    userAvatar = avatar;
-    mainId = _id;
+     userAvatar = avatar;
+     mainId = _id;
     // const { name: nameCard, link: linkCard, _id: cardId } = cardsData;
+    // function transferСardElement(cardElement) {
+    //   cardElement.getUserData({mainId: _id});
+    // }
+
     profileInfo.setUserInfo({ profile_name, profile_job });
     // Вызывает метод сортировки карточек
     cardSection.renderItems(cardsData);
   })
   .catch((err) => api.serverResponseError(err));
-
-// api.deleteCard('636542164b3e610f8081b92a')
-
 
 
 // Функция открытия popup profile
@@ -101,11 +103,6 @@ function handleSubmitFormProfile(evt, objectValue) {
     .catch((err) => api.serverResponseError(err));
 }
 
-// api.setLikes("63665b3700d1bc1004af45c4")
-// .then((qty) => {
-//   console.log(qty)
-// })
-// .catch((err) => api.serverResponseError(err));
 
 // Функция установки лайка
 function setLikes(idCard) {
@@ -134,7 +131,7 @@ function createCard(element) {
     confirmsDeletion,
     setLikes,
     deleteLikes,
-    mainId,
+    mainId
   });
 
   const result = cardElement.generateCard();

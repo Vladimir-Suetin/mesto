@@ -7,13 +7,13 @@ export default class PopupWithConfirmation extends Popup {
     // this._data = data;
   }
 
-  _submitHandle(evt) {
+  _submitHandler(evt) {
     evt.preventDefault();
     this._deleteCard(this.data);
   }
 
   setEventListeners() {
     super.setEventListeners();
-    this._popup.addEventListener('submit', this._submitHandle);
+    this._popup.addEventListener('submit', this._submitHandler);
   }
 }

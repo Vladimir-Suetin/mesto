@@ -20,9 +20,9 @@ const cardElementFormValidator = new FormValidator(objectValidation, popupFormAd
 const profileElementFormValidator = new FormValidator(objectValidation, popupFormEditProfile);
 const popupEditImage = new PopupWithForm({ selector: '.popup_add_image', submitForm: handleSubmitAddImage }); // отредактировать наименование !!!
 const popupViewImage = new PopupWithImage({ selector: '.popup_view_image' });
-const popupWithConfirmation = new PopupWithConfirmation('.popup_delete_card');
+const popupWithConfirmation = new PopupWithConfirmation('.popup_delete_card', deleteCard);
 const popupEditProfile = new PopupWithForm({ selector: '.popup_edit_profile', submitForm: handleSubmitFormProfile });
-const profileInfo = new UserInfo({ selectorName: '.profile__name', selectorInfo: '.profile__job' });
+const profileInfo = new UserInfo({ selectorName: '.profile__name', selectorInfo: '.profile__job', selectorAvatar: '.profile__avatar' });
 const api = new Api({
   cohortId: 'cohort-52',
   headers: { authorization: '6692dfb4-7777-450f-b6ba-68fb20b8c9ff', 'Content-Type': 'application/json' },
@@ -81,8 +81,9 @@ function handleCardClick(name, link) {
 }
 
 // Функция открытия popup с подтверждением удаления карточки
-function confirmsDeletion() {
+function confirmsDeletion(data) {
   popupWithConfirmation.open();
+  popupWithConfirmation.setEventListeners(data);
 }
 
 function handleSubmitFormProfile(evt, objectValue) {
@@ -116,6 +117,14 @@ function deleteLikes(idCard, cards) {
       cards.resultClickLike(res)
     })
     .catch((err) => api.serverResponseError(err));
+}
+
+function deleteCard(data) {
+  const {idCard, card} = data
+return api.deleteCard(idCard)
+.then(() => {
+ card.resultClickDeleteCard()
+})
 }
 
 // Функция создания карточки

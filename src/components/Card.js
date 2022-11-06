@@ -26,9 +26,9 @@ export default class Card {
   }
 
   _delClickHandler() {
-    this._confirmsDeletion();
-    this._elementTemplate.remove();
-    this._elementTemplate = null;
+    this._confirmsDeletion({idCard: this._idCard, card: this});
+    // this._elementTemplate.remove();
+    // this._elementTemplate = null;
   }
 
   // _likeClickHandler() {
@@ -60,6 +60,11 @@ export default class Card {
   resultClickLike(res) {
     this._numberLikes.textContent = res.likes.length;
     this._likeButton.classList.toggle('element__like-button_active');
+  }
+
+  resultClickDeleteCard() {
+    this._elementTemplate.remove();
+    //this._elementTemplate = null;
   }
 
   consol() {

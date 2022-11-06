@@ -17,4 +17,8 @@ export default class UserInfo {
     this._profileUserName.textContent = profile_name;
     this._profileUserInfo.textContent = profile_job;
   }
+
+  getAvatar() {
+    
+  }
 }

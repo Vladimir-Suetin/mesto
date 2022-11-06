@@ -20,7 +20,7 @@ const cardElementFormValidator = new FormValidator(objectValidation, popupFormAd
 const profileElementFormValidator = new FormValidator(objectValidation, popupFormEditProfile);
 const popupEditImage = new PopupWithForm({ selector: '.popup_add_image', submitForm: handleSubmitAddImage }); // отредактировать наименование !!!
 const popupViewImage = new PopupWithImage({ selector: '.popup_view_image' });
-const popupWithConfirmation = new PopupWithConfirmation({selector: '.popup_delete_card', deleteCard});
+const popupWithConfirmation = new PopupWithConfirmation({ selector: '.popup_delete_card', deleteCard });
 const popupEditProfile = new PopupWithForm({ selector: '.popup_edit_profile', submitForm: handleSubmitFormProfile });
 const profileInfo = new UserInfo({ selectorName: '.profile__name', selectorInfo: '.profile__job' });
 const api = new Api({
@@ -34,27 +34,21 @@ const cardSection = new Section(
   '.cards__photo-grid'
 );
 
-
 // Переменные пользователя
- let userAvatar, mainId;
+let userAvatar, mainId;
 
 // Промис рендеринга карточек и данных пользователя
 Promise.all([api.getCards(), api.getUserInfo()])
   .then(([cardsData, userData]) => {
     const { name: profile_name, about: profile_job, avatar, _id } = userData;
-     userAvatar = avatar;
-     mainId = _id;
-    // const { name: nameCard, link: linkCard, _id: cardId } = cardsData;
-    // function transferСardElement(cardElement) {
-    //   cardElement.getUserData({mainId: _id});
-    // }
-
+    const { name: nameCard, link: linkCard, _id: cardId } = cardsData;
+    userAvatar = avatar;
+    mainId = _id;
     profileInfo.setUserInfo({ profile_name, profile_job });
     // Вызывает метод сортировки карточек
     cardSection.renderItems(cardsData);
   })
   .catch((err) => api.serverResponseError(err));
-
 
 // Функция открытия popup profile
 function openPopupProfile() {
@@ -103,7 +97,6 @@ function handleSubmitFormProfile(evt, objectValue) {
     .catch((err) => api.serverResponseError(err));
 }
 
-
 // Функция установки лайка
 function setLikes(idCard) {
   return api.setLikes(idCard);
@@ -114,12 +107,12 @@ function deleteLikes(idCard) {
   return api.deleteLikes(idCard);
 }
 
-// Функция удаления карточки 
+// Функция удаления карточки
 function deleteCard(data) {
-  const {id, deleteCard} = data
+  const { id, deleteCard } = data;
   return api.deleteCard(id).then(() => {
     deleteCard();
-  })
+  });
 }
 
 // Функция создания карточки
@@ -131,7 +124,7 @@ function createCard(element) {
     confirmsDeletion,
     setLikes,
     deleteLikes,
-    mainId
+    mainId,
   });
 
   const result = cardElement.generateCard();
@@ -171,7 +164,7 @@ popupEditImage.setEventListeners();
 popupViewImage.setEventListeners();
 
 // Вызывает метод прослушивания событий для PopupWithConfirmation
-popupWithConfirmation.setEventListeners()
+popupWithConfirmation.setEventListeners();
 
 // Вызывает функцию открытия popup profile при прослушивании click
 profileEditButton.addEventListener('click', openPopupProfile);

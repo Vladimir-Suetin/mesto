@@ -20,7 +20,7 @@ const cardElementFormValidator = new FormValidator(objectValidation, popupFormAd
 const profileElementFormValidator = new FormValidator(objectValidation, popupFormEditProfile);
 const popupEditImage = new PopupWithForm({ selector: '.popup_add_image', submitForm: handleSubmitAddImage }); // отредактировать наименование !!!
 const popupViewImage = new PopupWithImage({ selector: '.popup_view_image' });
-const popupWithConfirmation = new PopupWithConfirmation('.popup_delete_card');
+const popupWithConfirmation = new PopupWithConfirmation({selector: '.popup_delete_card', deleteCard});
 const popupEditProfile = new PopupWithForm({ selector: '.popup_edit_profile', submitForm: handleSubmitFormProfile });
 const profileInfo = new UserInfo({ selectorName: '.profile__name', selectorInfo: '.profile__job' });
 const api = new Api({
@@ -52,7 +52,7 @@ Promise.all([api.getCards(), api.getUserInfo()])
 
 // api.deleteCard('636542164b3e610f8081b92a')
 
-// api.setLikes(cardId)
+
 
 // Функция открытия popup profile
 function openPopupProfile() {
@@ -81,8 +81,9 @@ function handleCardClick(name, link) {
 }
 
 // Функция открытия popup с подтверждением удаления карточки
-function confirmsDeletion() {
+function confirmsDeletion(data) {
   popupWithConfirmation.open();
+  popupWithConfirmation.data = data;
 }
 
 function handleSubmitFormProfile(evt, objectValue) {
@@ -106,12 +107,22 @@ function handleSubmitFormProfile(evt, objectValue) {
 // })
 // .catch((err) => api.serverResponseError(err));
 
+// Функция установки лайка
 function setLikes(idCard) {
   return api.setLikes(idCard);
 }
 
+// Функция удаления лайка
 function deleteLikes(idCard) {
   return api.deleteLikes(idCard);
+}
+
+// Функция удаления карточки 
+function deleteCard(data) {
+  const {id, deleteCard} = data
+  return api.deleteCard(id).then(() => {
+    deleteCard();
+  })
 }
 
 // Функция создания карточки
@@ -161,6 +172,9 @@ popupEditImage.setEventListeners();
 
 // Вызывает метод прослушивания событий для popupViewImage
 popupViewImage.setEventListeners();
+
+// Вызывает метод прослушивания событий для PopupWithConfirmation
+popupWithConfirmation.setEventListeners()
 
 // Вызывает функцию открытия popup profile при прослушивании click
 profileEditButton.addEventListener('click', openPopupProfile);

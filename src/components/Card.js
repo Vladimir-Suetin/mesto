@@ -22,13 +22,11 @@ export default class Card {
     this._deleteLikes = deleteLikes;
     this._setLikes = setLikes;
     this._mainId = mainId;
-    // this._usersId = card.likes._id;
   }
 
-  _delClickHandler() {
-    this._confirmsDeletion();
+  deleteCard() {
     this._elementTemplate.remove();
-    this._elementTemplate = null;
+    // this._elementTemplate = null;
   }
 
   _likeClickHandler() {
@@ -63,14 +61,21 @@ export default class Card {
     this._image.src = this._link;
     this._image.alt = this._name;
 
-    this.likeCard();
+    this._checkLikeCard();
+    this._checkOwnerCard();
 
     this._setEventListeners();
 
     return this._elementTemplate;
   }
 
-  likeCard() {
+  _checkOwnerCard() {
+    if(this._mainId !== this._card.owner._id) {
+      this._removeButton.remove();
+    }
+  }
+
+  _checkLikeCard() {
     this._mainUser = this._likes.some((like) => {
       return like._id === this._mainId;
     });
@@ -85,7 +90,7 @@ export default class Card {
 
   _setEventListeners() {
     this._removeButton.addEventListener('click', () => {
-      this._delClickHandler();
+      this._confirmsDeletion({id: this._idCard, deleteCard: this.deleteCard});
     });
 
     this._image.addEventListener('click', () => {

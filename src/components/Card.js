@@ -10,22 +10,23 @@ export default class Card {
   _removeButton;
   _likeButton;
 
-  constructor({ card, cardSelector, handleCardClick, confirmsDeletion, setLikes, deleteLikes, mainId}) {
+  constructor({ card, cardSelector, handleCardClick, confirmsDeletion, setLikes, deleteLikes, mainId }) {
     this._card = card;
     this._link = card.link;
     this._name = card.name;
     this._idCard = card._id;
     this._likes = card.likes;
     this._template = cardSelector;
-    this._cardClickHandler = handleCardClick;
+    this._handleCardClick = handleCardClick;
     this._confirmsDeletion = confirmsDeletion;
     this._deleteLikes = deleteLikes;
     this._setLikes = setLikes;
-     this._mainId = mainId;
+    this._mainId = mainId;
+    // this._usersId = card.likes._id;
   }
 
-
   _delClickHandler() {
+    this._confirmsDeletion();
     this._elementTemplate.remove();
     this._elementTemplate = null;
   }
@@ -62,21 +63,14 @@ export default class Card {
     this._image.src = this._link;
     this._image.alt = this._name;
 
-    this._checkLikeCard();
-    this._checkOwnerCard();
+    this.likeCard();
 
     this._setEventListeners();
 
     return this._elementTemplate;
   }
 
-  _checkOwnerCard() {
-    if (this._mainId !== this._card.owner._id) {
-      this._removeButton.remove();
-    }
-  }
-
-  _checkLikeCard() {
+  likeCard() {
     this._mainUser = this._likes.some((like) => {
       return like._id === this._mainId;
     });
@@ -85,6 +79,7 @@ export default class Card {
 
     if (this._mainUser) {
       this._likeButton.classList.add('element__like-button_active');
+      console.log(this._mainUser);
     }
   }
 
@@ -94,7 +89,7 @@ export default class Card {
     });
 
     this._image.addEventListener('click', () => {
-      this._cardClickHandler(this._name, this._link);
+      this._handleCardClick(this._name, this._link);
     });
 
     this._likeButton.addEventListener('click', () => {

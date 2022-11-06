@@ -31,22 +31,39 @@ export default class Card {
     this._elementTemplate = null;
   }
 
+  // _likeClickHandler() {
+  //   if (!this._likeButton.classList.contains('element__like-button_active')) {
+  //     this._setLikes(this._idCard)
+  //       .then((res) => {
+  //         this._numberLikes.textContent = res.likes.length;
+  //         this._likeButton.classList.add('element__like-button_active');
+  //       })
+  //       .catch((err) => console.log(`Запрос на выполнен. ${err}`));
+  //   } else {
+  //     this._deleteLikes(this._idCard)
+  //       .then((res) => {
+  //         this._numberLikes.textContent = res.likes.length;
+  //         this._likeButton.classList.remove('element__like-button_active');
+  //       })
+  //       .catch((err) => console.log(`Запрос не выполнен. ${err}`));
+  //   }
+  // }
+
   _likeClickHandler() {
     if (!this._likeButton.classList.contains('element__like-button_active')) {
-      this._setLikes(this._idCard)
-        .then((res) => {
-          this._numberLikes.textContent = res.likes.length;
-          this._likeButton.classList.add('element__like-button_active');
-        })
-        .catch((err) => console.log(`Запрос на выполнен. ${err}`));
+      this._setLikes(this._idCard, this);
     } else {
-      this._deleteLikes(this._idCard)
-        .then((res) => {
-          this._numberLikes.textContent = res.likes.length;
-          this._likeButton.classList.remove('element__like-button_active');
-        })
-        .catch((err) => console.log(`Запрос не выполнен. ${err}`));
+      this._deleteLikes(this._idCard, this);
     }
+  }
+
+  resultClickLike(res) {
+    this._numberLikes.textContent = res.likes.length;
+    this._likeButton.classList.toggle('element__like-button_active');
+  }
+
+  consol() {
+    console.log('123')
   }
 
   generateCard() {
@@ -65,7 +82,6 @@ export default class Card {
 
     this._checkLikeCard();
     this._checkOwnerCard();
-    
 
     this._setEventListeners();
 
@@ -85,7 +101,7 @@ export default class Card {
   }
 
   _checkOwnerCard() {
-    if(this._mainId !== this._card.owner._id) {
+    if (this._mainId !== this._card.owner._id) {
       this._removeButton.remove();
     }
   }

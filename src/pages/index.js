@@ -100,18 +100,22 @@ function handleSubmitFormProfile(evt, objectValue) {
     .catch((err) => api.serverResponseError(err));
 }
 
-// api.setLikes("63665b3700d1bc1004af45c4")
-// .then((qty) => {
-//   console.log(qty)
-// })
-// .catch((err) => api.serverResponseError(err));
-
-function setLikes(idCard) {
-  return api.setLikes(idCard);
+function setLikes(idCard, cards) {
+  return api
+    .setLikes(idCard)
+    .then((res) => {
+      cards.resultClickLike(res)
+    })
+    .catch((err) => api.serverResponseError(err));
 }
 
-function deleteLikes(idCard) {
-  return api.deleteLikes(idCard);
+function deleteLikes(idCard, cards) {
+  return api
+    .deleteLikes(idCard)
+    .then((res) => {
+      cards.resultClickLike(res)
+    })
+    .catch((err) => api.serverResponseError(err));
 }
 
 // Функция создания карточки

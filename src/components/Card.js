@@ -67,10 +67,6 @@ export default class Card {
     //this._elementTemplate = null;
   }
 
-  consol() {
-    console.log('123')
-  }
-
   generateCard() {
     this._cloneTemplateElement = document.querySelector(this._template).content.cloneNode(true);
     this._elementTemplate = this._cloneTemplateElement.querySelector('.element');

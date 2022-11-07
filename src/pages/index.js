@@ -16,13 +16,16 @@ import {
   popupFormEditProfile,
 } from '../utils/constants.js';
 
+// Id пользователя
+let mainId;
+
 const cardElementFormValidator = new FormValidator(objectValidation, popupFormAddImage);
 const profileElementFormValidator = new FormValidator(objectValidation, popupFormEditProfile);
 const popupEditImage = new PopupWithForm({ selector: '.popup_add_image', submitForm: handleSubmitAddImage }); // отредактировать наименование !!!
 const popupViewImage = new PopupWithImage({ selector: '.popup_view_image' });
 const popupWithConfirmation = new PopupWithConfirmation('.popup_delete_card', deleteCard);
 const popupEditProfile = new PopupWithForm({ selector: '.popup_edit_profile', submitForm: handleSubmitFormProfile });
-const profileInfo = new UserInfo({ selectorName: '.profile__name', selectorInfo: '.profile__job', selectorAvatar: '.profile__avatar' });
+const profileInfo = new UserInfo({ selectorName: '.profile__name', selectorInfo: '.profile__job', selectorAvatar: '.profile__avatar'});
 const api = new Api({
   cohortId: 'cohort-52',
   headers: { authorization: '6692dfb4-7777-450f-b6ba-68fb20b8c9ff', 'Content-Type': 'application/json' },
@@ -34,14 +37,14 @@ const cardSection = new Section(
   '.cards__photo-grid'
 );
 
-// Переменные пользователя
-let userAvatar, mainId;
 
+ 
 // Промис рендеринга карточек и данных пользователя
 Promise.all([api.getCards(), api.getUserInfo()])
   .then(([cardsData, userData]) => {
     const { name: profile_name, about: profile_job, avatar, _id } = userData;
-    userAvatar = avatar;
+    //userAvatar = 'https://pictures.s3.yandex.net/frontend-developer/common/ava.jpg';
+    profileInfo.getAvatar(avatar)
     mainId = _id;
     // const { name: nameCard, link: linkCard, _id: cardId } = cardsData;
     profileInfo.setUserInfo({ profile_name, profile_job });

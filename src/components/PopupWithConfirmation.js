@@ -1,10 +1,9 @@
 import Popup from './Popup.js';
 
 export default class PopupWithConfirmation extends Popup {
-  constructor({ selector, submitButtonLoading }) {
+  constructor({ selector}) {
     super(selector);
     this._form = this._popup.querySelector('.popup__container');
-    this._submitButtonLoading = submitButtonLoading;
   }
 
   setCallback(submitCallBack) {
@@ -15,8 +14,8 @@ export default class PopupWithConfirmation extends Popup {
     super.setEventListeners();
     this._form.addEventListener('click', (evt) => {
       evt.preventDefault();
-      this._handleSubmit(data);
-      this._submitButtonLoading(this._popup);
+      this._handleSubmit({data, submitButton: this._submitButton, popup: this._popup});
+      this._editButtonTextCallBack(this._submitButton);
     });
   }
 }

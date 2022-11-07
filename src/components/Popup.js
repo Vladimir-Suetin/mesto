@@ -1,6 +1,7 @@
 export default class Popup {
   constructor(selector) {
     this._popup = document.querySelector(selector);
+    this._submitButton = this._popup.querySelector('.popup__submit-button');
     this._closeButton = this._popup.querySelector('.popup__close-icon');
     this._handleEscClose = this._handleEscClose.bind(this);
   }
@@ -13,6 +14,14 @@ export default class Popup {
   close() {
     this._popup.classList.remove('popup_opened');
     document.removeEventListener('keydown', this._handleEscClose);
+  }
+
+  editSubmitButtonText(editButtonTextCallBack) {
+    this._editButtonTextCallBack = editButtonTextCallBack;
+  }
+
+  removeSubmitButtonText(removeButtonTextCallBack) {
+    this._removeButtonTextCallBack = removeButtonTextCallBack;
   }
 
   _handleEscClose(evt) {

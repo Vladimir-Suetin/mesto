@@ -1,12 +1,4 @@
 export default class FormValidator {
-  _objectValidation;
-  _form;
-  _button;
-  _inputElements;
-  _input;
-  _textError;
-  _isValid;
-
   constructor(objectValidation, formValidation) {
     this._objectValidation = objectValidation;
     this._form = formValidation;

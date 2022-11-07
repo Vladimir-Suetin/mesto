@@ -25,11 +25,11 @@ let mainId;
 const cardElementFormValidator = new FormValidator(objectValidation, popupFormAddImage);
 const profileElementFormValidator = new FormValidator(objectValidation, popupFormEditProfile);
 const avatarFormValidator = new FormValidator(objectValidation, popupFormEditAvatar)
-const popupEditImage = new PopupWithForm({ selector: '.popup_add_image', submitForm: handleSubmitAddImage }); // отредактировать наименование !!!
+const popupAddImage = new PopupWithForm({ selector: '.popup_add_image', submitForm: handleSubmitAddImage, submitButtonLoading }); // отредактировать наименование !!!
 const popupViewImage = new PopupWithImage({ selector: '.popup_view_image' });
-const popupWithConfirmation = new PopupWithConfirmation('.popup_delete_card', deleteCard);
-const popupEditProfile = new PopupWithForm({ selector: '.popup_edit_profile', submitForm: handleSubmitFormProfile });
-const popupEditAvatar = new PopupWithForm({ selector: '.popup_avatar', submitForm: handleSubmitFormEditAvatar});
+const popupWithConfirmation = new PopupWithConfirmation({selector:'.popup_delete_card', deleteCard, submitButtonLoading});
+const popupEditProfile = new PopupWithForm({ selector: '.popup_edit_profile', submitForm: handleSubmitFormProfile, submitButtonLoading });
+const popupEditAvatar = new PopupWithForm({ selector: '.popup_avatar', submitForm: handleSubmitFormEditAvatar, submitButtonLoading});
 const profileInfo = new UserInfo({
   selectorName: '.profile__name',
   selectorInfo: '.profile__job',
@@ -70,12 +70,12 @@ function openPopupProfile() {
 
 // Функция открытия popup add image
 function openPopupAddImage() {
-  popupEditImage.open();
+  popupAddImage.open();
 }
 
 // Функция закрытия popup add image
 function closePopupAddImage() {
-  popupEditImage.close();
+  popupAddImage.close();
 
   cardElementFormValidator.resetValidation();
 }
@@ -144,6 +144,13 @@ function deleteCard(data) {
     .catch((err) => api.serverResponseError(err));
 }
 
+function submitButtonLoading(element) {
+const button = element.querySelector(".popup__submit-button");
+
+button.textContent = "Сохранение..."
+
+}
+
 function handleSubmitFormEditAvatar(evt, objectValue) {
   evt.preventDefault()
   return api
@@ -200,8 +207,8 @@ avatarFormValidator.enableValidation();
 // Вызывает метод прослушивания событий для popupEditProfile
 popupEditProfile.setEventListeners();
 
-// Вызывает метод прослушивания событий для popupEditImage
-popupEditImage.setEventListeners();
+// Вызывает метод прослушивания событий для popupAddImage
+popupAddImage.setEventListeners();
 
 // Вызывает метод прослушивания событий для popupViewImage
 popupViewImage.setEventListeners();

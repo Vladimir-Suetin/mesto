@@ -10,7 +10,7 @@ export default class Card {
   _removeButton;
   _likeButton;
 
-  constructor({ card, cardSelector, handleCardClick, confirmsDeletion, setLikes, deleteLikes, mainId }) {
+  constructor({ card, cardSelector, handleCardClick, confirmsDeletion, setLikes, deleteLikes, userId }) {
     this._card = card;
     this._link = card.link;
     this._name = card.name;
@@ -21,7 +21,7 @@ export default class Card {
     this._confirmsDeletion = confirmsDeletion;
     this._deleteLikes = deleteLikes;
     this._setLikes = setLikes;
-    this._mainId = mainId;
+    this._userId = userId;
   }
 
   _delClickHandler() {
@@ -37,8 +37,13 @@ export default class Card {
   }
 
   resultClickLike(res) {
-    this._numberLikes.textContent = res.likes.length;
-    this._likeButton.classList.toggle('element__like-button_active');
+    this._numberLikes.textContent = res.length;
+    // this._likeButton.classList.toggle('element__like-button_active');
+    if (!this._likeButton.classList.contains('element__like-button_active')) {
+      this._likeButton.classList.add('element__like-button_active');
+    } else {
+      this._likeButton.classList.remove('element__like-button_active');
+    }
   }
 
   resultClickDeleteCard() {
@@ -70,7 +75,7 @@ export default class Card {
 
   _checkLikeCard() {
     this._mainUser = this._likes.some((like) => {
-      return like._id === this._mainId;
+      return like._id === this._userId;
     });
 
     this._numberLikes.textContent = this._likes.length;

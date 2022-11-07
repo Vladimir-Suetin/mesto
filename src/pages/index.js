@@ -19,7 +19,7 @@ import {
 } from '../utils/constants.js';
 
 // Id пользователя
-let mainId;
+let userId;
 
 const cardElementFormValidator = new FormValidator(objectValidation, popupFormAddImage);
 const profileElementFormValidator = new FormValidator(objectValidation, popupFormEditProfile);
@@ -51,7 +51,7 @@ const profileInfo = new UserInfo({
   selectorAvatar: '.profile__avatar',
 });
 const api = new Api({
-  cohortId: 'cohort-52',
+  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-52',
   headers: { authorization: '6692dfb4-7777-450f-b6ba-68fb20b8c9ff', 'Content-Type': 'application/json' },
 });
 const cardSection = new Section(
@@ -68,7 +68,7 @@ Promise.all([api.getCards(), api.getUserInfo()])
     
     profileInfo.getAvatar(avatar);
 
-    mainId = _id;
+    userId = _id;
 
     profileInfo.setUserInfo({ profile_name, profile_job });
 
@@ -138,7 +138,8 @@ function setLikes(idCard, cards) {
   return api
     .setLikes(idCard)
     .then((res) => {
-      cards.resultClickLike(res);
+      const dataLikes = res.likes;
+      cards.resultClickLike(dataLikes);
     })
     .catch((err) => api.serverResponseError(err));
 }
@@ -147,7 +148,8 @@ function deleteLikes(idCard, cards) {
   return api
     .deleteLikes(idCard)
     .then((res) => {
-      cards.resultClickLike(res);
+      const dataLikes = res.likes;
+      cards.resultClickLike(dataLikes);
     })
     .catch((err) => api.serverResponseError(err));
 }
@@ -188,7 +190,7 @@ function createCard(element) {
     confirmsDeletion,
     setLikes,
     deleteLikes,
-    mainId,
+    userId,
   });
 
   const result = cardElement.generateCard();

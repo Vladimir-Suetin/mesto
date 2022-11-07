@@ -187,7 +187,8 @@ function handleSubmitFormEditAvatar({ evt, objectValue, submitButton, popup }) {
   return api
     .changeAvatar(objectValue)
     .then((res) => {
-      profileInfo.setAvatar(res.avatar);
+      const {name, about: job, avatar} = res
+      profileInfo.setUserInfo({name, job, avatar});
       closePopupEditAvatar();
     })
     .catch((err) => api.serverResponseError(err))

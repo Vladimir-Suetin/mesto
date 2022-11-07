@@ -106,6 +106,24 @@
       </div>
     </div>
 
+    <div class="popup popup_avatar">
+      <div class="popup__info">
+        <h3 class="popup__title">Обновить аватар</h3>
+        <form name="popup-edit_avatar" class="popup__container popup__container_edit_avatar">
+          <input
+            name="avatar"
+            type="url"
+            class="popup__avatar-link popup__field popup__avatar-link_value"
+            required
+            placeholder="Введите название"
+          />
+          <span class="popup__error popup__error_avatar"></span>
+          <button disabled type="submit" class="popup__submit-button popup__submit-button_disabled">Создать</button>
+        </form>
+        <button type="button" class="popup__close-icon" aria-label="закрыть форму"></button>
+      </div>
+    </div>
+
     <div class="popup popup_view_image">
       <div class="popup__wrapper">
         <button type="button" class="popup__close-icon" aria-label="закрыть форму"></button>

@@ -5,6 +5,7 @@ const selectors = {
   profilejob: ".profile__job",
   profileEditButton: ".profile__edit-button",
   popupEditProfile: ".popup_edit_profile",
+  popupEditAvatar: ".popup_avatar",
   popupProfileNameInput: ".popup__name_value",
   popupProfileJobInput: ".popup__job_value",
   popupCloseButton: ".popup__close-icon",
@@ -24,16 +25,21 @@ const selectors = {
   popupFormEditProfile: ".popup__container_edit-profile",
   popupFieldError: "popup__field_error",
   popupSubmitButton: ".popup__submit-button",
+  popupFormEditAvatar: ".popup__container_edit_avatar",
+  editAvatarButton: ".profile__avatar-edit-button"
 };
 
 // Поиск элементов в документе
 const profile = document.querySelector(selectors.profile);
 const profileEditButton = profile.querySelector(selectors.profileEditButton);
 const popupEditProfile = document.querySelector(selectors.popupEditProfile);
+const popupEditAvatar = document.querySelector(selectors.popupEditAvatar);
 const popupAddImage = document.querySelector(selectors.popupAddImage);
 const imageAddButton = profile.querySelector(selectors.imageAddButton);
 const popupFormAddImage = popupAddImage.querySelector(selectors.popupFormAddImage);
 const popupFormEditProfile = popupEditProfile.querySelector(selectors.popupFormEditProfile);
+const popupFormEditAvatar = popupEditAvatar.querySelector(selectors.popupFormEditAvatar)
+const editAvatarButton = profile.querySelector(selectors.editAvatarButton);
 
 const objectValidation = {
   formSelector: ".popup__container",
@@ -80,5 +86,6 @@ export {
   imageAddButton,
   popupFormAddImage,
   popupFormEditProfile,
-  //initialCards,
+  popupFormEditAvatar,
+  editAvatarButton
 };

@@ -1,5 +1,5 @@
 export default class UserInfo {
-  constructor({ selectorName, selectorInfo, selectorAvatar}) {
+  constructor({ selectorName, selectorInfo, selectorAvatar }) {
     this._profileUserName = document.querySelector(selectorName);
     this._profileUserInfo = document.querySelector(selectorInfo);
     this._profileUserAvatar = document.querySelector(selectorAvatar);
@@ -20,6 +20,7 @@ export default class UserInfo {
   }
 
   getAvatar(avatar) {
+    console.log("get avatar", avatar)
     this._profileUserAvatar.src = avatar;
   }
 }

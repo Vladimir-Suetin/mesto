@@ -32,7 +32,6 @@ const popupAddImage = new PopupWithForm({
 const popupViewImage = new PopupWithImage({ selector: '.popup_view_image' });
 const popupWithConfirmation = new PopupWithConfirmation({
   selector: '.popup_delete_card',
-  deleteCard,
   submitButtonLoading,
 });
 const popupEditProfile = new PopupWithForm({
@@ -154,11 +153,12 @@ function deleteLikes(idCard, cards) {
     .catch((err) => api.serverResponseError(err));
 }
 
-function deleteCard(data) {
+function handleDeleteCard(data) {
   const { idCard, card } = data;
   return api
     .deleteCard(idCard)
     .then(() => {
+      popupWithConfirmation.close();
       card.deleteCard();
     })
     .catch((err) => api.serverResponseError(err));
@@ -213,6 +213,8 @@ function handleSubmitAddImage(evt, objectValue) {
     })
     .catch((err) => api.serverResponseError(err));
 }
+
+popupWithConfirmation.setCallback(handleDeleteCard)
 
 // Вызывает метод валидации профиля
 profileElementFormValidator.enableValidation();

@@ -109,8 +109,8 @@ function closePopupEditAvatar() {
 }
 
 // Функция открытия popup view image
-function handleCardClick(name, link) {
-  popupViewImage.open(name, link);
+function handleCardClick(data) {
+  popupViewImage.open(data);
 }
 
 // Функция открытия popup с подтверждением удаления карточки
@@ -139,7 +139,7 @@ function setLikes(idCard, cards) {
     .setLikes(idCard)
     .then((res) => {
       const dataLikes = res.likes;
-      cards.resultClickLike(dataLikes);
+      cards.handleLikeButton(dataLikes);
     })
     .catch((err) => api.serverResponseError(err));
 }
@@ -149,7 +149,7 @@ function deleteLikes(idCard, cards) {
     .deleteLikes(idCard)
     .then((res) => {
       const dataLikes = res.likes;
-      cards.resultClickLike(dataLikes);
+      cards.handleLikeButton(dataLikes);
     })
     .catch((err) => api.serverResponseError(err));
 }
@@ -159,7 +159,7 @@ function deleteCard(data) {
   return api
     .deleteCard(idCard)
     .then(() => {
-      card.resultClickDeleteCard();
+      card.deleteCard();
     })
     .catch((err) => api.serverResponseError(err));
 }

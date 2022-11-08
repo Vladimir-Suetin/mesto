@@ -11,6 +11,14 @@ export default class PopupWithConfirmation extends Popup {
     this._handleDeleteCard = handleDeleteCard;
   }
 
+  editSubmitButtonText(editButtonTextCallBack) {
+    this._editButtonTextCallBack = editButtonTextCallBack;
+  }
+
+  removeSubmitButtonText(removeButtonTextCallBack) {
+    this._removeButtonTextCallBack = removeButtonTextCallBack;
+  }
+
   setEventListeners() {
     super.setEventListeners();
     this._form.addEventListener('click', (evt) => {

@@ -66,7 +66,7 @@ Promise.all([api.getCards(), api.getUserInfo()])
     // Вызывает метод сортировки карточек
     cardSection.renderItems(cardsData);
   })
-  .catch((err) => api.serverResponseError(err));
+  .catch((err) => api.logResponseError(err));
 
 // Функция открытия popup profile
 function openPopupProfile() {
@@ -128,7 +128,7 @@ function handleSubmitFormProfile({ evt, objectValue, submitButton, popup }) {
 
       profileElementFormValidator.resetValidation();
     })
-    .catch((err) => api.serverResponseError(err))
+    .catch((err) => api.logResponseError(err))
     .finally(() => removesubmitButtonLoading(submitButton, popup));
 }
 
@@ -139,7 +139,7 @@ function setLikes(idCard, card) {
       const dataLikes = res.likes;
       card.handleLikeButton(dataLikes);
     })
-    .catch((err) => api.serverResponseError(err));
+    .catch((err) => api.logResponseError(err));
 }
 
 function deleteLikes(idCard, card) {
@@ -149,18 +149,18 @@ function deleteLikes(idCard, card) {
       const dataLikes = res.likes;
       card.handleLikeButton(dataLikes);
     })
-    .catch((err) => api.serverResponseError(err));
+    .catch((err) => api.logResponseError(err));
 }
 
 function handleDeleteCard({ data, submitButton, popup }) {
-  const { idCard, card } = data;
+  const idCard = data.card.getIdCard();
   return api
     .deleteCard(idCard)
     .then(() => {
       popupWithConfirmation.close();
-      card.deleteCard();
+      data.card.deleteCard();
     })
-    .catch((err) => api.serverResponseError(err))
+    .catch((err) => api.logResponseError(err))
     .finally(() => removesubmitButtonLoading(submitButton, popup));
 }
 
@@ -187,7 +187,7 @@ function handleSubmitFormEditAvatar({ evt, objectValue, submitButton, popup }) {
       profileInfo.setUserInfo({ name, job, avatar });
       closePopupEditAvatar();
     })
-    .catch((err) => api.serverResponseError(err))
+    .catch((err) => api.logResponseError(err))
     .finally(() => removesubmitButtonLoading(submitButton, popup));
 }
 
@@ -221,7 +221,7 @@ function handleSubmitAddImage({ evt, objectValue, submitButton, popup }) {
 
       closePopupAddImage();
     })
-    .catch((err) => api.serverResponseError(err))
+    .catch((err) => api.logResponseError(err))
     .finally(() => removesubmitButtonLoading(submitButton, popup));
 }
 

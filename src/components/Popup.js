@@ -16,14 +16,6 @@ export default class Popup {
     document.removeEventListener('keydown', this._handleEscClose);
   }
 
-  editSubmitButtonText(editButtonTextCallBack) {
-    this._editButtonTextCallBack = editButtonTextCallBack;
-  }
-
-  removeSubmitButtonText(removeButtonTextCallBack) {
-    this._removeButtonTextCallBack = removeButtonTextCallBack;
-  }
-
   _handleEscClose(evt) {
     if (evt.key === 'Escape') {
       this.close();

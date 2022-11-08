@@ -4,7 +4,7 @@ export default class Api {
     this._headers = headers;
   }
 
-  _serverResponse(res) {
+  _getResponseData(res) {
     if (res.ok) {
       return res.json();
     }
@@ -12,21 +12,21 @@ export default class Api {
     return Promise.reject(`Ошибка ${res.status} ${res.statusText}`);
   }
 
-  serverResponseError(err) {
+  logResponseError(err) {
     return console.log(`Запрос не выполнен. ${err}`);
   }
 
   getUserInfo() {
     return fetch(`${this._baseUrl}/users/me`, {
       headers: this._headers,
-    }).then((res) => this._serverResponse(res));
-    // .catch((err) => this._serverResponseError(err))
+    }).then((res) => this._getResponseData(res));
+    // .catch((err) => this._getResponseDataError(err))
   }
 
   getCards() {
     return fetch(`${this._baseUrl}/cards`, {
       headers: this._headers,
-    }).then((res) => this._serverResponse(res));
+    }).then((res) => this._getResponseData(res));
   }
 
   editUserInfo(data) {
@@ -37,7 +37,7 @@ export default class Api {
         name: data.name,
         about: data.about,
       }),
-    }).then((res) => this._serverResponse(res));
+    }).then((res) => this._getResponseData(res));
   }
 
   addNewCard(data) {
@@ -48,28 +48,28 @@ export default class Api {
         name: data.name,
         link: data.link,
       }),
-    }).then((res) => this._serverResponse(res));
+    }).then((res) => this._getResponseData(res));
   }
 
   deleteCard(idCard) {
     return fetch(`${this._baseUrl}/cards/${idCard}`, {
       method: 'DELETE',
       headers: this._headers,
-    }).then((res) => this._serverResponse(res));
+    }).then((res) => this._getResponseData(res));
   }
 
   setLikes(idCard) {
     return fetch(`${this._baseUrl}/cards/${idCard}/likes`, {
       method: 'PUT',
       headers: this._headers,
-    }).then((res) => this._serverResponse(res));
+    }).then((res) => this._getResponseData(res));
   }
 
   deleteLikes(idCard) {
     return fetch(`${this._baseUrl}/cards/${idCard}/likes`, {
       method: 'DELETE',
       headers: this._headers,
-    }).then((res) => this._serverResponse(res));
+    }).then((res) => this._getResponseData(res));
   }
 
   changeAvatar(data) {
@@ -79,6 +79,6 @@ export default class Api {
       body: JSON.stringify({
         avatar: data.avatar,
       }),
-    }).then((res) => this._serverResponse(res));
+    }).then((res) => this._getResponseData(res));
   }
 }

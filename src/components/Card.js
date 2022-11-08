@@ -14,7 +14,11 @@ export default class Card {
   }
 
   _handleDeleteClick() {
-    this._confirmsDeletion({ idCard: this._idCard, card: this });
+    this._confirmsDeletion({ card: this });
+  }
+
+  getIdCard() {
+    return this._idCard;
   }
 
   _handleLikeClick() {

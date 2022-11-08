@@ -18,6 +18,14 @@ export default class PopupWithForm extends Popup {
     return this._formValues;
   }
 
+  editSubmitButtonText(editButtonTextCallBack) {
+    this._editButtonTextCallBack = editButtonTextCallBack;
+  }
+
+  removeSubmitButtonText(removeButtonTextCallBack) {
+    this._removeButtonTextCallBack = removeButtonTextCallBack;
+  }
+
   setInputValues(data) {
     this._inputList.forEach((input) => {
       input.value = data[input.name];

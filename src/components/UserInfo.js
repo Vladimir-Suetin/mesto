@@ -14,10 +14,10 @@ export default class UserInfo {
   }
 
   setUserInfo(data) {
-    const { name = 'Имя не определено', job = 'Деятельность не определена', avatar} = data;
+    const { name = 'Имя не определено', job = 'Деятельность не определена', avatar } = data;
 
     this._profileUserName.textContent = name;
     this._profileUserInfo.textContent = job;
-    this._profileUserAvatar.src = avatar
+    this._profileUserAvatar.src = avatar;
   }
 }

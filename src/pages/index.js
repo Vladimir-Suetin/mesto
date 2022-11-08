@@ -75,15 +75,11 @@ function openPopupProfile() {
   popupEditProfile.setInputValues(profileData);
 
   popupEditProfile.open();
-
-  popupEditProfile.editSubmitButtonText(submitButtonLoading);
 }
 
 // Функция открытия popup add image
 function openPopupAddImage() {
   popupAddImage.open();
-
-  popupAddImage.editSubmitButtonText(submitButtonLoading);
 }
 
 // Функция закрытия popup add image
@@ -93,13 +89,15 @@ function closePopupAddImage() {
   cardElementFormValidator.resetValidation();
 }
 
+// Функция открытия popup avatar
 function openPopupEditAvatar() {
   popupEditAvatar.open();
-  popupEditAvatar.editSubmitButtonText(submitButtonLoading);
 }
 
+// Функция закрытия popup avatar
 function closePopupEditAvatar() {
   avatarFormValidator.resetValidation();
+
   popupEditAvatar.close();
 }
 
@@ -111,13 +109,17 @@ function handleCardClick(data) {
 // Функция открытия popup с подтверждением удаления карточки
 function confirmsDeletion(dataCard) {
   popupWithConfirmation.open();
-  popupWithConfirmation.setCallback({ handleDeleteCard, dataCard });
-  popupWithConfirmation.editSubmitButtonText(submitButtonLoading);
+  popupWithConfirmation.setCallback(() => {
+    handleDeleteCard(dataCard);
+  });
 }
 
-function handleSubmitFormProfile({ evt, objectValue, submitButton, popup }) {
-  evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
+// Функция обработчик сабмита формы профиля
+function handleSubmitFormProfile({ objectValue }) {
   const { name, job: about } = objectValue;
+
+  renameButtonSaving(popupEditProfile);
+
   api
     .editUserInfo({ name, about })
     .then((res) => {
@@ -129,33 +131,13 @@ function handleSubmitFormProfile({ evt, objectValue, submitButton, popup }) {
       profileElementFormValidator.resetValidation();
     })
     .catch((err) => api.logResponseError(err))
-    .finally(() => removesubmitButtonLoading(submitButton, popup));
+    .finally(() => renameButtonSave(popupEditProfile));
 }
 
-function setLikes(dataCard) {
+// Функция обработчик клика формы удаления карточки
+function handleDeleteCard(dataCard) {
   const idCard = dataCard.getIdCard();
-  return api
-    .setLikes(idCard)
-    .then((res) => {
-      const dataLikes = res.likes;
-      dataCard.updateLikes(dataLikes);
-    })
-    .catch((err) => api.logResponseError(err));
-}
-
-function deleteLikes(dataCard) {
-  const idCard = dataCard.getIdCard();
-  return api
-    .deleteLikes(idCard)
-    .then((res) => {
-      const dataLikes = res.likes;
-      dataCard.updateLikes(dataLikes);
-    })
-    .catch((err) => api.logResponseError(err));
-}
-
-function handleDeleteCard({ dataCard, submitButton, popup }) {
-  const idCard = dataCard.getIdCard();
+  renameButtonSaving(popupWithConfirmation);
   return api
     .deleteCard(idCard)
     .then(() => {
@@ -163,25 +145,13 @@ function handleDeleteCard({ dataCard, submitButton, popup }) {
       dataCard.deleteCard();
     })
     .catch((err) => api.logResponseError(err))
-    .finally(() => removesubmitButtonLoading(submitButton, popup));
+    .finally(() => renameButtonYes(popupWithConfirmation));
 }
 
-function submitButtonLoading(submitButton) {
-  submitButton.textContent = 'Сохранение...';
-}
+// Функция обработчик сабмита формы изменения аватара
+function handleSubmitFormEditAvatar({ objectValue }) {
+  renameButtonSaving(popupEditAvatar);
 
-function removesubmitButtonLoading(submitButton, popup) {
-  setTimeout(() => {
-    if (popup.classList.contains('popup_delete_card')) {
-      submitButton.textContent = 'Да';
-    } else {
-      submitButton.textContent = 'Сохранить';
-    }
-  }, 600);
-}
-
-function handleSubmitFormEditAvatar({ evt, objectValue, submitButton, popup }) {
-  evt.preventDefault();
   return api
     .changeAvatar(objectValue)
     .then((res) => {
@@ -190,7 +160,24 @@ function handleSubmitFormEditAvatar({ evt, objectValue, submitButton, popup }) {
       closePopupEditAvatar();
     })
     .catch((err) => api.logResponseError(err))
-    .finally(() => removesubmitButtonLoading(submitButton, popup));
+    .finally(() => renameButtonSave(popupEditAvatar));
+}
+
+// Функция обработчик события при создании новой карточки
+function handleSubmitAddImage({ objectValue }) {
+  const { image: name, link } = objectValue;
+
+  renameButtonSaving(popupAddImage);
+
+  api
+    .addNewCard({ name, link })
+    .then((res) => {
+      cardSection.addItem(res);
+
+      closePopupAddImage();
+    })
+    .catch((err) => api.logResponseError(err))
+    .finally(() => renameButtonSave(popupAddImage));
 }
 
 // Функция создания карточки
@@ -210,21 +197,47 @@ function createCard(element) {
   return result;
 }
 
-// Функция обработчик события при создании новой карточки
-function handleSubmitAddImage({ evt, objectValue, submitButton, popup }) {
-  evt.preventDefault();
-
-  const { name_image: name, link_image: link } = objectValue;
-
-  api
-    .addNewCard({ name, link })
+// Функция установки лайка
+function setLikes(dataCard) {
+  const idCard = dataCard.getIdCard();
+  return api
+    .setLikes(idCard)
     .then((res) => {
-      cardSection.addItem(res);
-
-      closePopupAddImage();
+      const dataLikes = res.likes;
+      dataCard.updateLikes(dataLikes);
     })
-    .catch((err) => api.logResponseError(err))
-    .finally(() => removesubmitButtonLoading(submitButton, popup));
+    .catch((err) => api.logResponseError(err));
+}
+
+// Функция удаления лайка
+function deleteLikes(dataCard) {
+  const idCard = dataCard.getIdCard();
+  return api
+    .deleteLikes(idCard)
+    .then((res) => {
+      const dataLikes = res.likes;
+      dataCard.updateLikes(dataLikes);
+    })
+    .catch((err) => api.logResponseError(err));
+}
+
+// Функция изменения текста кнопки
+function renameButtonSave(instance) {
+  setTimeout(() => {
+    instance.setSubmitButtonText('Сохранить');
+  }, 600);
+}
+
+// Функция изменения текста кнопки
+function renameButtonSaving(instance) {
+  instance.setSubmitButtonText('Сохранение...');
+}
+
+// Функция изменения текста кнопки
+function renameButtonYes(instance) {
+  setTimeout(() => {
+    instance.setSubmitButtonText('Да');
+  }, 600);
 }
 
 // Вызывает метод валидации профиля

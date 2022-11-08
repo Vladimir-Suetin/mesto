@@ -18,12 +18,8 @@ export default class PopupWithForm extends Popup {
     return this._formValues;
   }
 
-  editSubmitButtonText(editButtonTextCallBack) {
-    this._editButtonTextCallBack = editButtonTextCallBack;
-  }
-
-  removeSubmitButtonText(removeButtonTextCallBack) {
-    this._removeButtonTextCallBack = removeButtonTextCallBack;
+  setSubmitButtonText(text) {
+    this._submitButton.textContent = text;
   }
 
   setInputValues(data) {
@@ -42,13 +38,12 @@ export default class PopupWithForm extends Popup {
     super.setEventListeners();
 
     this._form.addEventListener('submit', (evt) => {
+      evt.preventDefault();
       this._handleSubmitForm({
-        evt,
         objectValue: this._getInputValues(),
         submitButton: this._submitButton,
         popup: this._popup,
       });
-      this._editButtonTextCallBack(this._submitButton);
     });
   }
 }

@@ -8,22 +8,22 @@ export default class FormValidator {
 
   // Метод находит форму в документе и вешает слушатели
   enableValidation() {
-    this._form.addEventListener("input", (evt) => this._handleFormInput(evt));
-  };
+    this._form.addEventListener('input', (evt) => this._handleFormInput(evt));
+  }
 
   _disableButton() {
-    this._button.setAttribute("disabled", true);
+    this._button.setAttribute('disabled', true);
     this._button.classList.add(this._objectValidation.inactiveButtonClass);
   }
 
   resetValidation() {
     this._inputElements.forEach((formElement) => {
       this._textError = this._form.querySelector(`${this._objectValidation.errorSelector}_${formElement.name}`);
-      this._textError.textContent = "";
+      this._textError.textContent = '';
       formElement.classList.remove(this._objectValidation.inputErrorClass);
     });
     this._disableButton();
-  };
+  }
 
   // Метод работы с input
   _handleFormInput(evt) {
@@ -38,13 +38,13 @@ export default class FormValidator {
 
     // включить или отключить кнопку отправки формы
     this._setSubmitButtonState();
-  };
+  }
 
   // функция показа ошибки
   _showFieldError(input) {
     this._textError = this._form.querySelector(`${this._objectValidation.errorSelector}_${input.name}`);
     this._textError.textContent = input.validationMessage;
-  };
+  }
 
   // Функция подсветки input invalid
   _checkInputValidity(input) {
@@ -55,17 +55,17 @@ export default class FormValidator {
     } else {
       input.classList.add(this._objectValidation.inputErrorClass);
     }
-  };
+  }
 
   // Метод включения кнопки отправки
   _setSubmitButtonState() {
     this._isValid = this._form.checkValidity();
 
     if (this._isValid) {
-      this._button.removeAttribute("disabled");
+      this._button.removeAttribute('disabled');
       this._button.classList.remove(this._objectValidation.inactiveButtonClass);
     } else {
       this._disableButton();
     }
-  };
+  }
 }

@@ -109,9 +109,9 @@ function handleCardClick(data) {
 }
 
 // Функция открытия popup с подтверждением удаления карточки
-function confirmsDeletion(data) {
+function confirmsDeletion(dataCard) {
   popupWithConfirmation.open();
-  popupWithConfirmation.setCallback({ handleDeleteCard, data });
+  popupWithConfirmation.setCallback({ handleDeleteCard, dataCard });
   popupWithConfirmation.editSubmitButtonText(submitButtonLoading);
 }
 
@@ -132,33 +132,35 @@ function handleSubmitFormProfile({ evt, objectValue, submitButton, popup }) {
     .finally(() => removesubmitButtonLoading(submitButton, popup));
 }
 
-function setLikes(idCard, card) {
+function setLikes(dataCard) {
+  const idCard = dataCard.getIdCard();
   return api
     .setLikes(idCard)
     .then((res) => {
       const dataLikes = res.likes;
-      card.handleLikeButton(dataLikes);
+      dataCard.handleLikeButton(dataLikes);
     })
     .catch((err) => api.logResponseError(err));
 }
 
-function deleteLikes(idCard, card) {
+function deleteLikes(dataCard) {
+  const idCard = dataCard.getIdCard();
   return api
     .deleteLikes(idCard)
     .then((res) => {
       const dataLikes = res.likes;
-      card.handleLikeButton(dataLikes);
+      dataCard.handleLikeButton(dataLikes);
     })
     .catch((err) => api.logResponseError(err));
 }
 
-function handleDeleteCard({ data, submitButton, popup }) {
-  const idCard = data.card.getIdCard();
+function handleDeleteCard({ dataCard, submitButton, popup }) {
+  const idCard = dataCard.getIdCard();
   return api
     .deleteCard(idCard)
     .then(() => {
       popupWithConfirmation.close();
-      data.card.deleteCard();
+      dataCard.deleteCard();
     })
     .catch((err) => api.logResponseError(err))
     .finally(() => removesubmitButtonLoading(submitButton, popup));

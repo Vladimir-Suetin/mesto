@@ -14,7 +14,7 @@ export default class Card {
   }
 
   _handleDeleteClick() {
-    this._confirmsDeletion({ card: this });
+    this._confirmsDeletion(this);
   }
 
   getIdCard() {
@@ -23,9 +23,9 @@ export default class Card {
 
   _handleLikeClick() {
     if (!this._likeButton.classList.contains('element__like-button_active')) {
-      this._setLikes(this._idCard, this);
+      this._setLikes(this);
     } else {
-      this._deleteLikes(this._idCard, this);
+      this._deleteLikes(this);
     }
   }
 

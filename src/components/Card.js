@@ -29,10 +29,6 @@ export default class Card {
     }
   }
 
-  handleLikeButton(dataLikes) {
-    this._checkLikeCard(dataLikes);
-  }
-
   deleteCard() {
     this._elementTemplate.remove();
     this._elementTemplate = null;
@@ -52,7 +48,7 @@ export default class Card {
     this._image.src = this._link;
     this._image.alt = this._name;
 
-    this._checkLikeCard(this._likes);
+    this.updateLikes(this._likes);
     this._checkOwnerCard();
 
     this._setEventListeners();
@@ -60,7 +56,7 @@ export default class Card {
     return this._elementTemplate;
   }
 
-  _checkLikeCard(data) {
+  updateLikes(data) {
     this._isLikedByUser = data.some((like) => {
       return like._id === this._userId;
     });

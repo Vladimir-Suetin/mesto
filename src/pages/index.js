@@ -138,7 +138,7 @@ function setLikes(dataCard) {
     .setLikes(idCard)
     .then((res) => {
       const dataLikes = res.likes;
-      dataCard.handleLikeButton(dataLikes);
+      dataCard.updateLikes(dataLikes);
     })
     .catch((err) => api.logResponseError(err));
 }
@@ -149,7 +149,7 @@ function deleteLikes(dataCard) {
     .deleteLikes(idCard)
     .then((res) => {
       const dataLikes = res.likes;
-      dataCard.handleLikeButton(dataLikes);
+      dataCard.updateLikes(dataLikes);
     })
     .catch((err) => api.logResponseError(err));
 }

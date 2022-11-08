@@ -95,7 +95,6 @@ function closePopupAddImage() {
 
 function openPopupEditAvatar() {
   popupEditAvatar.open();
-  popupEditAvatar.setEventListeners();
   popupEditAvatar.editSubmitButtonText(submitButtonLoading);
 }
 
@@ -112,18 +111,18 @@ function handleCardClick(data) {
 // Функция открытия popup с подтверждением удаления карточки
 function confirmsDeletion(data) {
   popupWithConfirmation.open();
-  popupWithConfirmation.setEventListeners(data);
-  popupWithConfirmation.setCallback(handleDeleteCard);
+  popupWithConfirmation.setCallback({ handleDeleteCard, data });
   popupWithConfirmation.editSubmitButtonText(submitButtonLoading);
 }
 
 function handleSubmitFormProfile({ evt, objectValue, submitButton, popup }) {
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
-
+  const { name, job: about } = objectValue;
   api
-    .editUserInfo(objectValue)
-    .then(() => {
-      profileInfo.setUserInfo(objectValue);
+    .editUserInfo({ name, about })
+    .then((res) => {
+      const { name, about: job, avatar } = res;
+      profileInfo.setUserInfo({ name, job, avatar });
 
       popupEditProfile.close();
 
@@ -133,22 +132,22 @@ function handleSubmitFormProfile({ evt, objectValue, submitButton, popup }) {
     .finally(() => removesubmitButtonLoading(submitButton, popup));
 }
 
-function setLikes(idCard, cards) {
+function setLikes(idCard, card) {
   return api
     .setLikes(idCard)
     .then((res) => {
       const dataLikes = res.likes;
-      cards.handleLikeButton(dataLikes);
+      card.handleLikeButton(dataLikes);
     })
     .catch((err) => api.serverResponseError(err));
 }
 
-function deleteLikes(idCard, cards) {
+function deleteLikes(idCard, card) {
   return api
     .deleteLikes(idCard)
     .then((res) => {
       const dataLikes = res.likes;
-      cards.handleLikeButton(dataLikes);
+      card.handleLikeButton(dataLikes);
     })
     .catch((err) => api.serverResponseError(err));
 }
@@ -166,9 +165,6 @@ function handleDeleteCard({ data, submitButton, popup }) {
 }
 
 function submitButtonLoading(submitButton) {
-  //const button = element.querySelector('.popup__submit-button');
-  // const aaa = button.textContent;
-  // console.log(aaa)
   submitButton.textContent = 'Сохранение...';
 }
 
@@ -187,8 +183,8 @@ function handleSubmitFormEditAvatar({ evt, objectValue, submitButton, popup }) {
   return api
     .changeAvatar(objectValue)
     .then((res) => {
-      const {name, about: job, avatar} = res
-      profileInfo.setUserInfo({name, job, avatar});
+      const { name, about: job, avatar } = res;
+      profileInfo.setUserInfo({ name, job, avatar });
       closePopupEditAvatar();
     })
     .catch((err) => api.serverResponseError(err))
@@ -246,6 +242,12 @@ popupAddImage.setEventListeners();
 
 // Вызывает метод прослушивания событий для popupViewImage
 popupViewImage.setEventListeners();
+
+// Вызывает метод прослушивания событий для редактирования аватара
+popupEditAvatar.setEventListeners();
+
+// Вызывает метод прослушивания событий для подтверждения удаления
+popupWithConfirmation.setEventListeners();
 
 // Вызывает функцию открытия popup profile при прослушивании click
 profileEditButton.addEventListener('click', openPopupProfile);

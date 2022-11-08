@@ -43,7 +43,7 @@
         <h3 class="popup__title">Редактировать профиль</h3>
         <form name="popup-edit-profile" class="popup__container popup__container_edit-profile">
           <input
-            name="profile_name"
+            name="name"
             type="text"
             class="popup__name popup__field popup__name_value"
             required
@@ -51,9 +51,9 @@
             minlength="2"
             maxlength="40"
           />
-          <span class="popup__error popup__error_profile_name"></span>
+          <span class="popup__error popup__error_name"></span>
           <input
-            name="profile_job"
+            name="job"
             type="text"
             class="popup__job popup__field popup__job_value"
             required
@@ -61,7 +61,7 @@
             minlength="2"
             maxlength="200"
           />
-          <span class="popup__error popup__error_profile_job"></span>
+          <span class="popup__error popup__error_job"></span>
           <button disabled type="submit" class="popup__submit-button popup__submit-button_disabled">Сохранить</button>
         </form>
         <button type="button" class="popup__close-icon" aria-label="закрыть форму"></button>
@@ -115,7 +115,7 @@
             type="url"
             class="popup__avatar-link popup__field popup__avatar-link_value"
             required
-            placeholder="Введите название"
+            placeholder="Введите ссылку"
           />
           <span class="popup__error popup__error_avatar"></span>
           <button disabled type="submit" class="popup__submit-button popup__submit-button_disabled">Создать</button>

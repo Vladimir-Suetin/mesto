@@ -7,19 +7,17 @@ export default class UserInfo {
 
   getUserInfo() {
     return {
-      profile_name: this._profileUserName.textContent,
-      profile_job: this._profileUserInfo.textContent,
+      name: this._profileUserName.textContent,
+      job: this._profileUserInfo.textContent,
+      avatar: this._profileUserAvatar,
     };
   }
 
   setUserInfo(data) {
-    const { profile_name = 'Имя не определено', profile_job = 'Деятельность не определена' } = data;
+    const { name = 'Имя не определено', job = 'Деятельность не определена', avatar} = data;
 
-    this._profileUserName.textContent = profile_name;
-    this._profileUserInfo.textContent = profile_job;
-  }
-
-  getAvatar(avatar) {
-    this._profileUserAvatar.src = avatar;
+    this._profileUserName.textContent = name;
+    this._profileUserInfo.textContent = job;
+    this._profileUserAvatar.src = avatar
   }
 }

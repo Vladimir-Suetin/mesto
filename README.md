@@ -19,5 +19,5 @@
 
 
 ### Автор
-**Владимир Суетин** :arrow_right: [Ссылка на профиль GitHub](https://github.com/suetin-vladimir)  
-**Ссылка на проект** :arrow_right: [MESTO](https://suetin-vladimir.github.io/mesto/)
+**Владимир Суетин** :arrow_right: [Ссылка на профиль GitHub](https://github.com/vladimir-suetin)  
+**Ссылка на проект** :arrow_right: [MESTO](https://vladimir-suetin.github.io/mesto/)
